@@ -17,7 +17,7 @@
                         <a href="javascript:void(0)" class="dropbtn">Results</a>
                         <div class="dropdown-content">
                             <a href="javascript:void(0)" onclick="showTestForm(1)">1st Test Result</a>
-<!--                             <a href="javascript:void(0)" onclick="showTestForm(2)">2nd Test Result</a> -->
+                            <a href="javascript:void(0)" onclick="showTestForm(2)">2nd Test Result</a>
                         </div>
                     </li>
                     <li><a href="#about" onclick="showAbout()">About</a></li>
@@ -30,13 +30,14 @@
                 <h2>Welcome to the Student Results Portal</h2>
                 <p>Click on the links above to view your test results.</p>
             </section>
+
             <!-- Modal HTML -->
-<div id="modal" style="display: none;">
-    <div style="background: #fff; padding: 20px; border: 1px solid #000;">
-        <span id="modalMessage"></span>
-        <button id="closeModalBtn">Close</button>
-    </div>
-</div>
+            <div id="modal" class="modal">
+                <div class="modal-content">
+                    <span id="modalMessage"></span>
+                    <button id="closeModalBtn">Close</button>
+                </div>
+            </div>
 
             <section id="marksheetContainer" style="display:none;">
                 <h1 id="testTitle"></h1>
