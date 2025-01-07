@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Results Portal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Student Results Portal</h1>
+            <nav>
+                <ul>
+                    <li><a href="#home" onclick="showHome()">Home</a></li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropbtn">Results</a>
+                        <div class="dropdown-content">
+                            <a href="javascript:void(0)" onclick="showTestForm(1)">1st Test Result</a>
+                            <a href="javascript:void(0)" onclick="showTestForm(2)">2nd Test Result</a>
+                        </div>
+                    </li>
+                    <li><a href="#about" onclick="showAbout()">About</a></li>
+                    <li><a href="#contact" onclick="showContact()">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main id="mainContent">
+            <section id="homeSection">
+                <h2>Welcome to the Student Results Portal</h2>
+                <p>Click on the links above to view your test results.</p>
+            </section>
+            <!-- Modal HTML -->
+<div id="modal" style="display: none;">
+    <div style="background: #fff; padding: 20px; border: 1px solid #000;">
+        <span id="modalMessage"></span>
+        <button id="closeModalBtn">Close</button>
+    </div>
+</div>
+
+            <section id="marksheetContainer" style="display:none;">
+                <h1 id="testTitle"></h1>
+                <form id="rollForm">
+                    <label for="rollNumber">Enter Roll Number:</label>
+                    <input type="text" id="rollNumber" required>
+                    <label for="studentName">Enter Name:</label>
+                    <input type="text" id="studentNameInput" required>
+                    <button type="submit">Submit</button>
+                </form>
+                <div id="marksheet" style="display:none;">
+                    <div class="student-info">
+                        <p><strong>Student Name:</strong> <span id="studentName"></span></p>
+                        <p><strong>Roll Number:</strong> <span id="studentRoll"></span></p>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Marks Obtained</th>
+                                <th>Max Marks</th>
+                                <th>Passing Marks</th>
+                            </tr>
+                        </thead>
+                        <tbody id="resultsBody">
+                            <!-- Results will be added here dynamically -->
+                        </tbody>
+                    </table>
+                    <div class="summary">
+                        <p><strong>Total Marks:</strong> <span id="totalMarks"></span></p>
+                        <p><strong>Percentage:</strong> <span id="percentage"></span></p>
+                        <p><strong>Result:</strong> <span id="resultStatus"></span></p>
+                    </div>
+                    <button id="downloadBtn">Download Marksheet</button>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
