@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,79 +6,205 @@
     <title>Student Results Portal</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container">
-        <header>
+    <div id="loader" class="loader">Loading...</div>
+    
+    <div id="mainContent" class="container" style="visibility:hidden;">
+        <header class="text-center my-5">
             <h1>Student Results Portal</h1>
-            <nav>
-                <ul>
-                    <li><a href="#home" onclick="showHome()">Home</a></li>
-                    <li class="dropdown">
-                        <a href="javascript:void(0)" class="dropbtn">Results</a>
-                        <div class="dropdown-content">
-                            <a href="javascript:void(0)" onclick="showTestForm(1)">1st Test Result</a>
-<!--                             <a href="javascript:void(0)" onclick="showTestForm(2)">2nd Test Result</a> -->
-                        </div>
-                    </li>
-                    <li><a href="#about" onclick="showAbout()">About</a></li>
-                    <li><a href="#contact" onclick="showContact()">Contact</a></li>
-                </ul>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#" onclick="showHome()">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" onclick="showTestForm(1)">Test 1 Result</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" onclick="showTestForm(2)">Test 2 Result</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" onclick="showAbout()">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" onclick="showContact()">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </nav>
         </header>
-        <main id="mainContent">
-            <section id="homeSection">
-                <h2>Welcome to the Student Results Portal</h2>
-                <p>Click on the links above to view your test results.</p>
-            </section>
 
-            <!-- Modal HTML -->
-            <div id="modal" class="modal">
-                <div class="modal-content">
-                    <span id="modalMessage"></span>
-                    <button id="closeModalBtn">Close</button>
+        <!-- Home Section -->
+        <section id="homeSection" class="text-center my-5">
+            <h2>Welcome to the Student Results Portal</h2>
+            <p>Click on the links above to view your test results.</p>
+        </section>
+
+        <!-- Result Form Section -->
+        <section id="marksheetContainer" style="display:none;" class="my-5">
+            <h1 id="testTitle" class="text-center mb-4"></h1>
+            <form id="rollForm" class="mb-4">
+                <div class="mb-3">
+                    <label for="rollNumber" class="form-label">Enter Roll Number:</label>
+                    <input type="text" class="form-control" id="rollNumber" required>
                 </div>
+                <div class="mb-3">
+                    <label for="studentName" class="form-label">Enter Name:</label>
+                    <input type="text" class="form-control" id="studentNameInput" required>
+                </div>
+                <button type="submit" class="btn btn-success">Submit</button>
+            </form>
+
+            <!-- Marks Display -->
+            <div id="marksheet" style="display:none;">
+                <div class="student-info mb-4">
+                    <p><strong>Student Name:</strong> <span id="studentName"></span></p>
+                    <p><strong>Class:</strong> <span id="studentRoll">11th</span></p>
+                </div>
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Subject</th>
+                            <th>Marks Obtained</th>
+                            <th>Max Marks</th>
+                            <th>Passing Marks</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resultsBody">
+                        <!-- Results will be added here dynamically -->
+                    </tbody>
+                </table>
+                <div class="summary">
+                    <p><strong>Total Marks:</strong> <span id="totalMarks"></span></p>
+                    <p><strong>Percentage:</strong> <span id="percentage"></span></p>
+                    <p><strong>Result:</strong> <span id="resultStatus"></span></p>
+                </div>
+                <button id="downloadBtn" class="btn btn-primary mt-4"><i class="fas fa-download"></i> Download Marksheet</button>
             </div>
-
-            <section id="marksheetContainer" style="display:none;">
-                <h1 id="testTitle"></h1>
-                <form id="rollForm">
-                    <label for="rollNumber">Enter Roll Number:</label>
-                    <input type="text" id="rollNumber" required>
-                    <label for="studentName">Enter Name:</label>
-                    <input type="text" id="studentNameInput" required>
-                    <button type="submit">Submit</button>
-                </form>
-                <div id="marksheet" style="display:none;">
-                    <div class="student-info">
-                        <p><strong>Student Name:</strong> <span id="studentName"></span></p>
-                        <p><strong>Class:</strong> <span id="studentRoll">11th </span></p>
-                    </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Subject</th>
-                                <th>Marks Obtained</th>
-                                <th>Max Marks</th>
-                                <th>Passing Marks</th>
-                            </tr>
-                        </thead>
-                        <tbody id="resultsBody">
-                            <!-- Results will be added here dynamically -->
-                        </tbody>
-                    </table>
-                    <div class="summary">
-                        <p><strong>Total Marks:</strong> <span id="totalMarks"></span></p>
-                        <p><strong>Percentage:</strong> <span id="percentage"></span></p>
-                        <p><strong>Result:</strong> <span id="resultStatus"></span></p>
-                    </div>
-                    <button id="downloadBtn"><i class="fas fa-download"></i> Download Marksheet</button>
-                </div>
-            </section>
-        </main>
+        </section>
     </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
+
+    <script>
+        // Simulate a student database (for testing purposes)
+        const studentsDatabase = [
+            {
+                rollNumber: "12345",
+                name: "John Doe",
+                results: [
+                    { subject: "Math", obtained: 95, max: 100, pass: 35 },
+                    { subject: "Science", obtained: 90, max: 100, pass: 35 },
+                    { subject: "English", obtained: 85, max: 100, pass: 35 }
+                ]
+            },
+            {
+                rollNumber: "67890",
+                name: "Jane Smith",
+                results: [
+                    { subject: "Math", obtained: 75, max: 100, pass: 35 },
+                    { subject: "Science", obtained: 80, max: 100, pass: 35 },
+                    { subject: "English", obtained: 78, max: 100, pass: 35 }
+                ]
+            }
+        ];
+
+        // Show Loader and Main Content
+        document.onreadystatechange = function () {
+            if (document.readyState === "complete") {
+                document.getElementById("loader").style.display = "none";
+                document.getElementById("mainContent").style.visibility = "visible";
+            } else {
+                document.getElementById("mainContent").style.visibility = "hidden";
+                document.getElementById("loader").style.display = "block";
+            }
+        };
+
+        // Show Home Section
+        function showHome() {
+            document.getElementById('homeSection').style.display = 'block';
+            document.getElementById('marksheetContainer').style.display = 'none';
+        }
+
+        // Show Test Form
+        function showTestForm(testNumber) {
+            document.getElementById('homeSection').style.display = 'none';
+            document.getElementById('marksheetContainer').style.display = 'block';
+            document.getElementById('testTitle').innerText = `Test ${testNumber} Result`;
+        }
+
+        // Result Form Submission
+        document.getElementById("rollForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+            fetchResults();
+        });
+
+        // Fetch and Display Results based on student input
+        function fetchResults() {
+            const rollNumber = document.getElementById("rollNumber").value;
+            const studentName = document.getElementById("studentNameInput").value;
+
+            // Search for the student in the simulated database
+            const student = studentsDatabase.find(student => student.rollNumber === rollNumber && student.name === studentName);
+
+            if (!student) {
+                alert("No results found for the provided roll number and name.");
+                return;
+            }
+
+            // Display student information and results
+            document.getElementById("studentName").innerText = student.name;
+
+            let resultHTML = '';
+            let totalMarks = 0;
+            let obtainedMarks = 0;
+            let resultStatus = 'Pass';
+
+            student.results.forEach(item => {
+                totalMarks += item.max;
+                obtainedMarks += item.obtained;
+                if (item.obtained < item.pass) {
+                    resultStatus = 'Fail';
+                }
+                resultHTML += `
+                    <tr>
+                        <td>${item.subject}</td>
+                        <td>${item.obtained}</td>
+                        <td>${item.max}</td>
+                        <td>${item.pass}</td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById("resultsBody").innerHTML = resultHTML;
+            const percentage = (obtainedMarks / totalMarks) * 100;
+
+            document.getElementById("totalMarks").innerText = `${obtainedMarks} / ${totalMarks}`;
+            document.getElementById("percentage").innerText = `${percentage.toFixed(2)}%`;
+            document.getElementById("resultStatus").innerText = resultStatus;
+
+            document.getElementById("marksheet").style.display = "block";
+        }
+
+        // Download PDF functionality
+        document.getElementById("downloadBtn").addEventListener("click", function () {
+            html2canvas(document.getElementById("marksheet")).then(function (canvas) {
+                const doc = new jsPDF();
+                doc.addImage(canvas.toDataURL(), 'PNG', 10, 10, 180, 160);
+                doc.save('marksheet.pdf');
+            });
+        });
+    </script>
 </body>
 </html>
