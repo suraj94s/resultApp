@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -144,6 +143,20 @@
             font-size: 16px;
         }
 
+        .notification {
+            background-color: #ff9800;
+            color: white;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .notification .date {
+            font-weight: bold;
+        }
+
         @keyframes fadeIn {
             0% {
                 opacity: 0;
@@ -226,6 +239,15 @@
         .hidden {
             display: none;
         }
+
+        .percentage {
+            font-size: 24px;
+            font-weight: bold;
+            color: #6c5ce7;
+        }
+        marquee{
+            color: greenyellow;
+        }
     </style>
 </head>
 
@@ -255,13 +277,21 @@
             </div>
         </nav>
     </header>
-
+        <marquee behavior="" direction="">2nd Test Result Declared</marquee>
     <section id="home">
         <div class="container">
             <h1>Welcome to Our Website ..</h1>
             <p>Where education meets technology. Track your results, stay organized, and excel in your academic journey.</p>
         </div>
     </section>
+
+    <!-- Notifications Section -->
+    <div id="notifications" class="container">
+        <div class="notification" id="notification">
+            <span id="notification-message"></span>
+            <span class="date" id="notification-date"></span>
+        </div>
+    </div>
 
     <!-- Result Section -->
     <section id="result" class="container">
@@ -308,27 +338,23 @@
     <footer>
         <p>&copy; 2025 School Management System. All Rights Reserved.</p>
     </footer>
-
+     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         // Static arrays for student results (first and second test)
         const resultsFirstTest = [
-            { rollNo: '7374', name: 'Shiva Rajpoot', test: 'first', Biology: 39, Physics: 44, maxMarks: 50, passingMarks: 37 },
-            // { rollNo: '124', name: 'Jane Smith', test: 'first', mathsMarks: 35, scienceMarks: 42, maxMarks: 50, passingMarks: 35 }
+            { rollNo: '7374', name: 'Shiva Rajpoot', test: 'first', Biology: 39, Physics: 44, maxMarksBiology: 50, passingMarksBiology: 39, maxMarksPhysics: 50, passingMarksPhysics: 44 }
         ];
 
-        // const resultsSecondTest = [
-        //     { rollNo: '125', name: 'Alice Johnson', test: 'second', mathsMarks: 38, scienceMarks: 35, maxMarks: 50, passingMarks: 35 },
-        //     { rollNo: '126', name: 'Bob Brown', test: 'second', mathsMarks: 42, scienceMarks: 40, maxMarks: 50, passingMarks: 35 }
-        // ];
+        const resultsSecondTest = [
+            { rollNo: '7374', name: 'Shiva Rajpoot', test: 'second', Biology: '36 Fail', Physics: '20 Fail', maxMarksBiology: 50, passingMarksBiology: 37, maxMarksPhysics: 45, passingMarksPhysics: 39 }
+        ];
 
-        // Sample admin credentials
-        const adminCredentials = { username: "sk", password: "1234" }; // Admin login details
+        const adminCredentials = { username: "sk", password: "1234" };
         let isAdmin = false;
 
-        // Show login page when Admin Panel link is clicked
         document.getElementById('admin-login-link').addEventListener('click', function () {
             document.getElementById('admin-login').classList.remove('hidden');
             document.getElementById('home').classList.add('hidden');
@@ -336,7 +362,6 @@
             document.getElementById('upload').classList.add('hidden');
         });
 
-        // Admin login function
         function loginAdmin() {
             const username = document.getElementById('admin-username').value;
             const password = document.getElementById('admin-password').value;
@@ -344,7 +369,6 @@
             if (username === adminCredentials.username && password === adminCredentials.password) {
                 isAdmin = true;
                 alert("Admin login successful!");
-
                 document.getElementById('admin-login').classList.add('hidden');
                 document.getElementById('upload').classList.remove('hidden');
                 document.getElementById('result').classList.add('hidden');
@@ -353,7 +377,6 @@
             }
         }
 
-        // Function to upload marks
         function uploadMarks() {
             const rollNo = document.getElementById('rollNoUpload').value;
             const name = document.getElementById('nameUpload').value;
@@ -361,17 +384,22 @@
             const scienceMarks = parseInt(document.getElementById('scienceMarksUpload').value);
             const test = document.getElementById('testSelectUpload').value;
 
-            // Add uploaded data to the respective static result array
             if (test === "first") {
-                resultsFirstTest.push({ rollNo, name, test, Biology, Physics, maxMarks: 50, passingMarks: 35 });
+                resultsFirstTest.push({ rollNo, name, test, Biology: mathsMarks, Physics: scienceMarks, maxMarksBiology: 50, passingMarksBiology: 39, maxMarksPhysics: 50, passingMarksPhysics: 44 });
             } else {
-                resultsSecondTest.push({ rollNo, name, test, mathsMarks, scienceMarks, maxMarks: 50, passingMarks: 35 });
+                resultsSecondTest.push({ rollNo, name, test, Biology: mathsMarks, Physics: scienceMarks, maxMarksBiology: 50, passingMarksBiology: 39, maxMarksPhysics: 45, passingMarksPhysics: 39 });
             }
+
+            // Show notification that the results are declared
+            const notificationMessage = `Result declared for ${test} test.`;
+            const notificationDate = new Date().toLocaleDateString();
+            document.getElementById('notification-message').innerText = notificationMessage;
+            document.getElementById('notification-date').innerText = `Date: ${notificationDate}`;
+            document.getElementById('notification').style.display = 'block';
 
             alert('Marks uploaded successfully!');
         }
 
-        // Function to check result
         function checkResult() {
             const rollNo = document.getElementById('rollNo').value;
             const test = document.getElementById('testSelect').value;
@@ -384,44 +412,51 @@
             }
 
             if (result) {
-                // Calculate total marks and class
                 const totalMarks = result.Biology + result.Physics;
-                const isPassMaths = result.Biology >= result.Physics;
-                const isPassScience = result.Physics >= result.passingMarks;
-                const overallPass = isPassMaths && isPassScience;
-                let studentClass = '';
-                
-                if (overallPass) {
-                    if (totalMarks >= 37) studentClass = "PASS";
-                    else if (totalMarks >= 200) studentClass = "Second Class";
-                    else studentClass = "11th";
-                } else {
-                    studentClass = "Fail";
-                }
+                const percentage = (totalMarks / (result.maxMarksBiology + result.maxMarksPhysics)) * 100;
+                const isPassBio = result.Biology >= result.passingMarksBiology;
+                const isPassPhy = result.Physics >= result.passingMarksPhysics;
+                const overallPass = isPassBio && isPassPhy;
+                const studentClass = overallPass ? (percentage >= 50 ? "PASS" : "Fail") : "Fail";
 
-                // Display result
                 document.getElementById('result-output').innerHTML = `
                     <div class="marksheet">
-                        <h3>Marksheet for Roll No: ${rollNo}</h3>
-                        <div class="marksheet-table-wrapper">
-                            <table class="marksheet-table">
+                        <div class="marksheet-header">
+                            <h3>Marksheet for Roll No: ${rollNo}</h3>
+                        </div>
+                        <div class="marksheet-info">
+                            <p>Name: ${result.name}</p>
+                            <p>Test: ${result.test}</p>
+                        </div>
+                        <table class="marksheet-table">
+                            <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Test</th>
-                                    <th>Biology</th>
-                                    <th>Physics</th>
-                                    <th>Total Marks</th>
-                                    <th>Result</th>
+                                    <th>Subject</th>
+                                    <th>Max Marks</th>
+                                    <th>Passing Marks</th>
+                                    <th>Marks Obtained</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Biology</td>
+                                    <td>${result.maxMarksBiology}</td>
+                                    <td>${result.passingMarksBiology}</td>
+                                    <td>${result.Biology}</td>
                                 </tr>
                                 <tr>
-                                    <td>${result.name}</td>
-                                    <td>${result.test}</td>
-                                    <td>${result.Biology} / ${result.maxMarks}</td>
-                                    <td>${result.Physics} / ${result.maxMarks}</td>
-                                    <td>${totalMarks} / ${result.maxMarks * 2}</td>
-                                    <td>${studentClass}</td>
+                                    <td>Physics</td>
+                                    <td>${result.maxMarksPhysics}</td>
+                                    <td>${result.passingMarksPhysics}</td>
+                                    <td>${result.Physics}</td>
                                 </tr>
-                            </table>
+                            </tbody>
+                        </table>
+                        <div class="percentage">
+                            <p>Percentage: ${percentage.toFixed(2)}%</p>
+                        </div>
+                        <div class="marksheet-result">
+                            <p>Result: ${studentClass}</p>
                         </div>
                     </div>
                 `;
@@ -432,7 +467,7 @@
             }
         }
     </script>
-
+    
 </body>
 
 </html>
