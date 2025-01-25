@@ -1,95 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>School Management System</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <style>
+        /* Global Styles */
         body {
             font-family: 'Roboto', sans-serif;
+            background-color: #f4f6f9;
             margin: 0;
             padding: 0;
-            overflow-x: hidden;
-            background-color: #f4f4f9;
         }
 
+        /* Header */
         header {
-            background-color: rgba(0, 0, 0, 0.6);
+            background-color: #2c3e50;
             padding: 20px 0;
-            animation: fadeIn 2s ease-in-out;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         .navbar {
-            background: rgba(0, 0, 0, 0.7) !important;
-            padding: 10px 20px;
-            border-radius: 10px;
+            padding: 15px 20px;
         }
 
         .navbar .navbar-nav .nav-link {
-            color: white;
-            text-decoration: none;
-            font-size: 18px;
-            font-weight: bold;
-            letter-spacing: 1px;
+            color: #ecf0f1;
             text-transform: uppercase;
+            font-weight: bold;
         }
 
         .navbar .navbar-nav .nav-link:hover {
-            color: #ff6347;
-            transform: scale(1.1);
+            color: #3498db;
         }
 
         .navbar-nav {
             gap: 15px;
         }
 
+        .navbar-brand {
+            font-size: 1.5em;
+            color: #ecf0f1;
+            font-weight: bold;
+        }
+
+        /* Hero Section */
         #home {
-            padding: 80px 15px;
+            background: linear-gradient(135deg, #2980b9, #8e44ad);
+            color: #fff;
+            padding: 100px 0;
             text-align: center;
-            background: linear-gradient(135deg, #ff6347, #ff8c00);
-            color: white;
         }
 
         #home h1 {
-            font-size: 2.5em;
+            font-size: 3.5em;
             font-weight: bold;
-            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6);
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
         }
 
-        #result,
-        #upload,
-        #admin-login {
-            padding: 30px 20px;
-            background-color: #fff;
-            border-radius: 15px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-            margin-top: 40px;
+        #home p {
+            font-size: 1.2em;
+            margin-top: 20px;
+            letter-spacing: 1px;
         }
 
-        #result h2 {
-            font-size: 2em;
-            color: #6c5ce7;
+        /* Result Section */
+        section {
+            padding: 50px 20px;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            color: #2c3e50;
+            text-align: center;
+            font-weight: bold;
             margin-bottom: 30px;
-            font-weight: 700;
         }
 
         .form-control,
         select {
             border-radius: 10px;
-            border: 1px solid #ddd;
+            border: 1px solid #ccc;
             padding: 12px;
-            margin-top: 15px;
             font-size: 16px;
-            background-color: #f8f8f8;
+            background-color: #fff;
         }
 
         .btn-primary {
-            background-color: #6c5ce7;
+            background-color: #3498db;
             border: none;
             padding: 12px 30px;
             font-size: 18px;
@@ -98,28 +96,64 @@
         }
 
         .btn-primary:hover {
-            background-color: #ff6347;
+            background-color: #2980b9;
             transform: scale(1.1);
+        }
+
+        /* Marksheets */
+        .marksheet {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .marksheet-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .marksheet-header h3 {
+            font-size: 2em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .marksheet-info {
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #34495e;
+        }
+
+        .marksheet-info p {
+            margin: 5px 0;
+        }
+
+        .marksheet-result {
+            font-size: 18px;
+            color: #2ecc71;
+            font-weight: bold;
+            text-align: center;
         }
 
         .marksheet-table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 30px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
         .marksheet-table th,
         .marksheet-table td {
-            padding: 15px;
+            padding: 12px;
             text-align: center;
             border: 1px solid #ddd;
         }
 
         .marksheet-table th {
-            background-color: #6c5ce7;
+            background-color: #3498db;
             color: white;
         }
 
@@ -127,51 +161,42 @@
             background-color: #f8f8f8;
         }
 
-        .marksheet {
-            padding: 30px;
-            background-color: #fff;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            margin-top: 40px;
-        }
-
-        footer {
-            background-color: #6c5ce7;
-            color: white;
-            text-align: center;
-            padding: 15px 0;
-            font-size: 16px;
-        }
-
-        .notification {
-            background-color: #ff9800;
-            color: white;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 5px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            display: none;
-        }
-
-        .notification .date {
+        .marksheet-table td.pass {
+            color: #2ecc71;
             font-weight: bold;
         }
 
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .marksheet-table td.fail {
+            color: #e74c3c;
+            font-weight: bold;
         }
 
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            text-align: center;
+            padding: 15px;
+            font-size: 16px;
+            margin-top: 40px;
+        }
+
+        /* Notification */
+        .notification {
+            background-color: #f39c12;
+            color: #fff;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            display: none;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        /* Responsive Styles */
         @media (max-width: 768px) {
             #home h1 {
-                font-size: 2em;
+                font-size: 2.5em;
             }
 
             .marksheet-table th,
@@ -195,279 +220,134 @@
             .container {
                 padding: 0 10px;
             }
-
-            .marksheet {
-                padding: 20px;
-            }
-
-            #result-form {
-                width: 100%;
-                padding: 10px;
-            }
-
-            .form-control {
-                font-size: 14px;
-                padding: 10px;
-            }
-
-            /* Make the table horizontally scrollable on small screens */
-            .marksheet-table-wrapper {
-                overflow-x: auto;
-            }
-        }
-
-        /* Marksheets */
-        .marksheet-header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .marksheet-header h3 {
-            margin-bottom: 5px;
-        }
-
-        .marksheet-info {
-            font-size: 18px;
-            margin-bottom: 20px;
-        }
-
-        .marksheet-result {
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .percentage {
-            font-size: 24px;
-            font-weight: bold;
-            color: #6c5ce7;
-        }
-        marquee{
-            color: greenyellow;
         }
     </style>
 </head>
-
 <body>
 
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark">
-            <div class="container">
-                <a class="navbar-brand" href="#">School Management</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#home">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#result">Result</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#admin-login" id="admin-login-link">Admin Panel</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-        <marquee behavior="" direction="">2nd Test Result Declared</marquee>
-    <section id="home">
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <h1>Welcome to Our Website ..</h1>
-            <p>Where education meets technology. Track your results, stay organized, and excel in your academic journey.</p>
+            <a class="navbar-brand" href="#">School Management</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#result">Result</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </section>
+    </nav>
+</header>
 
-    <!-- Notifications Section -->
-    <div id="notifications" class="container">
-        <div class="notification" id="notification">
-            <span id="notification-message"></span>
-            <span class="date" id="notification-date"></span>
-        </div>
+<section id="home">
+    <div class="container">
+        <h1>Welcome to Our Website.....</h1>
+        <p>Manage and track your academic progress seamlessly. Explore results, upload marks, and more.</p>
     </div>
+</section>
 
-    <!-- Result Section -->
-    <section id="result" class="container">
-        <h2>Check Your Result</h2>
-        <form id="result-form" class="py-4">
-            <input type="text" id="rollNo" class="form-control" placeholder="Enter your roll number" required>
-            <label for="testSelect" class="my-3">Select Test:</label>
-            <select id="testSelect" class="form-control mb-3">
-                <option value="first">1st Test</option>
-                <option value="second">2nd Test</option>
-            </select>
-            <button type="button" class="btn btn-primary" onclick="checkResult()">Check Result</button>
-        </form>
+<!-- Result Section -->
+<section id="result" class="container">
+    <h2>Check Your Result</h2>
+    <form id="result-form" class="py-4">
+        <input type="text" id="rollNo" class="form-control" placeholder="Enter Roll Number" required>
+        <label for="testSelect" class="my-3">Select Test:</label>
+        <select id="testSelect" class="form-control mb-3">
+            <option value="first">1st Test</option>
+            <option value="second">2nd Test</option>
+            <option value="third">3rd Test</option>
+        </select>
+        <button type="button" class="btn btn-primary" onclick="checkResult()">Check Result</button>
+    </form>
 
-        <div id="result-output"></div>
-    </section>
+    <div id="result-output"></div>
+</section>
 
-    <!-- Admin Login Section -->
-    <section id="admin-login" class="container hidden">
-        <h2>Admin Login</h2>
-        <form id="admin-login-form" class="py-4">
-            <input type="text" id="admin-username" class="form-control" placeholder="Enter Admin Username" required>
-            <input type="password" id="admin-password" class="form-control my-3" placeholder="Enter Admin Password" required>
-            <button type="button" class="btn btn-primary" onclick="loginAdmin()">Login</button>
-        </form>
-    </section>
+<footer>
+    <p>&copy; Website is developed by MR Suraj Singh. All Rights Reserved.</p>
+</footer>
 
-    <!-- Admin Upload Marks Section -->
-    <section id="upload" class="container hidden">
-        <h2>Upload Marks</h2>
-        <form id="upload-form" class="py-4">
-            <input type="text" id="rollNoUpload" class="form-control" placeholder="Enter roll number" required>
-            <input type="text" id="nameUpload" class="form-control my-3" placeholder="Enter student name" required>
-            <input type="number" id="mathsMarksUpload" class="form-control my-3" placeholder="Enter Maths marks" required>
-            <input type="number" id="scienceMarksUpload" class="form-control my-3" placeholder="Enter Science marks" required>
-            <select id="testSelectUpload" class="form-control my-3">
-                <option value="first">1st Test</option>
-                <option value="second">2nd Test</option>
-            </select>
-            <button type="button" class="btn btn-primary" onclick="uploadMarks()">Upload Marks</button>
-        </form>
-    </section>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <footer>
-        <p>&copy; 2025 School Management System. All Rights Reserved.</p>
-    </footer>
-     
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    const resultsFirstTest = [
+        {rollNo: '7374', name: 'Shiva Rajpoot', test: 'first', Biology: 39, Physics: 44, maxMarksBiology: 50, passingMarksBiology: 39, maxMarksPhysics: 50, passingMarksPhysics: 44}
+    ];
 
-    <script>
-        // Static arrays for student results (first and second test)
-        const resultsFirstTest = [
-            { rollNo: '7374', name: 'Shiva Rajpoot', test: 'first', Biology: 39, Physics: 44, maxMarksBiology: 50, passingMarksBiology: 39, maxMarksPhysics: 50, passingMarksPhysics: 44 }
-        ];
+    const resultsSecondTest = [
+        {rollNo: '7374', name: 'Shiva Rajpoot', test: 'second', Biology: 36, Physics: 20, maxMarksBiology: 50, passingMarksBiology: 39, maxMarksPhysics: 50, passingMarksPhysics: 44}
+    ];
 
-        const resultsSecondTest = [
-            { rollNo: '7374', name: 'Shiva Rajpoot', test: 'second', Biology: '36 Fail', Physics: '20 Fail', maxMarksBiology: 50, passingMarksBiology: 37, maxMarksPhysics: 45, passingMarksPhysics: 39 }
-        ];
+    const resultsThirdTest = [
+        {rollNo: '7374', name: 'Shiva Rajpoot', test: 'third', Biology: 45, Physics: 50, maxMarksBiology: 50, passingMarksBiology: 39, maxMarksPhysics: 50, passingMarksPhysics: 44}
+    ];
 
-        const adminCredentials = { username: "sk", password: "1234" };
-        let isAdmin = false;
+    function checkResult() {
+        const rollNo = document.getElementById('rollNo').value;
+        const testSelect = document.getElementById('testSelect').value;
+        let resultData = [];
 
-        document.getElementById('admin-login-link').addEventListener('click', function () {
-            document.getElementById('admin-login').classList.remove('hidden');
-            document.getElementById('home').classList.add('hidden');
-            document.getElementById('result').classList.add('hidden');
-            document.getElementById('upload').classList.add('hidden');
-        });
-
-        function loginAdmin() {
-            const username = document.getElementById('admin-username').value;
-            const password = document.getElementById('admin-password').value;
-
-            if (username === adminCredentials.username && password === adminCredentials.password) {
-                isAdmin = true;
-                alert("Admin login successful!");
-                document.getElementById('admin-login').classList.add('hidden');
-                document.getElementById('upload').classList.remove('hidden');
-                document.getElementById('result').classList.add('hidden');
-            } else {
-                alert("Incorrect admin credentials!");
-            }
+        if (testSelect === 'first') {
+            resultData = resultsFirstTest;
+        } else if (testSelect === 'second') {
+            resultData = resultsSecondTest;
+        } else if (testSelect === 'third') {
+            resultData = resultsThirdTest;
         }
 
-        function uploadMarks() {
-            const rollNo = document.getElementById('rollNoUpload').value;
-            const name = document.getElementById('nameUpload').value;
-            const mathsMarks = parseInt(document.getElementById('mathsMarksUpload').value);
-            const scienceMarks = parseInt(document.getElementById('scienceMarksUpload').value);
-            const test = document.getElementById('testSelectUpload').value;
+        const result = resultData.find(item => item.rollNo === rollNo);
 
-            if (test === "first") {
-                resultsFirstTest.push({ rollNo, name, test, Biology: mathsMarks, Physics: scienceMarks, maxMarksBiology: 50, passingMarksBiology: 39, maxMarksPhysics: 50, passingMarksPhysics: 44 });
-            } else {
-                resultsSecondTest.push({ rollNo, name, test, Biology: mathsMarks, Physics: scienceMarks, maxMarksBiology: 50, passingMarksBiology: 39, maxMarksPhysics: 45, passingMarksPhysics: 39 });
-            }
-
-            // Show notification that the results are declared
-            const notificationMessage = `Result declared for ${test} test.`;
-            const notificationDate = new Date().toLocaleDateString();
-            document.getElementById('notification-message').innerText = notificationMessage;
-            document.getElementById('notification-date').innerText = `Date: ${notificationDate}`;
-            document.getElementById('notification').style.display = 'block';
-
-            alert('Marks uploaded successfully!');
-        }
-
-        function checkResult() {
-            const rollNo = document.getElementById('rollNo').value;
-            const test = document.getElementById('testSelect').value;
-
-            let result;
-            if (test === 'first') {
-                result = resultsFirstTest.find(r => r.rollNo === rollNo && r.test === test);
-            } else {
-                result = resultsSecondTest.find(r => r.rollNo === rollNo && r.test === test);
-            }
-
-            if (result) {
-                const totalMarks = result.Biology + result.Physics;
-                const percentage = (totalMarks / (result.maxMarksBiology + result.maxMarksPhysics)) * 100;
-                const isPassBio = result.Biology >= result.passingMarksBiology;
-                const isPassPhy = result.Physics >= result.passingMarksPhysics;
-                const overallPass = isPassBio && isPassPhy;
-                const studentClass = overallPass ? (percentage >= 50 ? "PASS" : "Fail") : "Fail";
-
-                document.getElementById('result-output').innerHTML = `
-                    <div class="marksheet">
-                        <div class="marksheet-header">
-                            <h3>Marksheet for Roll No: ${rollNo}</h3>
-                        </div>
-                        <div class="marksheet-info">
-                            <p>Name: ${result.name}</p>
-                            <p>Test: ${result.test}</p>
-                        </div>
-                        <table class="marksheet-table">
-                            <thead>
-                                <tr>
-                                    <th>Subject</th>
-                                    <th>Max Marks</th>
-                                    <th>Passing Marks</th>
-                                    <th>Marks Obtained</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Biology</td>
-                                    <td>${result.maxMarksBiology}</td>
-                                    <td>${result.passingMarksBiology}</td>
-                                    <td>${result.Biology}</td>
-                                </tr>
-                                <tr>
-                                    <td>Physics</td>
-                                    <td>${result.maxMarksPhysics}</td>
-                                    <td>${result.passingMarksPhysics}</td>
-                                    <td>${result.Physics}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div class="percentage">
-                            <p>Percentage: ${percentage.toFixed(2)}%</p>
-                        </div>
-                        <div class="marksheet-result">
-                            <p>Result: ${studentClass}</p>
-                        </div>
+        if (result) {
+            const resultHtml = `
+                <div class="marksheet">
+                    <div class="marksheet-header">
+                        <h3><p>${result.test} Test Result</p></h3>
+                         
                     </div>
-                `;
-            } else {
-                document.getElementById('result-output').innerHTML = `
-                    <p>No result found for Roll No: ${rollNo} in ${test} test.</p>
-                `;
-            }
+                    <div class="marksheet-info">
+                        <p>Name : Shiva Rajpoot</p>
+                        <p>Class : 11th</p>
+                    </div>
+                    <table class="marksheet-table">
+                        <tr>
+                            <th>Subject</th>
+                            <th>Marks Obtained</th>
+                            <th>Max Marks</th>
+                            <th>Passing Marks</th>
+                            <th>Result</th>
+                        </tr>
+                        <tr>
+                            <td>Biology</td>
+                            <td>${result.Biology}</td>
+                            <td>${result.maxMarksBiology}</td>
+                            <td>${result.passingMarksBiology}</td>
+                            <td class="${result.Biology >= result.passingMarksBiology ? 'pass' : 'fail'}">${result.Biology >= result.passingMarksBiology ? 'Passed' : 'Failed'}</td>
+                        </tr>
+                        <tr>
+                            <td>Physics</td>
+                            <td>${result.Physics}</td>
+                            <td>${result.maxMarksPhysics}</td>
+                            <td>${result.passingMarksPhysics}</td>
+                            <td class="${result.Physics >= result.passingMarksPhysics ? 'pass' : 'fail'}">${result.Physics >= result.passingMarksPhysics ? 'Passed' : 'Failed'}</td>
+                        </tr>
+                    </table>
+                </div>
+            `;
+            document.getElementById('result-output').innerHTML = resultHtml;
+        } else {
+            document.getElementById('result-output').innerHTML = `<p>No results found for Roll Number: ${rollNo}</p>`;
         }
-    </script>
-    
-</body>
+    }
+</script>
 
+</body>
 </html>
