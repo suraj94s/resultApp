@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WELCOME</title>
+    <title>School Management System</title>  
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         /* Global Styles */
@@ -14,7 +14,49 @@
             padding: 0;
         }
 
-        /* Header */
+        /* Notification Section */
+        .notification-container {
+            position: fixed;
+            top: 0;
+            right: 20px;
+            width: 300px;
+            z-index: 9999;
+            display: none;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            max-height: 400px;
+            overflow-y: auto;
+            visibility: visible;  /* Make sure it is visible */
+        }
+
+        .notification-bar {
+            background-color: #f39c12;
+            color: white;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 16px;
+            text-align: center;
+            position: relative;
+        }
+
+        .notification-bar .close-btn {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 18px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+        .notification-bar .close-btn:hover {
+            color: #ffcc00;
+        }
+
+        /* Main Content */
         header {
             background-color: #2c3e50;
             padding: 20px 0;
@@ -64,43 +106,7 @@
             letter-spacing: 1px;
         }
 
-        /* Result Section */
-        section {
-            padding: 50px 20px;
-        }
-
-        h2 {
-            font-size: 2.5em;
-            color: #2c3e50;
-            text-align: center;
-            font-weight: bold;
-            margin-bottom: 30px;
-        }
-
-        .form-control,
-        select {
-            border-radius: 10px;
-            border: 1px solid #ccc;
-            padding: 12px;
-            font-size: 16px;
-            background-color: #fff;
-        }
-
-        .btn-primary {
-            background-color: #3498db;
-            border: none;
-            padding: 12px 30px;
-            font-size: 18px;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            background-color: #2980b9;
-            transform: scale(1.1);
-        }
-
-        /* Marksheets */
+        /* Marksheet Design */
         .marksheet {
             background-color: #fff;
             padding: 25px;
@@ -171,26 +177,24 @@
             font-weight: bold;
         }
 
-        /* Footer */
-        footer {
-            background-color: #2c3e50;
-            color: #ecf0f1;
-            text-align: center;
-            padding: 15px;
-            font-size: 16px;
-            margin-top: 40px;
+        /* Button Hover and Animations */
+        .btn-primary {
+            background-color: #3498db;
+            border: none;
+            padding: 12px 30px;
+            font-size: 18px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
         }
 
-        /* Notification */
-        .notification {
-            background-color: #f39c12;
-            color: #fff;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 5px;
-            display: none;
-            font-size: 18px;
-            text-align: center;
+        .btn-primary:hover {
+            background-color: #2980b9;
+            transform: scale(1.1);
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
         }
 
         /* Responsive Styles */
@@ -205,10 +209,6 @@
                 padding: 8px;
             }
 
-            .marksheet-table {
-                font-size: 14px;
-            }
-
             footer {
                 font-size: 14px;
             }
@@ -220,10 +220,23 @@
             .container {
                 padding: 0 10px;
             }
+
+            /* Notification styling for mobile */
+            .notification-container {
+                width: 100%;
+                top: 50px;
+                right: 0;
+                left: 0;
+            }
         }
     </style>
 </head>
 <body>
+
+<!-- Notification Section -->
+<div class="notification-container" id="notificationContainer">
+    <!-- Notifications will be added dynamically -->
+</div>
 
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark">
@@ -240,6 +253,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#result">Result</a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-warning" onclick="toggleNotifications()">Notifications</button>
                     </li>
                 </ul>
             </div>
@@ -264,6 +280,7 @@
             <option value="first">1st Test</option>
             <option value="second">2nd Test</option>
             <option value="third">3rd Test</option>
+            <option value="fourth">4th Test</option>
         </select>
         <button type="button" class="btn btn-primary" onclick="checkResult()">Check Result</button>
     </form>
@@ -279,6 +296,29 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
+    // Function to create a new notification
+    function createNotification(message) {
+        const notificationBar = document.createElement('div');
+        notificationBar.classList.add('notification-bar');
+        notificationBar.innerHTML = `
+            <p>${message}</p>
+            <button class="close-btn" onclick="closeNotification(this)">×</button>
+        `;
+        document.getElementById('notificationContainer').appendChild(notificationBar);
+    }
+
+    // Function to close a notification
+    function closeNotification(button) {
+        button.parentElement.style.display = 'none';
+    }
+
+    // Function to toggle notifications visibility
+    function toggleNotifications() {
+        const notificationContainer = document.getElementById('notificationContainer');
+        notificationContainer.style.display = notificationContainer.style.display === 'block' ? 'none' : 'block';
+    }
+
+    // Sample result data
     const resultsFirstTest = [
         {rollNo: '7374', name: 'Shiva Rajpoot', test: 'first', Biology: 39, Physics: 44, maxMarksBiology: 50, passingMarksBiology: 39, maxMarksPhysics: 50, passingMarksPhysics: 44}
     ];
@@ -288,9 +328,14 @@
     ];
 
     const resultsThirdTest = [
-        {rollNo: '7374', name: 'Shiva Rajpoot', test: 'third', Biology: 40, Physics: 38, maxMarksBiology: 50, passingMarksBiology: 40, maxMarksPhysics: 51, passingMarksPhysics: 39}
+        {rollNo: '7374', name: 'Shiva Rajpoot', test: 'third', Biology: 45, Physics: 50, maxMarksBiology: 50, passingMarksBiology: 39, maxMarksPhysics: 50, passingMarksPhysics: 44}
     ];
 
+    const resultsFourthTest = [
+        {rollNo: '7374', name: 'Shiva Rajpoot', test: 'fourth', Biology: 43, Physics: '--', maxMarksBiology: 50, passingMarksBiology: 39, maxMarksPhysics: '--', passingMarksPhysics: '--'}
+    ];
+
+    // Function to check the result
     function checkResult() {
         const rollNo = document.getElementById('rollNo').value;
         const testSelect = document.getElementById('testSelect').value;
@@ -302,6 +347,8 @@
             resultData = resultsSecondTest;
         } else if (testSelect === 'third') {
             resultData = resultsThirdTest;
+        } else if (testSelect === 'fourth') {
+            resultData = resultsFourthTest;
         }
 
         const result = resultData.find(item => item.rollNo === rollNo);
@@ -310,11 +357,10 @@
             const resultHtml = `
                 <div class="marksheet">
                     <div class="marksheet-header">
-                        <h3><p>${result.test} Test Result</p></h3>
-                         
+                        <h3>${result.test} Test Result</h3>
                     </div>
                     <div class="marksheet-info">
-                        <p>Name : Shiva Rajpoot</p>
+                        <p>Name : ${result.name}</p>
                         <p>Class : 11th</p>
                     </div>
                     <table class="marksheet-table">
@@ -347,6 +393,13 @@
             document.getElementById('result-output').innerHTML = `<p>No results found for Roll Number: ${rollNo}</p>`;
         }
     }
+
+    // Add sample notifications on page load
+    window.onload = function() {
+        createNotification('Important Announcement:4th TEST RESULT DECLARED !');
+        createNotification('Important Announcement:CLASS TIME : 7pm !');
+
+    };
 </script>
 
 </body>
