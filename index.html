@@ -3,21 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>School Management System</title>  
+    <title>School Management System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         /* Global Styles */
         body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #f4f6f9;
+            font-family: 'Poppins', sans-serif;
+            background: #f9f9f9;
             margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* Navigation */
+        header {
+            background-color: #1abc9c;
+            padding: 15px 0;
+        }
+
+        .navbar {
             padding: 0;
         }
 
-        /* Notification Section */
+        .navbar .navbar-nav .nav-link {
+            color: #fff;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .navbar .navbar-nav .nav-link:hover {
+            color: #f39c12;
+            transform: scale(1.1);
+        }
+
+        .navbar-brand {
+            font-size: 1.8em;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        /* Hero Section */
+        #home {
+            background: linear-gradient(135deg, #1abc9c, #16a085);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            border-bottom: 5px solid #fff;
+        }
+
+        #home h1 {
+            font-size: 3em;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        #home p {
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+
+        /* Result Section */
+        #result {
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .marksheet {
+            background: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .marksheet:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .marksheet-header h3 {
+            font-size: 2em;
+            color: #1abc9c;
+            margin-bottom: 20px;
+        }
+
+        .marksheet-info p {
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        .marksheet-table {
+            width: 100%;
+            margin-top: 30px;
+            border-collapse: collapse;
+        }
+
+        .marksheet-table th, .marksheet-table td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        .marksheet-table th {
+            background-color: #16a085;
+            color: white;
+            font-weight: bold;
+        }
+
+        .marksheet-table td {
+            background-color: #f8f8f8;
+            color: #555;
+        }
+
+        .marksheet-table td.pass {
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .marksheet-table td.fail {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        /* Button Styling */
+        .btn-primary {
+            background-color: #1abc9c;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 18px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #16a085;
+            transform: scale(1.05);
+        }
+
+        /* Animation for Notification */
         .notification-container {
             position: fixed;
-            top: 0;
+            top: 30px;
             right: 20px;
             width: 300px;
             z-index: 9999;
@@ -28,179 +158,26 @@
             padding: 10px;
             max-height: 400px;
             overflow-y: auto;
-            visibility: visible;  /* Make sure it is visible */
+            animation: slideIn 0.5s ease-in-out;
         }
 
-        .notification-bar {
-            background-color: #f39c12;
-            color: white;
-            padding: 10px;
-            margin-bottom: 10px;
-            font-size: 16px;
-            text-align: center;
-            position: relative;
+        @keyframes slideIn {
+            0% { right: -350px; }
+            100% { right: 20px; }
         }
 
-        .notification-bar .close-btn {
-            background: transparent;
-            border: none;
-            color: white;
-            font-size: 18px;
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-        }
-
-        .notification-bar .close-btn:hover {
-            color: #ffcc00;
-        }
-
-        /* Main Content */
-        header {
-            background-color: #2c3e50;
-            padding: 20px 0;
-        }
-
-        .navbar {
-            padding: 15px 20px;
-        }
-
-        .navbar .navbar-nav .nav-link {
-            color: #ecf0f1;
-            text-transform: uppercase;
-            font-weight: bold;
-        }
-
-        .navbar .navbar-nav .nav-link:hover {
-            color: #3498db;
-        }
-
-        .navbar-nav {
-            gap: 15px;
-        }
-
-        .navbar-brand {
-            font-size: 1.5em;
-            color: #ecf0f1;
-            font-weight: bold;
-        }
-
-        /* Hero Section */
-        #home {
-            background: linear-gradient(135deg, #2980b9, #8e44ad);
-            color: #fff;
-            padding: 100px 0;
-            text-align: center;
-        }
-
-        #home h1 {
-            font-size: 3.5em;
-            font-weight: bold;
-            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
-        }
-
-        #home p {
-            font-size: 1.2em;
-            margin-top: 20px;
-            letter-spacing: 1px;
-        }
-
-        /* Marksheet Design */
-        .marksheet {
-            background-color: #fff;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            margin-top: 40px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .marksheet-header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .marksheet-header h3 {
-            font-size: 2em;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-
-        .marksheet-info {
-            margin-bottom: 20px;
-            font-size: 18px;
-            color: #34495e;
-        }
-
-        .marksheet-info p {
-            margin: 5px 0;
-        }
-
-        .marksheet-result {
-            font-size: 18px;
-            color: #2ecc71;
-            font-weight: bold;
-            text-align: center;
-        }
-
-        .marksheet-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 30px;
-        }
-
-        .marksheet-table th,
-        .marksheet-table td {
-            padding: 12px;
-            text-align: center;
-            border: 1px solid #ddd;
-        }
-
-        .marksheet-table th {
-            background-color: #3498db;
-            color: white;
-        }
-
-        .marksheet-table td {
-            background-color: #f8f8f8;
-        }
-
-        .marksheet-table td.pass {
-            color: #2ecc71;
-            font-weight: bold;
-        }
-
-        .marksheet-table td.fail {
-            color: #e74c3c;
-            font-weight: bold;
-        }
-
-        /* Button Hover and Animations */
-        .btn-primary {
-            background-color: #3498db;
-            border: none;
-            padding: 12px 30px;
-            font-size: 18px;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            background-color: #2980b9;
-            transform: scale(1.1);
-        }
-
-        /* Smooth Scroll */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Responsive Styles */
+        /* Responsive Design */
         @media (max-width: 768px) {
             #home h1 {
                 font-size: 2.5em;
+            }
+
+            #home p {
+                font-size: 1em;
+            }
+
+            .marksheet-header h3 {
+                font-size: 1.8em;
             }
 
             .marksheet-table th,
@@ -209,24 +186,34 @@
                 padding: 8px;
             }
 
-            footer {
-                font-size: 14px;
+            .marksheet-table {
+                margin-top: 20px;
             }
 
             .btn-primary {
                 width: 100%;
             }
 
-            .container {
-                padding: 0 10px;
+            .navbar-nav {
+                text-align: center;
             }
 
-            /* Notification styling for mobile */
-            .notification-container {
-                width: 100%;
-                top: 50px;
-                right: 0;
-                left: 0;
+            .navbar-collapse {
+                margin-top: 10px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            #home h1 {
+                font-size: 2em;
+            }
+
+            #home p {
+                font-size: 0.9em;
+            }
+
+            .marksheet-header h3 {
+                font-size: 1.6em;
             }
         }
     </style>
@@ -242,8 +229,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a class="navbar-brand" href="#">WELCOME</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -252,7 +238,7 @@
                         <a class="nav-link" href="#home">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#result">Result</a>
+                        <a class="nav-link" href="#result">Results</a>
                     </li>
                     <li class="nav-item">
                         <button class="btn btn-warning" onclick="toggleNotifications()">Notifications</button>
@@ -265,22 +251,22 @@
 
 <section id="home">
     <div class="container">
-        <h1>Welcome to Our Website.....</h1>
-        <p>Manage and track your academic progress seamlessly. Explore results, upload marks, and more.</p>
+        <h1>Welcome to Our Website...</h1>
+        <p>Your one-stop portal to track academic performance and more!</p>
     </div>
 </section>
 
 <!-- Result Section -->
-<section id="result" class="container">
+<section id="result">
     <h2>Check Your Result</h2>
-    <form id="result-form" class="py-4">
-        <input type="text" id="rollNo" class="form-control" placeholder="Enter Roll Number" required>
-        <label for="testSelect" class="my-3">Select Test:</label>
+    <form id="result-form">
+        <input type="text" id="rollNo" class="form-control mb-3" placeholder="Enter Roll Number" required>
         <select id="testSelect" class="form-control mb-3">
             <option value="first">1st Test</option>
             <option value="second">2nd Test</option>
             <option value="third">3rd Test</option>
             <option value="fourth">4th Test</option>
+            <option value="fifth">5th Test</option>
         </select>
         <button type="button" class="btn btn-primary" onclick="checkResult()">Check Result</button>
     </form>
@@ -289,57 +275,38 @@
 </section>
 
 <footer>
-    <p>&copy; Website is developed by MR Suraj Singh. All Rights Reserved.</p>
+    <p>&copy; 2025. Developed by MR Suraj Singh. All Rights Reserved.</p>
 </footer>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-    // Function to create a new notification
-    function createNotification(message) {
-        const notificationBar = document.createElement('div');
-        notificationBar.classList.add('notification-bar');
-        notificationBar.innerHTML = `
-            <p>${message}</p>
-            <button class="close-btn" onclick="closeNotification(this)">×</button>
-        `;
-        document.getElementById('notificationContainer').appendChild(notificationBar);
-    }
-
-    // Function to close a notification
-    function closeNotification(button) {
-        button.parentElement.style.display = 'none';
-    }
-
-    // Function to toggle notifications visibility
-    function toggleNotifications() {
-        const notificationContainer = document.getElementById('notificationContainer');
-        notificationContainer.style.display = notificationContainer.style.display === 'block' ? 'none' : 'block';
-    }
-
-    // Sample result data
+    // Sample result data for each test
     const resultsFirstTest = [
-        {rollNo: '7374', name: 'Shiva Rajpoot', test: 'first', Biology: 39, Physics: 44, maxMarksBiology: 50, passingMarksBiology: 39, maxMarksPhysics: 50, passingMarksPhysics: 44}
+        {rollNo: '7374', name: 'Shiva Rajpoot', test: 'First', Biology: 39, Physics: 44, maxMarksBiology: 50, passingMarksBiology: 39, maxMarksPhysics: 50, passingMarksPhysics: 44}
     ];
 
     const resultsSecondTest = [
-        {rollNo: '7374', name: 'Shiva Rajpoot', test: 'second', Biology: 36, Physics: 20, maxMarksBiology: 50, passingMarksBiology: 39, maxMarksPhysics: 50, passingMarksPhysics: 44}
+        {rollNo: '7374', name: 'Shiva Rajpoot', test: 'Second', Biology: 36, Physics: 20, maxMarksBiology: 50, passingMarksBiology: 39, maxMarksPhysics: 50, passingMarksPhysics: 44}
     ];
 
     const resultsThirdTest = [
-        {rollNo: '7374', name: 'Shiva Rajpoot', test: 'third', Biology: 45, Physics: 50, maxMarksBiology: 50, passingMarksBiology: 39, maxMarksPhysics: 50, passingMarksPhysics: 44}
+        {rollNo: '7374', name: 'Shiva Rajpoot', test: 'Third', Biology: 45, Physics: 50, maxMarksBiology: 50, passingMarksBiology: 39, maxMarksPhysics: 50, passingMarksPhysics: 44}
     ];
 
     const resultsFourthTest = [
-        {rollNo: '7374', name: 'Shiva Rajpoot', test: 'fourth', Biology: 43, Physics: '--', maxMarksBiology: 50, passingMarksBiology: 39, maxMarksPhysics: '--', passingMarksPhysics: '--'}
+        {rollNo: '7374', name: 'Shiva Rajpoot', test: 'Fourth', Biology: 49, Physics: 47, maxMarksBiology: 50, passingMarksBiology: 39, maxMarksPhysics: 50, passingMarksPhysics: 44}
     ];
 
-    // Function to check the result
+    const resultsFifthTest = [
+        {rollNo: '7374', name: 'Shiva Rajpoot', test: 'Fifth', Biology: 27, Physics: '**', maxMarksBiology: 50, passingMarksBiology: 39, maxMarksPhysics: '**', passingMarksPhysics: '**'}
+    ];
+
     function checkResult() {
         const rollNo = document.getElementById('rollNo').value;
         const testSelect = document.getElementById('testSelect').value;
-        let resultData = [];
+        let resultData = []; 
 
         if (testSelect === 'first') {
             resultData = resultsFirstTest;
@@ -349,6 +316,8 @@
             resultData = resultsThirdTest;
         } else if (testSelect === 'fourth') {
             resultData = resultsFourthTest;
+        } else if (testSelect === 'fifth') {
+            resultData = resultsFifthTest;
         }
 
         const result = resultData.find(item => item.rollNo === rollNo);
@@ -360,8 +329,8 @@
                         <h3>${result.test} Test Result</h3>
                     </div>
                     <div class="marksheet-info">
-                        <p>Name : ${result.name}</p>
-                        <p>Class : 11th</p>
+                        <p>Name: ${result.name}</p>
+                        <p>Class: 11th</p>
                     </div>
                     <table class="marksheet-table">
                         <tr>
@@ -393,14 +362,8 @@
             document.getElementById('result-output').innerHTML = `<p>No results found for Roll Number: ${rollNo}</p>`;
         }
     }
-
-    // Add sample notifications on page load
-    window.onload = function() {
-        createNotification('Important Announcement:4th TEST RESULT DECLARED !');
-        createNotification('Important Announcement:CLASS TIME : 7pm !');
-
-    };
 </script>
 
 </body>
 </html>
+
