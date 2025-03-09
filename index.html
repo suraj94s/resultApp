@@ -144,6 +144,7 @@
     <button id="notificationsBtn">Notifications</button>
     <button id="timingsBtn">Class Timings</button>
     <button id="resultsBtn">Search Results</button>
+    <button id="mockTestBtn">Mock Test</button> <!-- New Mock Test Button -->
   </div>
 
   <!-- Main Content -->
@@ -158,7 +159,6 @@
         <p><strong>Roll Number:</strong> <span id="studentRollNo">7374</span></p>
         <p><strong>Class:</strong> <span id="studentClass">11th</span></p>
         <p><strong>Age:</strong> <span id="studentAge">16</span></p>
-
         <p><strong>Email:</strong> <span id="studentEmail">sk@example.com</span></p>
         <p><strong>Phone:</strong> <span id="studentPhone">123-456-7890</span></p>
       </div>
@@ -172,11 +172,8 @@
       <div class="card-body">
         <ul class="list-group">
           <li class="list-group-item">Holidays for 2 Days. [8 feb 2025 to 10 feb 2025]</li>
-          <li class="list-group-item">friday class time --> 11am.</li>
-           
-          <li class="list-group-item">tuition classes are started from 4 feb 2025.</li>
-          <!-- <li class="list-group-item">Class timings have been updated for next week.</li> -->
-          <!-- <li class="list-group-item">Parent-Teacher meeting scheduled on Friday.</li> -->
+          <li class="list-group-item">Friday class time --> 11am.</li>
+          <li class="list-group-item">Tuition classes are started from 4 feb 2025.</li>
         </ul>
       </div>
     </div>
@@ -197,24 +194,19 @@
           </thead>
           <tbody>
             <tr>
-                <td>holiday</td>
-                <td>physics</td>
-                <td>5pm to 6pm</td>
-                
-              </tr>
-            <tr>
-              <td>holiday</td>
-              <td>Biology</td>
-              <td>2pm to 3pm</td>
-              
+              <td>Holiday</td>
+              <td>Physics</td>
+              <td>5pm to 6pm</td>
             </tr>
             <tr>
-              <td>other days</td>
-              <td>Biology And Physics</td>
+              <td>Holiday</td>
+              <td>Biology</td>
+              <td>2pm to 3pm</td>
+            </tr>
+            <tr>
+              <td>Other days</td>
+              <td>Biology and Physics</td>
               <td>5pm and 7pm</td>
-
-              
-
             </tr>
             <tr>
               <td>Sundays</td>
@@ -223,6 +215,28 @@
             </tr>
           </tbody>
         </table>
+      </div>
+    </div>
+
+    <!-- Mock Test Section -->
+    <div id="mockTestSection" class="card hidden">
+      <div class="card-header">
+        <h5 class="mb-0">Mock Test</h5>
+      </div>
+      <div class="card-body">
+        <p>Upcoming Mock Test Date: <strong>15 March 2025</strong></p>
+        <p><strong>Mock Test Topics:</strong></p>
+        <ul>
+          <li>Biology - Chapter 1: Cell Structure</li>
+          <li>Physics - Chapter 2: Newton's Laws</li>
+          <li>Math - Chapter 5: Algebra</li>
+        </ul>
+        <p><strong>Instructions:</strong></p>
+        <ul>
+          <li>Make sure you are prepared for the subjects listed above.</li>
+          <li>Time allotted: 2 hours.</li>
+          <li>Bring your student ID card.</li>
+        </ul>
       </div>
     </div>
 
@@ -236,7 +250,7 @@
           <div class="row">
             <div class="col-md-6 mx-auto">
               <label for="rollNo" class="form-label">Enter Roll Number</label>
-              <input type="number" class="form-control" id="rollNo" placeholder="e.g., 101" required>
+              <input type="number" class="form-control" id="rollNo" placeholder="7374" required>
             </div>
           </div>
           <div class="text-center mt-3">
@@ -260,7 +274,6 @@
               <option value="3">Test 3</option>
               <option value="4">Test 4</option>
               <option value="5">Test 5</option>
-
             </select>
           </div>
                        
@@ -277,7 +290,6 @@
                     <th>Passing Marks</th>
                     <th>Status</th>
                   </tr>
-                  
                 </thead>
                 <tbody id="marksTableBody">
                   <!-- Marks will be dynamically added here -->
@@ -292,7 +304,7 @@
 
   <!-- Footer -->
   <div class="footer">
-    &copy; 2025 Developed by MR Suraj singh . All rights reserved.
+    &copy; 2025 Developed by MR Suraj singh. All rights reserved.
   </div>
 
   <!-- jQuery and Bootstrap JS -->
@@ -310,8 +322,6 @@
         maxMarks: 50,
         passingMarks: 40,
       },
-     
-     
     ];
 
     // Function to determine pass/fail status
@@ -354,7 +364,7 @@
     // Function to toggle sections
     function showSection(sectionId) {
       // Hide all sections
-      $("#profileSection, #notificationsSection, #timingsSection, #resultsSection").addClass("hidden");
+      $("#profileSection, #notificationsSection, #timingsSection, #resultsSection, #mockTestSection").addClass("hidden");
       // Show the selected section
       $(`#${sectionId}`).removeClass("hidden");
     }
@@ -374,6 +384,10 @@
 
     $("#resultsBtn").on("click", function () {
       showSection("resultsSection");
+    });
+
+    $("#mockTestBtn").on("click", function () {
+      showSection("mockTestSection"); // New event for Mock Test Section
     });
 
     // Search Result
