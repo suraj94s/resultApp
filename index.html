@@ -17,8 +17,7 @@
       margin: 0;
       min-height: 100vh;
     }
-
-    /* Enhanced Marquee */
+    /* Marquee */
     .marquee {
       position: relative;
       width: 100%;
@@ -29,7 +28,6 @@
       box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
       margin-bottom: 20px;
     }
-
     .marquee span {
       position: absolute;
       white-space: nowrap;
@@ -44,13 +42,11 @@
       align-items: center;
       gap: 15px;
     }
-
     @keyframes marquee {
       0% { transform: translateX(100%); }
       100% { transform: translateX(-100%); }
     }
-
-    /* Stylish Notifications */
+    /* Notifications */
     .notification-item {
       background: linear-gradient(135deg, #ff6b6b, #ff8c6b);
       color: white;
@@ -65,22 +61,12 @@
       align-items: center;
       gap: 10px;
     }
-
     @keyframes pulse {
-      0% { 
-        transform: scale(1);
-        box-shadow: 0 4px 15px rgba(255, 107, 107, 0.5);
-      }
-      50% {
-        transform: scale(1.05);
-        box-shadow: 0 8px 20px rgba(255, 107, 107, 0.8);
-      }
-      100% { 
-        transform: scale(1);
-        box-shadow: 0 4px 15px rgba(255, 107, 107, 0.5);
-      }
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
     }
-
+    /* Sidebar */
     .sidebar {
       height: auto;
       width: 100%;
@@ -90,13 +76,11 @@
       padding: 10px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
-
     .sidebar h4 {
       text-align: center;
       margin-bottom: 10px;
       font-weight: bold;
     }
-
     .sidebar button {
       width: 100%;
       margin-bottom: 10px;
@@ -109,15 +93,13 @@
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
-
     .sidebar button:hover {
       background-color: #1a252f;
     }
-
+    /* Main Content */
     .main-content {
       padding: 20px;
     }
-
     .card {
       border: none;
       border-radius: 15px;
@@ -126,11 +108,9 @@
       overflow: hidden;
       transition: transform 0.3s ease;
     }
-
     .card:hover {
       transform: translateY(-5px);
     }
-
     .card-header {
       background-color: #2c3e50;
       color: white;
@@ -140,46 +120,84 @@
       text-align: center;
       padding: 15px;
     }
-
     .footer {
       text-align: center;
       margin-top: 30px;
       color: #2c3e50;
       font-size: 0.9rem;
     }
-
     .hidden {
       display: none;
     }
-
-    .subject-marks table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
+    /* Mock Test Section */
+    .mock-test-container {
+      max-width: 800px;
+      margin: 0 auto;
     }
-
-    .subject-marks th, .subject-marks td {
-      padding: 10px;
-      text-align: center;
+    .timer-display {
+      font-size: 1.5rem;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 10px;
+      background: linear-gradient(45deg, #007bff, #00bfff);
+      box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+      color: white;
+    }
+    .progress {
+      height: 20px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .progress-bar {
+      background-color: #007bff;
+    }
+    .question {
+      margin-bottom: 20px;
+      padding: 15px;
       border: 1px solid #ddd;
-      font-size: 0.9rem;
+      border-radius: 10px;
+      background-color: #f9f9f9;
     }
-
-    .subject-marks th {
-      background-color: #ecf0f1;
-      color: #2c3e50;
+    .question p {
+      font-weight: bold;
+      margin-bottom: 10px;
     }
-
+    .options label {
+      display: block;
+      margin: 5px 0;
+      padding: 10px;
+      border-radius: 5px;
+      background-color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .options label:hover {
+      background-color: #f1f1f1;
+    }
+    .options input[type="radio"] {
+      margin-right: 10px;
+    }
+    .result {
+      text-align: center;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: #f9f9f9;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    .result h5 {
+      margin-bottom: 15px;
+    }
+    .result p {
+      margin: 5px 0;
+    }
     .pass {
       color: #28a745;
       font-weight: bold;
     }
-
     .fail {
       color: #dc3545;
       font-weight: bold;
     }
-
     @media (min-width: 768px) {
       .sidebar {
         height: 100vh;
@@ -192,7 +210,6 @@
         margin-left: 250px;
       }
     }
-
     @media (max-width: 576px) {
       .sidebar {
         position: relative;
@@ -202,23 +219,14 @@
       .main-content {
         margin-left: 0;
       }
-      .subject-marks table {
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap;
-      }
-      .subject-marks th, .subject-marks td {
-        font-size: 0.8rem;
-      }
     }
   </style>
 </head>
 <body>
-  <!-- Enhanced Marquee -->
+  <!-- Marquee -->
   <div class="marquee">
     <span>🌟 Important Announcement: 7th test result declared! 🌟</span>
   </div>
-
   <!-- Sidebar -->
   <div class="sidebar">
     <h4>Menu</h4>
@@ -228,7 +236,6 @@
     <button id="resultsBtn">Search Results</button>
     <button id="mockTestBtn">Mock Test</button>
   </div>
-
   <!-- Main Content -->
   <div class="main-content">
     <!-- Notifications Section (Default) -->
@@ -238,13 +245,9 @@
       </div>
       <div class="card-body">
         <div class="notification-item">⏰ TODAY CLASS TIME : 5pm </div>
-
         <div class="notification-item">⚠️ Holidays for 2 Days [8 Feb 2025 to 10 Feb 2025]</div>
-        <!-- <div class="notification-item">⏰ Friday class time: 11 AM</div> -->
-        <!-- <div class="notification-item">📚 Tuition classes started from 4 Feb 2025</div> -->
       </div>
     </div>
-
     <!-- Student Profile Section -->
     <div id="profileSection" class="card hidden">
       <div class="card-header">
@@ -259,7 +262,6 @@
         <p><strong>Phone:</strong> <span id="studentPhone">123-456-7890</span></p>
       </div>
     </div>
-
     <!-- Class Timings Section -->
     <div id="timingsSection" class="card hidden">
       <div class="card-header">
@@ -299,29 +301,40 @@
         </table>
       </div>
     </div>
-
     <!-- Mock Test Section -->
     <div id="mockTestSection" class="card hidden">
       <div class="card-header">
         <h5 class="mb-0">Mock Test</h5>
       </div>
-      <div class="card-body">
-        <p>Upcoming Mock Test Date: <strong>15 March 2025</strong></p>
-        <p><strong>COMING SOON ...............</strong></p>
-        <ul>
-          <li>Biology </li>
-          <li>Physicss</li>
-          <li></li>
-        </ul>
-        <p><strong>:</strong></p>
-        <ul>
-          <li></li>
-          <li></li>
-          <!-- <li>Bring your student ID card.</li> -->
-        </ul>
+      <div class="card-body mock-test-container">
+        <!-- Timer -->
+        <div class="timer text-center mb-4">
+          <div class="timer-display">
+            <span id="minutes">05</span>:<span id="seconds">00</span>
+          </div>
+        </div>
+        <!-- Progress Bar -->
+        <div class="progress mb-4">
+          <div id="testProgress" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        <!-- Instructions -->
+        <p class="text-center"><strong>Instructions:</strong> Answer all questions. Each question carries 1 mark.</p>
+        <!-- Questions Container -->
+        <form id="mockTestForm">
+          <div id="questionsContainer"></div>
+          <div class="text-center mt-3">
+            <button type="submit" class="btn btn-primary">Submit Test</button>
+          </div>
+        </form>
+        <!-- Result Display -->
+        <div id="testResult" class="result hidden mt-4">
+          <h5 class="text-center">Test Result</h5>
+          <p><strong>Total Marks:</strong> <span id="totalMarks">0</span></p>
+          <p><strong>Marks Obtained:</strong> <span id="marksObtained">0</span></p>
+          <p><strong>Status:</strong> <span id="testStatus">Fail</span></p>
+        </div>
       </div>
     </div>
-
     <!-- Search Results Section -->
     <div id="resultsSection" class="card hidden">
       <div class="card-header">
@@ -354,10 +367,7 @@
               <option value="2">Test 3</option>
               <option value="3">Test 4</option>
               <option value="4">Test 5</option>
-              <!-- <option value="4">Test 6</option> -->
               <option value="5">Test 7</option>
-
-
             </select>
           </div>
           <!-- Subject Marks -->
@@ -384,12 +394,10 @@
       </div>
     </div>
   </div>
-
   <!-- Footer -->
   <div class="footer">
-    &copy; 2025 Developed by MR Suraj singh. All rights reserved.
+    &copy; 2025 Developed by MR Suraj Singh. All rights reserved.
   </div>
-
   <!-- jQuery and Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
@@ -400,95 +408,147 @@
         rollNo: 7374,
         name: "Shiva",
         class: "11th",
-        biology: [39, 90, 78, 88, 37,37], // Marks for 5 tests
-        physics: [44, 85, 82, 79, '**','**'], // Marks for 5 tests
+        biology: [39, 90, 78, 88, 37, 37], // Marks for 5 tests
+        physics: [44, 85, 82, 79, '**', '**'], // Marks for 5 tests
         maxMarks: 50,
         passingMarks: 40,
       },
     ];
 
-    // Function to determine pass/fail status
-    function getResultStatus(marksObtained, passingMarks) {
-      return marksObtained >= passingMarks ? "Pass" : "Fail";
+    // Predefined Mock Test Questions
+    const mockTestQuestions = [
+      {
+        question: "The blue-green algae are also referred as--",
+        options: ["Cynobacteria", "Eubacteria", "Archaebacteria", "Heterotrophic bacteria"],
+        answer: "Cynobacteria",
+      },
+      {
+        question: "Which one of the following is true for fungi??",
+        options: ["They are phagotrophs", "They lack a rigid cell wall", "They are heterotrophs", "They lack nuclear membrane"],
+        answer: "They are heterotrophs",
+      },
+      {
+        question: "Which of the following structure is not found in prokaryotic cells :?",
+        options: [" Hereditary substance", "Nuclear membrane and membranous cell organelles", " Ribosomes", "Plasma membrane"],
+        answer: " Nuclear membrane and membranous cell organelles",
+      },
+      {
+        question: "Virus envelope is known as:",
+        options: ["Capsid","Nucleoprotein", "Core", "Virion"],
+        answer: "Capsid",
+      },
+    ];
+
+    // Timer Variables
+    let timer;
+    let timeLeft = 300; // 5 minutes in seconds
+
+    // Function to Start Timer
+    function startTimer() {
+      timer = setInterval(() => {
+        timeLeft--;
+        updateTimerDisplay();
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          submitTest();
+        }
+      }, 1000);
     }
 
-    // Function to render marks table
-    function renderMarksTable(student, testIndex) {
-      const tableBody = $("#marksTableBody");
-      tableBody.empty();
-      
-      // Add Biology Row
-      const biologyStatus = getResultStatus(student.biology[testIndex], student.passingMarks);
-      const biologyRow = `  
-        <tr>
-          <td>Biology</td>
-          <td>${student.biology[testIndex]}</td>
-          <td>${student.maxMarks}</td>
-          <td>${student.passingMarks}</td>
-          <td class="${biologyStatus === 'Pass' ? 'pass' : 'fail'}">${biologyStatus}</td>
-        </tr>
-      `;
-      tableBody.append(biologyRow);
-
-      // Add Physics Row
-      const physicsStatus = getResultStatus(student.physics[testIndex], student.passingMarks);
-      const physicsRow = `
-        <tr>
-          <td>Physics</td>
-          <td>${student.physics[testIndex]}</td>
-          <td>${student.maxMarks}</td>
-          <td>${student.passingMarks}</td>
-          <td class="${physicsStatus === 'Pass' ? 'pass' : 'fail'}">${physicsStatus}</td>
-        </tr>
-      `;
-      tableBody.append(physicsRow);
+    // Function to Update Timer Display
+    function updateTimerDisplay() {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      $("#minutes").text(minutes.toString().padStart(2, "0"));
+      $("#seconds").text(seconds.toString().padStart(2, "0"));
     }
 
-    // Function to toggle sections
+    // Function to Submit Test
+    function submitTest() {
+      clearInterval(timer);
+      const formData = new FormData(document.getElementById("mockTestForm"));
+      const answers = {};
+      mockTestQuestions.forEach((_, index) => {
+        answers[`q${index}`] = formData.get(`q${index}`);
+      });
+      const results = calculateTestResults(answers);
+      displayResults(results);
+    }
+
+    // Function to Calculate Test Results
+    function calculateTestResults(answers) {
+      let marksObtained = 0;
+      mockTestQuestions.forEach((q, index) => {
+        if (answers[`q${index}`] === q.answer) {
+          marksObtained++;
+        }
+      });
+      return {
+        totalMarks: mockTestQuestions.length,
+        marksObtained,
+        status: marksObtained >= mockTestQuestions.length / 2 ? "Pass" : "Fail",
+      };
+    }
+
+    // Function to Display Results
+    function displayResults(results) {
+      $("#totalMarks").text(results.totalMarks);
+      $("#marksObtained").text(results.marksObtained);
+      $("#testStatus").text(results.status);
+      $("#testStatus").removeClass("pass fail").addClass(results.status.toLowerCase());
+      $("#testResult").removeClass("hidden");
+    }
+
+    // Function to Render Mock Test Questions
+    function renderMockTest() {
+      const container = $("#questionsContainer");
+      container.empty();
+      mockTestQuestions.forEach((q, index) => {
+        const questionHTML = `
+          <div class="question">
+            <p><strong>Q${index + 1}:</strong> ${q.question}</p>
+            <div class="options">
+              ${q.options
+                .map(
+                  (option) =>
+                    `<label><input type="radio" name="q${index}" value="${option}"> ${option}</label>`
+                )
+                .join("")}
+            </div>
+          </div>
+        `;
+        container.append(questionHTML);
+      });
+      startTimer();
+    }
+
+    // Function to Toggle Sections
     function showSection(sectionId) {
-      // Hide all sections
       $("#profileSection, #notificationsSection, #timingsSection, #resultsSection, #mockTestSection").addClass("hidden");
-      // Show the selected section
       $(`#${sectionId}`).removeClass("hidden");
+      if (sectionId === "mockTestSection") {
+        renderMockTest();
+      }
     }
 
     // Event Listeners for Sidebar Buttons
-    $("#profileBtn").on("click", function () {
-      showSection("profileSection");
-    });
+    $("#profileBtn").on("click", () => showSection("profileSection"));
+    $("#notificationsBtn").on("click", () => showSection("notificationsSection"));
+    $("#timingsBtn").on("click", () => showSection("timingsSection"));
+    $("#resultsBtn").on("click", () => showSection("resultsSection"));
+    $("#mockTestBtn").on("click", () => showSection("mockTestSection"));
 
-    $("#notificationsBtn").on("click", function () {
-      showSection("notificationsSection");
-    });
-
-    $("#timingsBtn").on("click", function () {
-      showSection("timingsSection");
-    });
-
-    $("#resultsBtn").on("click", function () {
-      showSection("resultsSection");
-    });
-
-    $("#mockTestBtn").on("click", function () {
-      showSection("mockTestSection");
-    });
-
-    // Search Result
+    // Search Result Form Submission
     $("#searchForm").on("submit", function (e) {
       e.preventDefault();
       const rollNo = parseInt($("#rollNo").val());
       const result = studentResults.find((student) => student.rollNo === rollNo);
-      
       if (result) {
-        // Populate Basic Details
         $("#resultName").text(result.name);
         $("#resultRollNo").text(result.rollNo);
         $("#resultClass").text(result.class);
-        // Render Marks Table for Test 1 by default
         renderMarksTable(result, 0);
-        // Show Marksheet
         $(".marksheet").show();
-        // Add Test Selector Listener
         $('#testSelector').off('change').on('change', function() {
           const testIndex = parseInt($(this).val());
           renderMarksTable(result, testIndex);
@@ -496,6 +556,12 @@
       } else {
         alert("Student not found!");
       }
+    });
+
+    // Mock Test Form Submission
+    $("#mockTestForm").on("submit", function (e) {
+      e.preventDefault();
+      submitTest();
     });
   </script>
 </body>
