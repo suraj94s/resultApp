@@ -193,6 +193,28 @@
         margin-left: 0;
       }
     }
+    /* Notification List Styling */
+    .styled-list {
+      list-style: none;
+      padding: 0;
+    }
+    .styled-list li {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 8px;
+      background: #f9f9f9;
+      transition: all 0.3s ease;
+    }
+    .styled-list li:hover {
+      background: #f0f0f0;
+      transform: scale(1.02);
+    }
+    .styled-list .badge {
+      font-weight: bold;
+      font-size: 0.8rem;
+    }
   </style>
 </head>
 <body>
@@ -226,9 +248,26 @@
       <div class="card-header">Notifications</div>
       <div class="card-body">
         <ul class="styled-list">
-          <li class="ann"><i class="fas fa-calendar-alt me-2"></i>8th TEST RESULT DECLARED!</li>
-          <li><i class="fas fa-clock me-2"></i> Class timings updated for next week.</li>
-          <li><i class="fas fa-book me-2"></i> Tuition classes start from 4 Feb 2025</li>
+            <li>
+                <span class="badge bg-danger me-2" style="font-size: 0.8rem;">NEW</span>
+                <i class="fas fa-clock me-2"></i> Today Test Timing : 4:15 .
+              </li>
+             <!-- <li class="ann">
+            <span class="badge bg-danger me-2" style="font-size: 0.8rem;">NEW</span>
+            <i class="fas fa-calendar-alt me-2"></i>8th TEST RESULT DECLARED!
+          </li> -->
+          <li class="ann">
+            <span class="badge bg-danger me-2" style="font-size: 0.8rem;">NEW</span>
+            <i class="fas fa-calendar-alt me-2"></i>8th TEST RESULT DECLARED!
+          </li>
+          <li>
+            <span class="badge bg-danger me-2" style="font-size: 0.8rem;">NEW</span>
+            <i class="fas fa-clock me-2"></i> Class timings updated for next week.
+          </li>
+          <li>
+            <span class="badge bg-danger me-2" style="font-size: 0.8rem;">NEW</span>
+            <i class="fas fa-book me-2"></i> Tuition classes start from 4 Feb 2025
+          </li>
         </ul>
       </div>
     </div>
@@ -322,7 +361,6 @@
     </div>
   </div>
   <!-- Footer -->
-  
   <div class="footer">
     &copy; 2025 Developed by MR Suraj Singh. All rights reserved.
   </div>
@@ -336,7 +374,7 @@
         rollNo: 7374,
         name: "Shiva",
         class: "11th",
-        biology: [39, 90, 78, 88, 92,34], // Marks for 5 tests
+        biology: [39, 90, 78, 88, 92, 34], // Marks for 5 tests
         maxMarks: 50,
         passingMarks: 40,
       },
@@ -417,4 +455,4 @@
     });
   </script>
 </body>
-</html>      
+</html>
