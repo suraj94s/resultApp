@@ -86,18 +86,10 @@
     .hidden {
       display: none;
     }
-    /* Animations */
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    /* Hover Effects */
     .btn-primary {
       background: linear-gradient(135deg, #4a00e0, #8e2de2);
       border: none;
@@ -113,16 +105,17 @@
       justify-content: center;
       gap: 10px;
       margin-top: 20px;
+      flex-wrap: wrap;
     }
     .test-selector label {
-      display: inline-block;
-      padding: 10px 20px;
+      padding: 8px 15px;
       background: #f0f0f0;
       border-radius: 20px;
       cursor: pointer;
       transition: all 0.3s ease;
       font-weight: bold;
       color: #4a00e0;
+      font-size: 0.9rem;
     }
     .test-selector input[type="radio"] {
       display: none;
@@ -133,46 +126,74 @@
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       transform: scale(1.05);
     }
-    /* Progress Bar Styling */
-    .progress-container {
-      margin: 15px 0;
+    /* Updated Marksheet Styling */
+    .marksheet {
+      background: linear-gradient(135deg, #ffffff, #f9f9f9);
+      border-radius: 15px;
+      padding: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      margin-top: 20px;
     }
-    .progress-bar {
-      height: 10px;
-      border-radius: 5px;
-      background: #f0f0f0;
-      overflow: hidden;
-      position: relative;
-    }
-    .progress-fill {
-      height: 100%;
-      width: 0%;
+    .marksheet-header {
       background: linear-gradient(135deg, #4a00e0, #8e2de2);
-      transition: width 0.5s ease;
+      color: white;
+      padding: 12px;
+      border-radius: 10px 10px 0 0;
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: 600;
     }
-    /* Subject Card Styling */
-    .subject-card {
-      background: #f9f9f9;
+    .marksheet-body {
+      padding: 15px;
+    }
+    .student-info {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-bottom: 15px;
+      background: #f0f0f0;
+      padding: 10px;
       border-radius: 10px;
-      padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      font-size: 0.9rem;
+    }
+    .student-info p {
+      margin: 5px 0;
+      font-weight: 500;
+      color: #333;
+    }
+    /* Responsive Table Styling */
+    .subject-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+    .subject-table th, .subject-table td {
+      padding: 10px;
+      text-align: center;
+      border-bottom: 1px solid #e0e0e0;
+      font-size: 0.9rem;
+    }
+    .subject-table th {
+      background: linear-gradient(135deg, #4a00e0, #8e2de2);
+      color: white;
+      font-weight: 600;
+    }
+    .subject-table tr:nth-child(even) {
+      background: #f9f9f9;
+    }
+    .subject-table tr:hover {
+      background: #f0f0f0;
       transition: all 0.3s ease;
     }
-    .subject-card:hover {
-      transform: scale(1.02);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-    }
-    .subject-icon {
-      font-size: 2rem;
-      color: #4a00e0;
-      margin-bottom: 10px;
-    }
     .grade-badge {
-      font-size: 1rem;
+      padding: 4px 10px;
+      border-radius: 15px;
       font-weight: bold;
-      padding: 5px 10px;
-      border-radius: 20px;
+      display: inline-block;
+      font-size: 0.8rem;
     }
     .grade-pass {
       background: #d4edda;
@@ -181,6 +202,136 @@
     .grade-fail {
       background: #f8d7da;
       color: #721c24;
+    }
+    .progress-container {
+      margin: 5px 0;
+    }
+    .progress-bar {
+      height: 6px;
+      border-radius: 3px;
+      background: #e0e0e0;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(135deg, #4a00e0, #8e2de2);
+      transition: width 0.5s ease;
+    }
+    /* Enhanced Notification List Styling */
+    .notification-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      animation: fadeInSection 1s ease-in-out;
+    }
+    .notification-item {
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(240, 240, 240, 0.7));
+      backdrop-filter: blur(5px);
+      border-radius: 15px;
+      margin-bottom: 20px;
+      padding: 20px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      transition: all 0.3s ease;
+      animation: popIn 0.6s ease-in-out;
+      position: relative;
+      border: 2px solid transparent;
+      background-clip: padding-box;
+    }
+    .notification-item::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, #4a00e0, #ff416c, #00c9ff, #f7971e);
+      border-radius: 17px;
+      z-index: -1;
+      animation: borderGlow 3s infinite linear;
+    }
+    .notification-item:hover {
+      transform: scale(1.03);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+    .notification-icon {
+      font-size: 2rem;
+      margin-right: 20px;
+      width: 40px;
+      text-align: center;
+      color: #4a00e0;
+      transition: transform 0.3s ease;
+      z-index: 1;
+    }
+    .notification-item:hover .notification-icon {
+      transform: rotate(360deg);
+    }
+    .notification-content {
+      flex-grow: 1;
+      z-index: 1;
+    }
+    .notification-content p {
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #4a00e0, #8e2de2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    .notification-badge {
+      background: linear-gradient(135deg, #ff416c, #ff4b2b);
+      color: white;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.95rem;
+      font-weight: bold;
+      margin-right: 15px;
+      animation: glow 1.5s infinite;
+      box-shadow: 0 4px 15px rgba(255, 65, 108, 0.7);
+      transform: translateZ(0);
+      position: relative;
+      top: -2px;
+    }
+    /* Different badge colors and glows */
+    .notification-item:nth-child(1) .notification-badge {
+      background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    }
+    .notification-item:nth-child(2) .notification-badge {
+      background: linear-gradient(135deg, #00c9ff, #92fe9d);
+      box-shadow: 0 4px 15px rgba(0, 201, 255, 0.7);
+    }
+    .notification-item:nth-child(3) .notification-badge {
+      background: linear-gradient(135deg, #f7971e, #ffd200);
+      box-shadow: 0 4px 15px rgba(247, 151, 30, 0.7);
+    }
+    .notification-item:nth-child(4) .notification-badge {
+      background: linear-gradient(135deg, #4a00e0, #8e2de2);
+      box-shadow: 0 4px 15px rgba(74, 0, 224, 0.7);
+    }
+    .notification-item:nth-child(5) .notification-badge {
+      background: linear-gradient(135deg, #ff6a00, #ee0979);
+      box-shadow: 0 4px 15px rgba(255, 106, 0, 0.7);
+    }
+    /* Animations */
+    @keyframes popIn {
+      0% { opacity: 0; transform: scale(0.8); }
+      70% { opacity: 1; transform: scale(1.05); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    @keyframes glow {
+      0% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.3); }
+      50% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.5); }
+      100% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.3); }
+    }
+    @keyframes fadeInSection {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes borderGlow {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 200% 200%; }
     }
     /* Responsive Design */
     @media (max-width: 768px) {
@@ -192,28 +343,90 @@
       .main-content {
         margin-left: 0;
       }
+      .student-info {
+        flex-direction: column;
+        text-align: center;
+      }
+      .marksheet {
+        padding: 10px;
+      }
+      .marksheet-header {
+        font-size: 1.1rem;
+        padding: 10px;
+      }
+      .subject-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+      .subject-table thead, .subject-table tbody, .subject-table tr, .subject-table th, .subject-table td {
+        display: block;
+      }
+      .subject-table thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+      }
+      .subject-table tr {
+        margin-bottom: 15px;
+        border: 1px solid #e0e0e0;
+        border-radius: 5px;
+        background: #fff;
+      }
+      .subject-table td {
+        border: none;
+        border-bottom: 1px solid #e0e0e0;
+        position: relative;
+        padding-left: 50%;
+        text-align: left;
+        white-space: normal;
+      }
+      .subject-table td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        width: 45%;
+        padding-right: 10px;
+        font-weight: bold;
+        color: #4a00e0;
+        text-align: left;
+      }
+      .subject-table td:last-child {
+        border-bottom: none;
+      }
+      .progress-container {
+        width: 100%;
+      }
     }
-    /* Notification List Styling */
-    .styled-list {
-      list-style: none;
-      padding: 0;
-    }
-    .styled-list li {
-      display: flex;
-      align-items: center;
-      margin-bottom: 10px;
-      padding: 10px;
-      border-radius: 8px;
-      background: #f9f9f9;
-      transition: all 0.3s ease;
-    }
-    .styled-list li:hover {
-      background: #f0f0f0;
-      transform: scale(1.02);
-    }
-    .styled-list .badge {
-      font-weight: bold;
-      font-size: 0.8rem;
+    @media (max-width: 480px) {
+      .test-selector label {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+      }
+      .student-info p {
+        font-size: 0.8rem;
+      }
+      .subject-table td {
+        font-size: 0.8rem;
+        padding-left: 40%;
+      }
+      .subject-table td:before {
+        width: 35%;
+      }
+      .notification-item {
+        padding: 15px;
+      }
+      .notification-icon {
+        font-size: 1.6rem;
+        width: 35px;
+      }
+      .notification-content p {
+        font-size: 1rem;
+      }
+      .notification-badge {
+        font-size: 0.85rem;
+        padding: 5px 12px;
+      }
     }
   </style>
 </head>
@@ -244,30 +457,48 @@
       </div>
     </div>
     <!-- Notifications Section -->
-    <div id="notificationsSection" class="card hidden">
+    <div id="notificationsSection" class="card">
       <div class="card-header">Notifications</div>
       <div class="card-body">
-        <ul class="styled-list">
-            <li>
-                <span class="badge bg-danger me-2" style="font-size: 0.8rem;">NEW</span>
-                <i class="fas fa-clock me-2"></i> Today Test Timing : 4:15 .
+
+        <ul class="notification-list">
+            
+            <li class="notification-item">
+                <span class="notification-icon"><i class="fas fa-calendar-alt"></i></span>
+                <div class="notification-content">
+                  <span class="badge notification-badge">NEW</span>
+                  <p>9th TEST RESULT DECLARED!</p>
+                </div>
               </li>
-             <!-- <li class="ann">
-            <span class="badge bg-danger me-2" style="font-size: 0.8rem;">NEW</span>
-            <i class="fas fa-calendar-alt me-2"></i>8th TEST RESULT DECLARED!
+          <!-- <li class="notification-item">
+            <span class="notification-icon"><i class="fas fa-clock"></i></span>
+            <div class="notification-content">
+              <span class="badge notification-badge">URGENT</span>
+              <p>Today Test Timing: 4:15 PM</p>
+            </div>
           </li> -->
-          <li class="ann">
-            <span class="badge bg-danger me-2" style="font-size: 0.8rem;">NEW</span>
-            <i class="fas fa-calendar-alt me-2"></i>8th TEST RESULT DECLARED!
+          <!-- <li class="notification-item">
+            <span class="notification-icon"><i class="fas fa-calendar-alt"></i></span>
+            <div class="notification-content">
+              <span class="badge notification-badge">NEW</span>
+              <p>8th TEST RESULT DECLARED!</p>
+            </div>
+          </li> -->
+          <!-- <li class="notification-item">
+            <span class="notification-icon"><i class="fas fa-clock"></i></span>
+            <div class="notification-content">
+              <span class="badge notification-badge">UPDATE</span>
+              <p>Class timings updated for next week</p>
+            </div>
+          </li> -->
+          <li class="notification-item">
+            <span class="notification-icon"><i class="fas fa-book"></i></span>
+            <div class="notification-content">
+              <span class="badge notification-badge">INFO</span>
+              <p>Tuition classes start from 4 Feb 2025</p>
+            </div>
           </li>
-          <li>
-            <span class="badge bg-danger me-2" style="font-size: 0.8rem;">NEW</span>
-            <i class="fas fa-clock me-2"></i> Class timings updated for next week.
-          </li>
-          <li>
-            <span class="badge bg-danger me-2" style="font-size: 0.8rem;">NEW</span>
-            <i class="fas fa-book me-2"></i> Tuition classes start from 4 Feb 2025
-          </li>
+         
         </ul>
       </div>
     </div>
@@ -284,27 +515,15 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Holiday</td>
-              <td>Biology</td>
-              <td>2 PM - 3 PM</td>
-            </tr>
-            <tr>
-              <td>Other Days</td>
-              <td>Biology</td>
-              <td>5 PM & 7 PM</td>
-            </tr>
-            <tr>
-              <td>Sundays</td>
-              <td>Tests</td>
-              <td>1 PM - 2 PM</td>
-            </tr>
+            <tr><td>Holiday</td><td>Biology</td><td>2 PM - 3 PM</td></tr>
+            <tr><td>Other Days</td><td>Biology</td><td>5 PM & 7 PM</td></tr>
+            <tr><td>Sundays</td><td>Tests</td><td>1 PM - 2 PM</td></tr>
           </tbody>
         </table>
       </div>
     </div>
     <!-- Search Results Section -->
-    <div id="resultsSection" class="card">
+    <div id="resultsSection" class="card hidden">
       <div class="card-header">Search Results</div>
       <div class="card-body">
         <form id="searchForm">
@@ -319,42 +538,39 @@
           </div>
         </form>
         <div class="marksheet mt-4 hidden">
-          <h5 class="text-center">Marksheet</h5>
-          <p><strong>Name:</strong> <span id="resultName"></span></p>
-          <p><strong>Roll Number:</strong> <span id="resultRollNo"></span></p>
-          <p><strong>Class:</strong> <span id="resultClass"></span></p>
-          <div class="test-selector text-center">
-            <input type="radio" id="test1" name="testSelector" value="1" checked>
-            <label for="test1">Test 1</label>
-            <input type="radio" id="test2" name="testSelector" value="2">
-            <label for="test2">Test 2</label>
-            <input type="radio" id="test3" name="testSelector" value="3">
-            <label for="test3">Test 3</label>
-            <input type="radio" id="test4" name="testSelector" value="4">
-            <label for="test4">Test 4</label>
-            <input type="radio" id="test5" name="testSelector" value="5">
-            <label for="test5">Test 5</label>
-            <input type="radio" id="test8" name="testSelector" value="6">
-            <label for="test8">Test 8</label>
-          </div>
-          <div class="subject-cards mt-4">
-            <div id="biologyCard" class="subject-card hidden">
-              <div class="text-center">
-                <i class="fas fa-flask subject-icon"></i>
-                <h5>Biology</h5>
-              </div>
-              <div class="progress-container">
-                <div class="progress-bar">
-                  <div class="progress-fill" id="biologyProgress"></div>
-                </div>
-              </div>
-              <p><strong>Marks Obtained:</strong> <span id="biologyMarks"></span></p>
-              <p><strong>Max Marks:</strong> <span id="biologyMaxMarks"></span></p>
-              <p><strong>Passing Marks:</strong> <span id="biologyPassingMarks"></span></p>
-              <div class="text-center">
-                <span class="grade-badge" id="biologyGrade"></span>
-              </div>
+          <div class="marksheet-header">Marksheet</div>
+          <div class="marksheet-body">
+            <div class="student-info">
+              <p><strong>Name:</strong> <span id="resultName"></span></p>
+              <p><strong>Roll Number:</strong> <span id="resultRollNo"></span></p>
+              <p><strong>Class:</strong> <span id="resultClass"></span></p>
             </div>
+            <div class="test-selector text-center">
+              <input type="radio" id="test1" name="testSelector" value="1" checked><label for="test1">Test 1</label>
+              <input type="radio" id="test2" name="testSelector" value="2"><label for="test2">Test 2</label>
+              <input type="radio" id="test3" name="testSelector" value="3"><label for="test3">Test 3</label>
+              <input type="radio" id="test4" name="testSelector" value="4"><label for="test4">Test 4</label>
+              <input type="radio" id="test5" name="testSelector" value="5"><label for="test5">Test 5</label>
+              <input type="radio" id="test8" name="testSelector" value="6"><label for="test8">Test 8</label>
+              <input type="radio" id="test9" name="testSelector" value="7"><label for="test9">Test 9</label>
+            </div>
+            <table class="subject-table mt-4">
+              <thead>
+                <tr>
+                  <th>Subject</th>
+                  <th>Marks Obtained</th>
+                  <th>Max Marks</th>
+                  <th>Passing Marks</th>
+                  <th>Percentage</th>
+                  <th>Progress</th>
+                  <th>Status</th>
+                  <th>Grade</th>
+                </tr>
+              </thead>
+              <tbody id="subjectResults">
+                <!-- Results will be populated here -->
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -362,7 +578,7 @@
   </div>
   <!-- Footer -->
   <div class="footer">
-    &copy; 2025 Developed by MR Suraj Singh. All rights reserved.
+    © 2025 Developed by MR Suraj Singh. All rights reserved.
   </div>
   <!-- jQuery and Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -374,41 +590,69 @@
         rollNo: 7374,
         name: "Shiva",
         class: "11th",
-        biology: [39, 90, 78, 88, 92, 34], // Marks for 5 tests
-        maxMarks: 50,
-        passingMarks: 40,
+        biology: [
+          { marks: 39, maxMarks: 100, passingMarks: 40 }, // Test 1
+          { marks: 90, maxMarks: 100, passingMarks: 40 }, // Test 2
+          { marks: 78, maxMarks: 100, passingMarks: 40 }, // Test 3
+          { marks: 88, maxMarks: 100, passingMarks: 40 }, // Test 4
+          { marks: 92, maxMarks: 100, passingMarks: 40 }, // Test 5
+          { marks: 34, maxMarks: 100, passingMarks: 40 }, // Test 8
+          { marks: 30, maxMarks: 50, passingMarks: 39 }   // Test 9
+        ]
       },
     ];
-    // Function to determine pass/fail status
-    function getResultStatus(marksObtained, passingMarks) {
-      return marksObtained >= passingMarks ? "Pass" : "Fail";
+
+    // Function to calculate grade
+    function getGrade(percentage) {
+      if (percentage >= 90) return "A+";
+      else if (percentage >= 80) return "A";
+      else if (percentage >= 70) return "B+";
+      else if (percentage >= 60) return "B";
+      else if (percentage >= 50) return "C";
+      else if (percentage >= 40) return "D";
+      else return "F";
     }
-    // Function to render subject card
-    function renderSubjectCard(subject, marksObtained, maxMarks, passingMarks, cardId, progressId, gradeId) {
-      const percentage = (marksObtained / maxMarks) * 100;
-      const status = getResultStatus(marksObtained, passingMarks);
-      $(`#${cardId}`).removeClass("hidden");
-      $(`#${progressId}`).css("width", `${percentage}%`);
-      $(`#${cardId} #${subject}Marks`).text(marksObtained);
-      $(`#${cardId} #${subject}MaxMarks`).text(maxMarks);
-      $(`#${cardId} #${subject}PassingMarks`).text(passingMarks);
-      $(`#${gradeId}`).text(status);
-      if (status === "Pass") {
-        $(`#${gradeId}`).removeClass("grade-fail").addClass("grade-pass");
-      } else {
-        $(`#${gradeId}`).removeClass("grade-pass").addClass("grade-fail");
-      }
+
+    // Function to render subject results
+    function renderSubjectResults(result, testIndex) {
+      const test = result.biology[testIndex];
+      const percentage = (test.marks / test.maxMarks) * 100;
+      const status = test.marks >= test.passingMarks ? "Pass" : "Fail";
+      const grade = getGrade(percentage);
+
+      const subjectRow = `
+        <tr>
+          <td data-label="Subject"><i class="fas fa-flask me-2"></i>Biology</td>
+          <td data-label="Marks Obtained">${test.marks}</td>
+          <td data-label="Max Marks">${test.maxMarks}</td>
+          <td data-label="Passing Marks">${test.passingMarks}</td>
+          <td data-label="Percentage">${percentage.toFixed(2)}%</td>
+          <td data-label="Progress">
+            <div class="progress-container">
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: ${percentage}%"></div>
+              </div>
+            </div>
+          </td>
+          <td data-label="Status"><span class="grade-badge ${status === 'Pass' ? 'grade-pass' : 'grade-fail'}">${status}</span></td>
+          <td data-label="Grade"><span class="grade-badge">${grade}</span></td>
+        </tr>
+      `;
+      $("#subjectResults").html(subjectRow);
     }
+
     // Function to toggle sections
     function showSection(sectionId) {
       $(".card").addClass("hidden");
       $(`#${sectionId}`).removeClass("hidden");
     }
+
     // Event Listeners for Sidebar Buttons
     $("#profileBtn").on("click", () => showSection("profileSection"));
     $("#notificationsBtn").on("click", () => showSection("notificationsSection"));
     $("#timingsBtn").on("click", () => showSection("timingsSection"));
     $("#resultsBtn").on("click", () => showSection("resultsSection"));
+
     // Search Result
     $("#searchForm").on("submit", function (e) {
       e.preventDefault();
@@ -418,40 +662,26 @@
         $("#resultName").text(result.name);
         $("#resultRollNo").text(result.rollNo);
         $("#resultClass").text(result.class);
-        renderSubjectCard(
-          "biology",
-          result.biology[0],
-          result.maxMarks,
-          result.passingMarks,
-          "biologyCard",
-          "biologyProgress",
-          "biologyGrade"
-        );
+        renderSubjectResults(result, 0); // Default to Test 1
         $(".marksheet").removeClass("hidden");
       } else {
         alert("No result found for the given Roll Number.");
       }
     });
+
     // Update Marks on Test Selection Change
     $("input[name='testSelector']").on("change", function () {
       const rollNo = parseInt($("#rollNo").val());
       const result = studentResults.find((student) => student.rollNo === rollNo);
       if (result) {
         const testIndex = parseInt($(this).val()) - 1;
-        renderSubjectCard(
-          "biology",
-          result.biology[testIndex],
-          result.maxMarks,
-          result.passingMarks,
-          "biologyCard",
-          "biologyProgress",
-          "biologyGrade"
-        );
+        renderSubjectResults(result, testIndex);
       }
     });
-    // Show Search Results Section by Default
+
+    // Show Notifications Section by Default
     $(document).ready(function () {
-      showSection("resultsSection");
+      showSection("notificationsSection");
     });
   </script>
 </body>
