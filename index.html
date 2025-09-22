@@ -20,11 +20,78 @@
       padding: 0;
       min-height: 100vh;
     }
+    
+    /* Animated Marquee Styles */
+    .announcement-marquee {
+      background: linear-gradient(45deg, #ff6b6b, #feca57, #1dd1a1, #54a0ff, #c8d6e5);
+      background-size: 400% 400%;
+      color: white;
+      padding: 12px 0;
+      overflow: hidden;
+      white-space: nowrap;
+      position: relative;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      animation: gradientShift 8s ease infinite, blinkEffect 2s ease-in-out infinite;
+      font-weight: 700;
+      font-size: 1.2rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      z-index: 1001;
+    }
+    
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    @keyframes blinkEffect {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+    
+    .marquee-content {
+      display: inline-block;
+      padding-left: 100%;
+      animation: marquee 15s linear infinite;
+      white-space: nowrap;
+    }
+    
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+    
+    .marquee-item {
+      display: inline-block;
+      margin: 0 30px;
+      padding: 8px 20px;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(5px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    
+    .marquee-icon {
+      margin-right: 10px;
+      animation: bounce 1s ease-in-out infinite;
+    }
+    
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+    
     .sidebar {
       height: 100vh;
       width: 250px;
       position: fixed;
-      top: 0;
+      top: 60px; /* Adjusted for top marquee */
       left: 0;
       background: linear-gradient(135deg, #6a11cb, #2575fc);
       color: white;
@@ -58,6 +125,7 @@
     .main-content {
       margin-left: 250px;
       padding: 20px;
+      margin-top: 60px; /* Adjusted for top marquee */
       transition: all 0.3s ease;
     }
     .card {
@@ -82,6 +150,8 @@
       margin-top: 30px;
       color: #4a00e0;
       font-size: 0.9rem;
+      position: relative;
+      z-index: 10;
     }
     .hidden {
       display: none;
@@ -126,13 +196,14 @@
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       transform: scale(1.05);
     }
-    /* Updated Marksheet Styling */
+    /* Standard Marksheet Styling */
     .marksheet {
       background: linear-gradient(135deg, #ffffff, #f9f9f9);
       border-radius: 15px;
       padding: 15px;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
       margin-top: 20px;
+      transition: all 0.3s ease;
     }
     .marksheet-header {
       background: linear-gradient(135deg, #4a00e0, #8e2de2);
@@ -333,15 +404,263 @@
       0% { background-position: 0% 0%; }
       100% { background-position: 200% 200%; }
     }
+
+    /* NEW DESIGN FOR SECOND STUDENT (Aarav Kumar) */
+    .marksheet-special {
+      background: linear-gradient(135deg, #fff1eb, #f0f7ff);
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+      margin-top: 20px;
+      border: 3px solid transparent;
+      background-clip: padding-box;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .marksheet-special::before {
+      content: '';
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      right: -3px;
+      bottom: -3px;
+      background: linear-gradient(45deg, #54a0ff, #c8d6e5, #576574, #8395a7);
+      border-radius: 23px;
+      z-index: -1;
+      animation: rainbowBorder 5s linear infinite;
+    }
+    
+    @keyframes rainbowBorder {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 200% 200%; }
+    }
+    
+    .marksheet-special .marksheet-header {
+      background: linear-gradient(135deg, #54a0ff, #3498db);
+      color: white;
+      padding: 15px;
+      border-radius: 15px 15px 0 0;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+    }
+    
+    .marksheet-special .marksheet-header::after {
+      content: '📚 English Achievement 📚';
+      position: absolute;
+      top: -12px;
+      right: 20px;
+      background: #feca57;
+      color: #2c3e50;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    .marksheet-special .student-info {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      padding: 15px;
+      border-radius: 15px;
+      margin-bottom: 25px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+    
+    .marksheet-special .student-info p {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+    
+    .subject-card {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      margin: 15px 0;
+      transition: all 0.3s ease;
+      border-left: 5px solid #54a0ff;
+    }
+    
+    .subject-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    }
+    
+    .subject-card h3 {
+      color: #2c3e50;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .subject-card h3 i {
+      color: #54a0ff;
+    }
+    
+    .subject-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .detail-item {
+      background: #f8f9fa;
+      padding: 12px;
+      border-radius: 10px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    
+    .detail-item:hover {
+      background: #e9ecef;
+      transform: scale(1.03);
+    }
+    
+    .detail-item .label {
+      font-size: 0.85rem;
+      color: #6c757d;
+      font-weight: 500;
+    }
+    
+    .detail-item .value {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #2c3e50;
+      margin-top: 5px;
+    }
+    
+    .percentage-display {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: #f8f9fa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      margin: 0 auto;
+      position: relative;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .percentage-circle {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%, 50% 0%);
+      background: conic-gradient(#54a0ff 0%, #c8d6e5 100%);
+      transform: rotate(-90deg);
+    }
+    
+    .percentage-text {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #2c3e50;
+      z-index: 2;
+    }
+    
+    .percentage-label {
+      font-size: 0.8rem;
+      color: #6c757d;
+      z-index: 2;
+    }
+    
+    .status-display {
+      text-align: center;
+      margin-top: 20px;
+    }
+    
+    .status-badge {
+      padding: 8px 20px;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      display: inline-block;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      animation: pulse 2s infinite;
+    }
+    
+    .status-pass {
+      background: linear-gradient(135deg, #27ae60, #2ecc71);
+      color: white;
+    }
+    
+    .status-fail {
+      background: linear-gradient(135deg, #e74c3c, #c0392b);
+      color: white;
+    }
+    
+    .achievement-message {
+      text-align: center;
+      margin-top: 25px;
+      padding: 15px;
+      background: linear-gradient(135deg, #feca57, #ff9ff3);
+      border-radius: 15px;
+      color: #2c3e50;
+      font-weight: 600;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    .quote-box {
+      background: linear-gradient(135deg, #54a0ff, #3498db);
+      color: white;
+      padding: 15px;
+      border-radius: 15px;
+      margin-top: 25px;
+      text-align: center;
+      font-style: italic;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .quote-box::before {
+      content: """;
+      position: absolute;
+      top: -20px;
+      left: 10px;
+      font-size: 5rem;
+      opacity: 0.2;
+      font-family: serif;
+    }
+    
+    /* Bottom Marquee - same as top but with different positioning */
+    .bottom-marquee {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      left: 0;
+      animation: gradientShift 8s ease infinite, blinkEffect 2s ease-in-out infinite;
+    }
+    
     /* Responsive Design */
     @media (max-width: 768px) {
       .sidebar {
         width: 100%;
         height: auto;
         position: relative;
+        top: 60px;
       }
       .main-content {
         margin-left: 0;
+        margin-top: 120px; /* Adjusted for both marquees */
       }
       .student-info {
         flex-direction: column;
@@ -397,6 +716,33 @@
       .progress-container {
         width: 100%;
       }
+      
+      /* Responsive for special marksheet */
+      .marksheet-special {
+        padding: 15px;
+      }
+      
+      .subject-card {
+        padding: 15px;
+      }
+      
+      .percentage-display {
+        width: 100px;
+        height: 100px;
+      }
+      
+      .percentage-text {
+        font-size: 1.5rem;
+      }
+      
+      .detail-item .value {
+        font-size: 1.1rem;
+      }
+      
+      .announcement-marquee {
+        font-size: 1rem;
+        padding: 8px 0;
+      }
     }
     @media (max-width: 480px) {
       .test-selector label {
@@ -427,10 +773,39 @@
         font-size: 0.85rem;
         padding: 5px 12px;
       }
+      .announcement-marquee {
+        font-size: 0.9rem;
+        padding: 6px 0;
+      }
+      .marquee-item {
+        padding: 6px 15px;
+        margin: 0 15px;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Top Animated Marquee -->
+  <div class="announcement-marquee">
+    <div class="marquee-content">
+      <span class="marquee-item">
+        <i class="fas fa-bell marquee-icon"></i> 1st Test Result is Declared!
+      </span>
+      <span class="marquee-item">
+        <i class="fas fa-trophy marquee-icon"></i> 1st Test Result is Declared!
+      </span>
+      <span class="marquee-item">
+        <i class="fas fa-graduation-cap marquee-icon"></i> 1st Test Result is Declared!
+      </span>
+      <span class="marquee-item">
+        <i class="fas fa-bell marquee-icon"></i> 1st Test Result is Declared!
+      </span>
+      <span class="marquee-item">
+        <i class="fas fa-trophy marquee-icon"></i> 1st Test Result is Declared!
+      </span>
+    </div>
+  </div>
+
   <!-- Sidebar -->
   <div class="sidebar">
     <h4><i class="fas fa-graduation-cap"></i> Student Hub</h4>
@@ -448,8 +823,8 @@
         <div class="text-center mb-4">
           <i class="fas fa-user-circle fa-5x" style="color: #4a00e0;"></i>
         </div>
-        <p><strong>Name:</strong> <span id="studentName">Shiva</span></p>
-        <p><strong>Roll Number:</strong> <span id="studentRollNo">7374</span></p>
+        <p><strong>Name:</strong> <span id="studentName">KAMAL</span></p>
+        <p><strong>Roll Number:</strong> <span id="studentRollNo">7375</span></p>
         <p><strong>Class:</strong> <span id="studentClass">11th</span></p>
         <p><strong>Age:</strong> <span id="studentAge">16</span></p>
         <p><strong>Email:</strong> <span id="studentEmail">sk@example.com</span></p>
@@ -460,45 +835,21 @@
     <div id="notificationsSection" class="card">
       <div class="card-header">Notifications</div>
       <div class="card-body">
-
         <ul class="notification-list">
-            
             <li class="notification-item">
                 <span class="notification-icon"><i class="fas fa-calendar-alt"></i></span>
                 <div class="notification-content">
                   <span class="badge notification-badge">NEW</span>
-                  <p>9th TEST RESULT DECLARED!</p>
+                  <p>1st TEST RESULT IS DECLARED!</p>
                 </div>
               </li>
-          <!-- <li class="notification-item">
-            <span class="notification-icon"><i class="fas fa-clock"></i></span>
-            <div class="notification-content">
-              <span class="badge notification-badge">URGENT</span>
-              <p>Today Test Timing: 4:15 PM</p>
-            </div>
-          </li> -->
-          <!-- <li class="notification-item">
-            <span class="notification-icon"><i class="fas fa-calendar-alt"></i></span>
-            <div class="notification-content">
-              <span class="badge notification-badge">NEW</span>
-              <p>8th TEST RESULT DECLARED!</p>
-            </div>
-          </li> -->
-          <!-- <li class="notification-item">
-            <span class="notification-icon"><i class="fas fa-clock"></i></span>
-            <div class="notification-content">
-              <span class="badge notification-badge">UPDATE</span>
-              <p>Class timings updated for next week</p>
-            </div>
-          </li> -->
           <li class="notification-item">
             <span class="notification-icon"><i class="fas fa-book"></i></span>
             <div class="notification-content">
               <span class="badge notification-badge">INFO</span>
-              <p>Tuition classes start from 4 Feb 2025</p>
+              <p>2nd TEST WILL BE HELD ON SUNDAY </p>
             </div>
           </li>
-         
         </ul>
       </div>
     </div>
@@ -515,8 +866,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td>Holiday</td><td>Biology</td><td>2 PM - 3 PM</td></tr>
-            <tr><td>Other Days</td><td>Biology</td><td>5 PM & 7 PM</td></tr>
+            <tr><td>-------</td><td>-------</td><td>===</td></tr>
+            <tr><td>Other Days</td><td>ENGLISH</td><td>3 PM & 4 PM</td></tr>
             <tr><td>Sundays</td><td>Tests</td><td>1 PM - 2 PM</td></tr>
           </tbody>
         </table>
@@ -537,7 +888,8 @@
             <button type="submit" class="btn btn-primary">Search Result</button>
           </div>
         </form>
-        <div class="marksheet mt-4 hidden">
+        <!-- Standard Marksheet (for first student) -->
+        <div id="standardMarksheet" class="marksheet mt-4 hidden">
           <div class="marksheet-header">Marksheet</div>
           <div class="marksheet-body">
             <div class="student-info">
@@ -545,14 +897,8 @@
               <p><strong>Roll Number:</strong> <span id="resultRollNo"></span></p>
               <p><strong>Class:</strong> <span id="resultClass"></span></p>
             </div>
-            <div class="test-selector text-center">
-              <input type="radio" id="test1" name="testSelector" value="1" checked><label for="test1">Test 1</label>
-              <input type="radio" id="test2" name="testSelector" value="2"><label for="test2">Test 2</label>
-              <input type="radio" id="test3" name="testSelector" value="3"><label for="test3">Test 3</label>
-              <input type="radio" id="test4" name="testSelector" value="4"><label for="test4">Test 4</label>
-              <input type="radio" id="test5" name="testSelector" value="5"><label for="test5">Test 5</label>
-              <input type="radio" id="test8" name="testSelector" value="6"><label for="test8">Test 8</label>
-              <input type="radio" id="test9" name="testSelector" value="7"><label for="test9">Test 9</label>
+            <div class="test-selector text-center" id="testSelectorContainer">
+              <!-- Test selector buttons will be generated dynamically -->
             </div>
             <table class="subject-table mt-4">
               <thead>
@@ -573,9 +919,86 @@
             </table>
           </div>
         </div>
+        
+        <!-- Special Marksheet (for second student) -->
+        <div id="specialMarksheet" class="marksheet-special mt-4 hidden">
+          <div class="marksheet-header">English Achievement</div>
+          <div class="marksheet-body">
+            <div class="student-info">
+              <p><strong>Name:</strong> <span id="specialResultName"></span></p>
+              <p><strong>Roll Number:</strong> <span id="specialResultRollNo"></span></p>
+              <p><strong>Class:</strong> <span id="specialResultClass"></span></p>
+            </div>
+            
+            <div class="subject-card">
+              <h3><i class="fas fa-book"></i> English</h3>
+              
+              <div class="subject-details">
+                <div class="detail-item">
+                  <div class="label">Marks Obtained</div>
+                  <div class="value" id="specialMarksObtained">57</div>
+                </div>
+                <div class="detail-item">
+                  <div class="label">Max Marks</div>
+                  <div class="value" id="specialMaxMarks">70</div>
+                </div>
+                <div class="detail-item">
+                  <div class="label">Passing Marks</div>
+                  <div class="value" id="specialPassingMarks">54</div>
+                </div>
+                <div class="detail-item">
+                  <div class="label">Percentage</div>
+                  <div class="value" id="specialPercentage">81.43%</div>
+                </div>
+              </div>
+              
+              <div class="text-center">
+                <div class="percentage-display">
+                  <div class="percentage-circle" id="specialPercentageCircle"></div>
+                  <div class="percentage-text" id="specialPercentageText">81%</div>
+                  <div class="percentage-label">Score</div>
+                </div>
+              </div>
+              
+              <div class="status-display">
+                <span class="status-badge status-pass" id="specialStatus">PASS</span>
+              </div>
+              
+              <div class="achievement-message">
+                Congratulations! You've successfully passed the English examination.
+              </div>
+            </div>
+            
+            <div class="quote-box">
+              __________________________________________________________________________________________________________________________
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+  
+  <!-- Bottom Animated Marquee -->
+  <div class="announcement-marquee bottom-marquee">
+    <div class="marquee-content">
+      <span class="marquee-item">
+        <i class="fas fa-bell marquee-icon"></i> 1st Test Result is Declared!
+      </span>
+      <span class="marquee-item">
+        <i class="fas fa-trophy marquee-icon"></i> 1st Test Result is Declared!
+      </span>
+      <span class="marquee-item">
+        <i class="fas fa-graduation-cap marquee-icon"></i> 1st Test Result is Declared!
+      </span>
+      <span class="marquee-item">
+        <i class="fas fa-bell marquee-icon"></i> 1st Test Result is Declared!
+      </span>
+      <span class="marquee-item">
+        <i class="fas fa-trophy marquee-icon"></i> 1st Test Result is Declared!
+      </span>
+    </div>
+  </div>
+
   <!-- Footer -->
   <div class="footer">
     © 2025 Developed by MR Suraj Singh. All rights reserved.
@@ -600,9 +1023,17 @@
           { marks: 30, maxMarks: 50, passingMarks: 39 }   // Test 9
         ]
       },
+      {
+        rollNo: 7375,
+        name: "KAMAL KUMAR",
+        class: "11th",
+        ENGLISH: [
+          { marks: 57, maxMarks: 70, passingMarks: 54 } // Only Test 1
+        ]
+      }
     ];
 
-    // Function to calculate grade
+    // Function to calculate grade (not used for second student)
     function getGrade(percentage) {
       if (percentage >= 90) return "A+";
       else if (percentage >= 80) return "A";
@@ -613,8 +1044,8 @@
       else return "F";
     }
 
-    // Function to render subject results
-    function renderSubjectResults(result, testIndex) {
+    // Function to render subject results for first student (standard design)
+    function renderStandardSubjectResults(result, testIndex) {
       const test = result.biology[testIndex];
       const percentage = (test.marks / test.maxMarks) * 100;
       const status = test.marks >= test.passingMarks ? "Pass" : "Fail";
@@ -640,6 +1071,60 @@
       `;
       $("#subjectResults").html(subjectRow);
     }
+    
+    // Function to render special marksheet for second student
+    function renderSpecialMarksheet(result) {
+      // Fixed: Changed from result.english[0] to result.ENGLISH[0]
+      const test = result.ENGLISH[0]; // Only one test for this student
+      const percentage = (test.marks / test.maxMarks) * 100;
+      const status = test.marks >= test.passingMarks ? "PASS" : "FAIL";
+      
+      // Update student info
+      $("#specialResultName").text(result.name);
+      $("#specialResultRollNo").text(result.rollNo);
+      $("#specialResultClass").text(result.class);
+      
+      // Update test details
+      $("#specialMarksObtained").text(test.marks);
+      $("#specialMaxMarks").text(test.maxMarks);
+      $("#specialPassingMarks").text(test.passingMarks);
+      $("#specialPercentage").text(percentage.toFixed(2) + "%");
+      $("#specialPercentageText").text(Math.round(percentage) + "%");
+      $("#specialStatus").text(status);
+      
+      // Set the percentage circle
+      const percentageCircle = document.getElementById('specialPercentageCircle');
+      percentageCircle.style.background = `conic-gradient(#54a0ff ${percentage}%, #f8f9fa ${percentage}%)`;
+      
+      // Update status badge class
+      if (status === "PASS") {
+        $("#specialStatus").removeClass('status-fail').addClass('status-pass');
+      } else {
+        $("#specialStatus").removeClass('status-pass').addClass('status-fail');
+      }
+    }
+
+    // Function to generate test selector buttons based on number of tests
+    function generateTestSelectorButtons(testCount) {
+      let testSelectorHTML = '';
+      for (let i = 0; i < testCount; i++) {
+        const testNumber = i + 1;
+        const testValue = i + 1;
+        const isChecked = i === 0 ? 'checked' : '';
+        
+        // For the first student, we have tests 1,2,3,4,5,8,9
+        let displayTestNumber = testNumber;
+        if (testCount === 7 && testNumber > 5) {
+          displayTestNumber = testNumber === 6 ? 8 : 9;
+        }
+        
+        testSelectorHTML += `
+          <input type="radio" id="test${testNumber}" name="testSelector" value="${testValue}" ${isChecked}>
+          <label for="test${testNumber}">Test ${displayTestNumber}</label>
+        `;
+      }
+      $("#testSelectorContainer").html(testSelectorHTML);
+    }
 
     // Function to toggle sections
     function showSection(sectionId) {
@@ -659,23 +1144,36 @@
       const rollNo = parseInt($("#rollNo").val());
       const result = studentResults.find((student) => student.rollNo === rollNo);
       if (result) {
-        $("#resultName").text(result.name);
-        $("#resultRollNo").text(result.rollNo);
-        $("#resultClass").text(result.class);
-        renderSubjectResults(result, 0); // Default to Test 1
-        $(".marksheet").removeClass("hidden");
+        // Hide both marksheet types first
+        $("#standardMarksheet").addClass("hidden");
+        $("#specialMarksheet").addClass("hidden");
+        
+        if (rollNo === 7375) { // Second student - show special marksheet
+          renderSpecialMarksheet(result);
+          $("#specialMarksheet").removeClass("hidden");
+        } else { // First student - show standard marksheet
+          $("#resultName").text(result.name);
+          $("#resultRollNo").text(result.rollNo);
+          $("#resultClass").text(result.class);
+          
+          // Generate test selector buttons based on how many tests the student has
+          generateTestSelectorButtons(result.biology.length);
+          
+          renderStandardSubjectResults(result, 0); // Default to first test
+          $("#standardMarksheet").removeClass("hidden");
+        }
       } else {
         alert("No result found for the given Roll Number.");
       }
     });
 
-    // Update Marks on Test Selection Change
-    $("input[name='testSelector']").on("change", function () {
+    // Update Marks on Test Selection Change (for first student only)
+    $(document).on("change", "input[name='testSelector']", function () {
       const rollNo = parseInt($("#rollNo").val());
       const result = studentResults.find((student) => student.rollNo === rollNo);
-      if (result) {
+      if (result && rollNo !== 7375) { // Only for first student
         const testIndex = parseInt($(this).val()) - 1;
-        renderSubjectResults(result, testIndex);
+        renderStandardSubjectResults(result, testIndex);
       }
     });
 
