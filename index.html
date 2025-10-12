@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,83 +6,90 @@
   <title>StudentHub | Results</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --primary: #ff6b6b;
-      --primary-light: #ff8e8e;
-      --secondary: #4ecdc4;
-      --accent: #a0c4ff;
-      --success: #9bf6ff;
-      --warning: #ffd166;
-      --danger: #ff6b6b;
-      --bg: #fdfcfe;
-      --card-bg: rgba(255, 255, 255, 0.85);
-      --text: #2d3748;
-      --text-muted: #718096;
-      --border: rgba(192, 202, 220, 0.4);
-      --shadow: 0 10px 30px rgba(255, 107, 107, 0.12);
+      --primary: #ff2d75;
+      --primary-light: #ff6b9d;
+      --secondary: #4d00ff;
+      --accent: #00f0ff;
+      --success: #00ff9d;
+      --warning: #ffcc00;
+      --danger: #ff2d75;
+      --bg: #0f0c29;
+      --card-bg: rgba(25, 23, 45, 0.85);
+      --text: #ffffff;
+      --text-muted: #a0a0c0;
+      --border: rgba(255, 255, 255, 0.1);
+      --shadow: 0 10px 30px rgba(255, 45, 117, 0.3);
       --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-
     body {
-      font-family: 'Manrope', sans-serif;
-      background: linear-gradient(135deg, #fdfcfe 0%, #f8f9ff 100%);
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
       color: var(--text);
       min-height: 100vh;
       overflow-x: hidden;
       position: relative;
     }
-
-    body::before {
-      content: "";
+    /* Animated background elements */
+    .bg-element {
       position: absolute;
-      top: -100px;
-      right: -100px;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.3;
+      z-index: -1;
+    }
+    .bg-element-1 {
       width: 300px;
       height: 300px;
-      border-radius: 50%;
-      background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
-      opacity: 0.08;
-      z-index: -1;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      top: 10%;
+      left: 5%;
+      animation: float 15s infinite ease-in-out;
     }
-
-    body::after {
-      content: "";
-      position: absolute;
-      bottom: -150px;
-      left: -100px;
+    .bg-element-2 {
       width: 400px;
       height: 400px;
-      border-radius: 50%;
-      background: radial-gradient(circle, var(--secondary) 0%, transparent 70%);
-      opacity: 0.08;
-      z-index: -1;
+      background: linear-gradient(135deg, var(--secondary), var(--success));
+      bottom: 10%;
+      right: 5%;
+      animation: float 18s infinite ease-in-out reverse;
     }
-
+    .bg-element-3 {
+      width: 200px;
+      height: 200px;
+      background: linear-gradient(135deg, var(--warning), var(--primary));
+      top: 60%;
+      left: 20%;
+      animation: float 12s infinite ease-in-out;
+    }
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0); }
+      25% { transform: translate(20px, 20px); }
+      50% { transform: translate(-20px, 20px); }
+      75% { transform: translate(20px, -20px); }
+    }
     .header {
-      background: white;
+      background: rgba(15, 12, 41, 0.7);
       backdrop-filter: blur(12px);
       padding: 18px 24px;
       position: sticky;
       top: 0;
       z-index: 100;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
       border-bottom: 1px solid var(--border);
     }
-
     .logo {
       display: flex;
       align-items: center;
       gap: 16px;
     }
-
     .logo-icon {
       width: 52px;
       height: 52px;
@@ -94,24 +100,40 @@
       justify-content: center;
       color: white;
       font-size: 1.5rem;
-      box-shadow: 0 6px 16px rgba(255, 107, 107, 0.3);
+      box-shadow: 0 0 25px rgba(255, 45, 117, 0.6);
       animation: pulse 2s infinite;
+      position: relative;
+      overflow: hidden;
     }
-
+    .logo-icon::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%);
+      transform: rotate(30deg);
+      animation: shine 3s infinite;
+    }
     @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.4); }
-      70% { box-shadow: 0 0 0 12px rgba(255, 107, 107, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0); }
+      0% { box-shadow: 0 0 0 0 rgba(255, 45, 117, 0.7); }
+      70% { box-shadow: 0 0 0 15px rgba(255, 45, 117, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 45, 117, 0); }
     }
-
+    @keyframes shine {
+      0% { transform: rotate(30deg) translateX(-100%); }
+      100% { transform: rotate(30deg) translateX(100%); }
+    }
     .logo-text {
+      font-family: 'Montserrat', sans-serif;
       font-weight: 800;
-      font-size: 2rem;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      font-size: 2.2rem;
+      background: linear-gradient(135deg, var(--accent), var(--success));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
     }
-
     .main-container {
       display: flex;
       flex-direction: column;
@@ -120,14 +142,12 @@
       padding: 20px;
       gap: 24px;
     }
-
     @media (min-width: 992px) {
       .main-container {
         flex-direction: row;
         padding: 28px;
       }
     }
-
     .nav-container {
       background: var(--card-bg);
       backdrop-filter: blur(12px);
@@ -135,8 +155,19 @@
       padding: 32px 0;
       box-shadow: var(--shadow);
       border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
     }
-
+    .nav-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(255, 45, 117, 0.1), rgba(77, 0, 255, 0.1));
+      z-index: -1;
+    }
     @media (min-width: 992px) {
       .nav-container {
         width: 270px;
@@ -145,22 +176,21 @@
         height: fit-content;
       }
     }
-
     .nav-title {
       padding: 0 32px 24px;
+      font-family: 'Montserrat', sans-serif;
       font-weight: 800;
-      font-size: 1.4rem;
-      color: var(--primary);
+      font-size: 1.6rem;
+      color: var(--accent);
       display: flex;
       align-items: center;
       gap: 14px;
+      text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
     }
-
     .nav-menu {
       list-style: none;
       padding: 0 16px;
     }
-
     .nav-item {
       padding: 18px 32px;
       cursor: pointer;
@@ -174,8 +204,8 @@
       transition: var(--transition);
       position: relative;
       overflow: hidden;
+      border: 1px solid transparent;
     }
-
     .nav-item::before {
       content: "";
       position: absolute;
@@ -183,37 +213,47 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(135deg, rgba(255,107,107,0.1), rgba(78,205,196,0.1));
+      background: linear-gradient(135deg, rgba(255,45,117,0.3), rgba(77,0,255,0.3));
       opacity: 0;
       transition: var(--transition);
       z-index: -1;
     }
-
+    .nav-item::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 100%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      transition: width 0.4s ease;
+      z-index: -1;
+    }
     .nav-item:hover::before,
     .nav-item.active::before {
       opacity: 1;
     }
-
+    .nav-item:hover::after,
+    .nav-item.active::after {
+      width: 100%;
+    }
     .nav-item i {
       font-size: 1.4rem;
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-
     .content-area {
       display: none;
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
-
     .content-area.active {
       display: block;
       opacity: 1;
       transform: translateY(0);
     }
-
     .section {
       background: var(--card-bg);
       backdrop-filter: blur(12px);
@@ -222,25 +262,33 @@
       box-shadow: var(--shadow);
       border: 1px solid var(--border);
       animation: fadeInUp 0.6s ease forwards;
+      position: relative;
+      overflow: hidden;
     }
-
+    .section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent), var(--success));
+    }
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
     .section-header {
       display: flex;
       align-items: center;
       gap: 20px;
       margin-bottom: 32px;
     }
-
     .section-icon {
       width: 64px;
       height: 64px;
       border-radius: 20px;
-      background: linear-gradient(135deg, rgba(255,107,107,0.15), rgba(78,205,196,0.15));
+      background: linear-gradient(135deg, rgba(255,45,117,0.3), rgba(77,0,255,0.3));
       display: flex;
       align-items: center;
       justify-content: center;
@@ -249,265 +297,404 @@
       -webkit-background-clip: text;
       color: transparent;
       background-image: linear-gradient(135deg, var(--primary), var(--secondary));
+      box-shadow: 0 0 20px rgba(255, 45, 117, 0.3);
     }
-
     .section-title {
+      font-family: 'Montserrat', sans-serif;
       font-weight: 800;
-      font-size: 2rem;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      font-size: 2.2rem;
+      background: linear-gradient(135deg, var(--accent), var(--success));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
     }
-
     /* === Notifications === */
     .notification-list {
       display: flex;
       flex-direction: column;
       gap: 24px;
     }
-
     .notification-card {
-      background: white;
+      background: rgba(30, 28, 50, 0.7);
       border-radius: 24px;
       padding: 28px;
       display: flex;
       gap: 24px;
       border-left: 5px solid var(--primary);
       transition: var(--transition);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+      position: relative;
+      overflow: hidden;
     }
-
+    .notification-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 45, 117, 0.1));
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .notification-card:hover::before {
+      opacity: 1;
+    }
     .notification-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 24px rgba(0,0,0,0.1);
+      box-shadow: 0 10px 24px rgba(255, 45, 117, 0.4);
     }
-
     .notification-icon {
       width: 60px;
       height: 60px;
       border-radius: 18px;
-      background: linear-gradient(135deg, rgba(255,107,107,0.2), rgba(78,205,196,0.2));
+      background: linear-gradient(135deg, rgba(255,45,117,0.3), rgba(77,0,255,0.3));
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 1.6rem;
-      color: var(--primary);
+      color: var(--accent);
+      box-shadow: 0 0 15px rgba(255, 45, 117, 0.3);
     }
-
     .notification-title {
       font-weight: 700;
-      font-size: 1.25rem;
+      font-size: 1.3rem;
       margin-bottom: 10px;
       display: flex;
       align-items: center;
       gap: 14px;
       flex-wrap: wrap;
     }
-
     .notification-badge {
-      background: var(--warning);
+      background: linear-gradient(135deg, var(--warning), #ff9900);
       color: var(--text);
       padding: 6px 18px;
       border-radius: 30px;
       font-size: 0.9rem;
       font-weight: 700;
+      box-shadow: 0 0 10px rgba(255, 204, 0, 0.4);
     }
-
     .notification-text {
       color: var(--text-muted);
       line-height: 1.6;
       font-size: 1.05rem;
     }
-
     /* === Marksheet Redesign === */
     .marksheet-card {
-      background: white;
+      background: rgba(30, 28, 50, 0.7);
       border-radius: 28px;
       overflow: hidden;
       margin-top: 28px;
       box-shadow: var(--shadow);
       border: 1px solid var(--border);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      position: relative;
     }
-
+    .marksheet-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent), var(--success));
+    }
+    .marksheet-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 40px rgba(255, 45, 117, 0.4);
+    }
     .marksheet-header {
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: white;
       padding: 32px;
       text-align: center;
+      position: relative;
+      overflow: hidden;
     }
-
+    .marksheet-header::after {
+      content: '';
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .marksheet-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 2rem;
+      text-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    }
     .student-info-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
       gap: 24px;
       padding: 32px;
-      background: #fbfdff;
+      background: rgba(20, 18, 35, 0.6);
     }
-
     .info-item {
       text-align: center;
     }
-
     .info-label {
       font-size: 0.95rem;
       color: var(--text-muted);
       display: block;
       margin-bottom: 8px;
     }
-
     .info-value {
       font-weight: 700;
       font-size: 1.3rem;
       color: var(--text);
+      background: linear-gradient(135deg, var(--accent), var(--success));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-
-    .test-selector {
+    /* Subject Selector */
+    .subject-selector {
       display: flex;
       justify-content: center;
-      gap: 14px;
-      flex-wrap: wrap;
+      gap: 20px;
       padding: 0 24px 28px;
+      flex-wrap: wrap;
     }
-
-    .test-btn {
-      padding: 12px 26px;
+    .subject-btn {
+      padding: 14px 32px;
       border-radius: 50px;
-      background: #f8fafc;
+      background: rgba(20, 18, 35, 0.6);
       border: 2px solid var(--border);
       color: var(--text);
       font-weight: 700;
-      font-size: 1.05rem;
+      font-size: 1.15rem;
       cursor: pointer;
       transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      min-width: 160px;
+      text-align: center;
     }
-
-    .test-btn:hover,
-    .test-btn.active {
+    .subject-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background: linear-gradient(135deg, var(--primary), var(--secondary));
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .subject-btn:hover,
+    .subject-btn.active {
+      background: transparent;
       color: white;
       border-color: transparent;
       transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(255, 45, 117, 0.5);
     }
-
+    .subject-btn:hover::before,
+    .subject-btn.active::before {
+      opacity: 1;
+    }
+    /* Subject Section */
+    .subject-section {
+      display: none;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .subject-section.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
     /* Subject Card */
     .subject-card {
-      background: #fbfdff;
+      background: rgba(20, 18, 35, 0.6);
       border-radius: 24px;
       padding: 32px;
       margin-top: 28px;
-      border-top: 5px solid var(--secondary);
+      border-top: 5px solid var(--accent);
       transition: var(--transition);
+      position: relative;
+      overflow: hidden;
     }
-
+    .subject-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--primary), var(--secondary));
+    }
     .subject-card:hover {
       transform: translateY(-6px);
-      box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+      box-shadow: 0 12px 28px rgba(255, 45, 117, 0.3);
     }
-
     .subject-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 24px;
     }
-
     .subject-name {
+      font-family: 'Montserrat', sans-serif;
       font-weight: 800;
-      font-size: 1.6rem;
+      font-size: 1.8rem;
       color: var(--text);
+      background: linear-gradient(135deg, var(--accent), var(--success));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-
     .subject-status {
       padding: 10px 24px;
       border-radius: 50px;
       font-weight: 700;
       font-size: 1rem;
     }
-
     .status-pass {
-      background: rgba(155, 246, 255, 0.3);
-      color: #00b4d8;
+      background: linear-gradient(135deg, rgba(0,255,157,0.2), rgba(0,200,120,0.2));
+      color: var(--success);
+      border: 1px solid rgba(0,255,157,0.3);
     }
-
     .status-fail {
-      background: rgba(255, 107, 107, 0.2);
+      background: linear-gradient(135deg, rgba(255,45,117,0.2), rgba(200,30,90,0.2));
       color: var(--danger);
+      border: 1px solid rgba(255,45,117,0.3);
     }
-
     .marks-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
       gap: 24px;
       margin-bottom: 28px;
     }
-
     .mark-item {
-      background: white;
+      background: rgba(30, 28, 50, 0.7);
       padding: 24px;
       border-radius: 20px;
       text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
       transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border);
     }
-
+    .mark-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s ease;
+    }
+    .mark-item:hover::before {
+      transform: scaleX(1);
+    }
     .mark-item:hover {
       transform: translateY(-4px);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+      box-shadow: 0 6px 16px rgba(255, 45, 117, 0.4);
     }
-
     .mark-label {
       font-size: 0.95rem;
       color: var(--text-muted);
       margin-bottom: 10px;
     }
-
     .mark-value {
       font-weight: 800;
       font-size: 1.5rem;
       color: var(--text);
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      background: linear-gradient(135deg, var(--accent), var(--success));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-
     .progress-container {
       height: 12px;
-      background: #e2e8f0;
+      background: rgba(255, 255, 255, 0.1);
       border-radius: 6px;
       overflow: hidden;
+      margin-top: 16px;
     }
-
     .progress-bar {
       height: 100%;
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       border-radius: 6px;
       animation: grow 1s ease forwards;
+      box-shadow: 0 0 10px rgba(255, 45, 117, 0.3);
     }
-
     @keyframes grow {
       from { width: 0; }
       to { width: var(--width); }
     }
-
     .grade-badge {
       display: inline-block;
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: white;
       padding: 12px 28px;
       border-radius: 50px;
+      font-family: 'Montserrat', sans-serif;
       font-weight: 800;
-      font-size: 1.2rem;
+      font-size: 1.4rem;
       margin-top: 20px;
-      box-shadow: 0 6px 16px rgba(255, 107, 107, 0.3);
+      box-shadow: 0 0 25px rgba(255, 45, 117, 0.6);
+      animation: float 3s ease-in-out infinite;
+      position: relative;
+      overflow: hidden;
     }
-
+    .grade-badge::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 200%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      animation: shine 2s infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    /* Test Info */
+    .test-info {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .test-info-item {
+      text-align: center;
+      padding: 12px 20px;
+      background: rgba(30, 28, 50, 0.5);
+      border-radius: 16px;
+      min-width: 140px;
+    }
+    .test-info-label {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .test-info-value {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--accent);
+    }
     /* === Search === */
     .search-box {
       position: relative;
       max-width: 100%;
       margin: 0 auto 32px;
     }
-
     .search-input {
       width: 100%;
       padding: 18px 24px 18px 64px;
@@ -516,13 +703,16 @@
       font-size: 1.15rem;
       outline: none;
       transition: var(--transition);
+      background: rgba(20, 18, 35, 0.6);
+      color: white;
     }
-
+    .search-input::placeholder {
+      color: var(--text-muted);
+    }
     .search-input:focus {
       border-color: var(--primary);
-      box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.25);
+      box-shadow: 0 0 0 4px rgba(255, 45, 117, 0.4);
     }
-
     .search-icon {
       position: absolute;
       left: 26px;
@@ -531,7 +721,6 @@
       color: var(--text-muted);
       font-size: 1.4rem;
     }
-
     .search-btn {
       display: block;
       width: 100%;
@@ -542,76 +731,35 @@
       color: white;
       border: none;
       border-radius: 20px;
+      font-family: 'Montserrat', sans-serif;
       font-weight: 700;
       font-size: 1.25rem;
       cursor: pointer;
       transition: var(--transition);
-      box-shadow: 0 6px 16px rgba(255, 107, 107, 0.3);
+      box-shadow: 0 0 25px rgba(255, 45, 117, 0.6);
+      position: relative;
+      overflow: hidden;
     }
-
+    .search-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    .search-btn:hover::before {
+      left: 100%;
+    }
     .search-btn:hover {
       transform: translateY(-4px) scale(1.02);
-      box-shadow: 0 10px 24px rgba(255, 107, 107, 0.4);
+      box-shadow: 0 0 30px rgba(255, 45, 117, 0.8);
     }
-
-    /* Mobile Nav */
-    .mobile-nav {
-      display: flex;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: white;
-      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
-      padding: 16px 0;
-      z-index: 100;
-    }
-
-    .mobile-nav-items {
-      display: flex;
-      justify-content: space-around;
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .mobile-nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      padding: 14px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--text-muted);
-      transition: var(--transition);
-    }
-
-    .mobile-nav-item.active,
-    .mobile-nav-item:hover {
-      color: var(--primary);
-      background: rgba(255, 107, 107, 0.1);
-    }
-
-    .mobile-nav-item i {
-      font-size: 1.7rem;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    @media (min-width: 992px) {
-      .mobile-nav {
-        display: none;
-      }
-    }
-
     .hidden {
       display: none !important;
     }
-
     footer {
       text-align: center;
       padding: 36px 0;
@@ -620,9 +768,85 @@
       margin-top: auto;
       border-top: 1px solid var(--border);
     }
+    /* Test Selector Buttons */
+    .test-selector-container {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 20px 0;
+    }
+    .test-selector-btn {
+      padding: 12px 24px;
+      border-radius: 50px;
+      background: rgba(20, 18, 35, 0.6);
+      border: 2px solid var(--border);
+      color: var(--text);
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .test-selector-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .test-selector-btn:hover,
+    .test-selector-btn.active {
+      background: transparent;
+      color: white;
+      border-color: transparent;
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 0 20px rgba(255, 45, 117, 0.5);
+    }
+    .test-selector-btn:hover::before,
+    .test-selector-btn.active::before {
+      opacity: 1;
+    }
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .student-info-grid,
+      .marks-grid {
+        grid-template-columns: 1fr;
+      }
+      .subject-selector,
+      .test-selector-container,
+      .test-info {
+        flex-direction: column;
+        align-items: center;
+      }
+      .subject-btn,
+      .test-selector-btn,
+      .test-info-item {
+        width: 100%;
+        max-width: 300px;
+      }
+      .notification-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .notification-icon {
+        align-self: center;
+        margin-bottom: 16px;
+      }
+    }
   </style>
 </head>
 <body>
+  <!-- Background elements -->
+  <div class="bg-element bg-element-1"></div>
+  <div class="bg-element bg-element-2"></div>
+  <div class="bg-element bg-element-3"></div>
   <!-- Header -->
   <header class="header">
     <div class="logo">
@@ -630,7 +854,6 @@
       <div class="logo-text">StudentHub</div>
     </div>
   </header>
-
   <div class="main-container">
     <!-- Navigation -->
     <nav class="nav-container">
@@ -642,7 +865,6 @@
         <li class="nav-item" data-target="results"><i class="fas fa-search"></i> Results</li>
       </ul>
     </nav>
-
     <!-- Content -->
     <main class="content">
       <!-- Notifications -->
@@ -657,26 +879,35 @@
               <div class="notification-icon"><i class="fas fa-calendar-alt"></i></div>
               <div class="notification-content">
                 <div class="notification-title">
-                  <span>1st TEST RESULT IS DECLARED!</span>
+                  <span>TESTs RESULTs are  DECLARED!</span>
                   <span class="notification-badge">NEW</span>
                 </div>
-                <p class="notification-text">Your results for the first test are now available.</p>
+                <p class="notification-text">Your results for the  tests are now available.</p>
               </div>
             </div>
             <div class="notification-card">
               <div class="notification-icon"><i class="fas fa-book"></i></div>
               <div class="notification-content">
                 <div class="notification-title">
-                  <span>2nd TEST WILL BE HELD ON SUNDAY</span>
+                  <span>Next TEST WILL BE HELD ON SUNDAY</span>
                   <span class="notification-badge">INFO</span>
                 </div>
                 <p class="notification-text">Prepare for the upcoming test on Sunday at 1 PM.</p>
               </div>
             </div>
+            <div class="notification-card">
+              <div class="notification-icon"><i class="fas fa-trophy"></i></div>
+              <div class="notification-content">
+                <div class="notification-title">
+                  <span>1st TEST RESULTS PUBLISHED!</span>
+                  <span class="notification-badge">NEW</span>
+                </div>
+                <p class="notification-text">Check your performance in the latest test.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
       <!-- Profile -->
       <div class="content-area" id="profile-content">
         <div class="section">
@@ -685,15 +916,26 @@
             <h2 class="section-title">Student Profile</h2>
           </div>
           <div class="profile-container">
-            <div class="profile-card">
-              <div class="profile-avatar"><i class="fas fa-user"></i></div>
-              <h3 class="profile-name" id="studentName">KAMAL</h3>
-              <p class="profile-role">11th Grade Student</p>
+            <div class="profile-card" style="text-align: center; padding: 30px;">
+              <div class="profile-avatar" style="width: 140px; height: 140px; margin: 0 auto 25px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; justify-content: center; color: white; font-size: 3.5rem; box-shadow: 0 0 30px rgba(255, 45, 117, 0.5);">
+                <i class="fas fa-user"></i>
+              </div>
+              <h3 class="profile-name" id="studentName" style="font-family: 'Montserrat', sans-serif; font-size: 2rem; margin-bottom: 10px;">KAMAL KUMAR</h3>
+              <p class="profile-role" style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 25px;">11th Grade Student</p>
+              <div style="margin-top: 20px; display: flex; justify-content: center; gap: 25px;">
+                <div style="text-align: center;">
+                  <div style="font-family: 'Montserrat', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--accent); margin-bottom: 5px;">87%</div>
+                  <div style="font-size: 0.95rem; color: var(--text-muted);">Overall Grade</div>
+                </div>
+                <div style="text-align: center;">
+                  <div style="font-family: 'Montserrat', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--success); margin-bottom: 5px;">A</div>
+                  <div style="font-size: 0.95rem; color: var(--text-muted);">Current Grade</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-
       <!-- Timings -->
       <div class="content-area" id="timings-content">
         <div class="section">
@@ -701,21 +943,25 @@
             <div class="section-icon"><i class="fas fa-clock"></i></div>
             <h2 class="section-title">Class Timings</h2>
           </div>
-          <div class="timings-grid">
-            <div class="timing-card">
-              <div class="timing-day">Regular Days</div>
-              <div class="timing-subject">ENGLISH</div>
-              <div class="timing-time">3 PM & 4 PM</div>
+          <div class="timings-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px;">
+            <div class="timing-card" style="background: rgba(30, 28, 50, 0.7); border-radius: 20px; padding: 28px; text-align: center; box-shadow: 0 6px 16px rgba(0,0,0,0.2); border: 1px solid var(--border);">
+              <div class="timing-day" style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.3rem; color: var(--accent); margin-bottom: 15px;">Regular Days</div>
+              <div class="timing-subject" style="font-size: 1.2rem; margin: 12px 0; color: var(--text);">ENGLISH</div>
+              <div class="timing-time" style="font-weight: 700; color: var(--success); font-size: 1.1rem;">3 PM & 4 PM</div>
             </div>
-            <div class="timing-card">
-              <div class="timing-day">Sundays</div>
-              <div class="timing-subject">Tests</div>
-              <div class="timing-time">1 PM - 2 PM</div>
+            <div class="timing-card" style="background: rgba(30, 28, 50, 0.7); border-radius: 20px; padding: 28px; text-align: center; box-shadow: 0 6px 16px rgba(0,0,0,0.2); border: 1px solid var(--border);">
+              <div class="timing-day" style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.3rem; color: var(--accent); margin-bottom: 15px;">Sundays</div>
+              <div class="timing-subject" style="font-size: 1.2rem; margin: 12px 0; color: var(--text);">Tests</div>
+              <div class="timing-time" style="font-weight: 700; color: var(--success); font-size: 1.1rem;">1 PM - 2 PM</div>
+            </div>
+            <div class="timing-card" style="background: rgba(30, 28, 50, 0.7); border-radius: 20px; padding: 28px; text-align: center; box-shadow: 0 6px 16px rgba(0,0,0,0.2); border: 1px solid var(--border);">
+              <div class="timing-day" style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.3rem; color: var(--accent); margin-bottom: 15px;">Wednesdays</div>
+              <div class="timing-subject" style="font-size: 1.2rem; margin: 12px 0; color: var(--text);">Biology Lab</div>
+              <div class="timing-time" style="font-weight: 700; color: var(--success); font-size: 1.1rem;">2 PM - 4 PM</div>
             </div>
           </div>
         </div>
       </div>
-
       <!-- Results -->
       <div class="content-area" id="results-content">
         <div class="section">
@@ -728,84 +974,110 @@
             <input type="number" class="search-input" id="rollNo" placeholder="Enter Roll Number (e.g., 7374)" />
           </div>
           <button class="search-btn" id="searchBtn">Search Result</button>
-
           <!-- Shiva Marksheet -->
-          <div id="standardMarksheet" class="marksheet-card hidden">
+          <div id="shivaMarksheet" class="marksheet-card hidden">
             <div class="marksheet-header">
-              <h2 class="marksheet-title">Biology Results</h2>
+              <h2 class="marksheet-title">Academic Results</h2>
             </div>
             <div class="student-info-grid">
-              <div class="info-item"><span class="info-label">Name</span><span class="info-value" id="resultName"></span></div>
-              <div class="info-item"><span class="info-label">Roll No</span><span class="info-value" id="resultRollNo"></span></div>
-              <div class="info-item"><span class="info-label">Class</span><span class="info-value" id="resultClass"></span></div>
+              <div class="info-item"><span class="info-label">Name</span><span class="info-value" id="shivaResultName"></span></div>
+              <div class="info-item"><span class="info-label">Roll No</span><span class="info-value" id="shivaResultRollNo"></span></div>
+              <div class="info-item"><span class="info-label">Class</span><span class="info-value" id="shivaResultClass"></span></div>
             </div>
-            <div class="test-selector" id="testSelectorContainer"></div>
-            <div class="subject-card">
-              <div class="subject-header">
-                <div class="subject-name">Biology</div>
-                <span class="subject-status" id="resultStatus">PASS</span>
+            <!-- Subject Selector for Shiva -->
+            <div class="subject-selector">
+              <button class="subject-btn active" data-subject="biology">Biology</button>
+              <button class="subject-btn" data-subject="english">English</button>
+            </div>
+            <!-- Biology Section -->
+            <div id="biologySection" class="subject-section active">
+              <div class="test-selector-container" id="biologyTestSelector"></div>
+              <div class="subject-card">
+                <div class="subject-header">
+                  <div class="subject-name">Biology</div>
+                  <span class="subject-status" id="biologyStatus">PASS</span>
+                </div>
+                <div class="marks-grid">
+                  <div class="mark-item"><span class="mark-label">Obtained</span><span class="mark-value" id="biologyMarks">90</span></div>
+                  <div class="mark-item"><span class="mark-label">Max Marks</span><span class="mark-value" id="biologyMax">100</span></div>
+                  <div class="mark-item"><span class="mark-label">Passing</span><span class="mark-value" id="biologyPassing">40</span></div>
+                  <div class="mark-item"><span class="mark-label">%</span><span class="mark-value" id="biologyPercentage">90%</span></div>
+                </div>
+                <div class="progress-container">
+                  <div class="progress-bar" id="biologyProgressBar"></div>
+                </div>
+                <div class="grade-badge" id="biologyGrade">A</div>
               </div>
-              <div class="marks-grid">
-                <div class="mark-item"><span class="mark-label">Obtained</span><span class="mark-value" id="resultMarks">90</span></div>
-                <div class="mark-item"><span class="mark-label">Max Marks</span><span class="mark-value" id="resultMax">100</span></div>
-                <div class="mark-item"><span class="mark-label">Passing</span><span class="mark-value" id="resultPassing">40</span></div>
-                <div class="mark-item"><span class="mark-label">%</span><span class="mark-value" id="resultPercentage">90%</span></div>
+            </div>
+            <!-- English Section -->
+            <div id="englishSection" class="subject-section">
+              <div class="subject-card">
+                <div class="subject-header">
+                  <div class="subject-name">English</div>
+                  <span class="subject-status" id="englishStatus">FAIL</span>
+                </div>
+                <div class="marks-grid">
+                  <div class="mark-item"><span class="mark-label">Obtained</span><span class="mark-value" id="englishMarks">30</span></div>
+                  <div class="mark-item"><span class="mark-label">Max Marks</span><span class="mark-value" id="englishMax">60</span></div>
+                  <div class="mark-item"><span class="mark-label">Passing</span><span class="mark-value" id="englishPassing">45</span></div>
+                  <div class="mark-item"><span class="mark-label">%</span><span class="mark-value" id="englishPercentage">50%</span></div>
+                </div>
+                <div class="progress-container">
+                  <div class="progress-bar" id="englishProgressBar"></div>
+                </div>
+                <div class="grade-badge" id="englishGrade">D</div>
+                <div class="test-info">
+                  <div class="test-info-item">
+                    <div class="test-info-label">Test</div>
+                    <div class="test-info-value">1st Test</div>
+                  </div>
+                  <div class="test-info-item">
+                    <div class="test-info-label">Date</div>
+                    <div class="test-info-value">12 Oct 2025</div>
+                  </div>
+                </div>
               </div>
-              <div class="progress-container">
-                <div class="progress-bar" id="resultProgressBar"></div>
-              </div>
-              <div class="grade-badge" id="resultGrade">A</div>
             </div>
           </div>
-
           <!-- Kamal Special -->
-          <div id="specialTestSelector" class="test-selector hidden">
-            <button class="test-btn active" data-test="1">Test 1</button>
-            <button class="test-btn" data-test="2">Test 2</button>
-          </div>
-          <div id="specialMarksheet" class="marksheet-card hidden">
+          <div id="kamalMarksheet" class="marksheet-card hidden">
             <div class="marksheet-header">
               <h2 class="marksheet-title">English Results</h2>
             </div>
             <div class="student-info-grid">
-              <div class="info-item"><span class="info-label">Name</span><span class="info-value" id="specialResultName"></span></div>
-              <div class="info-item"><span class="info-label">Roll No</span><span class="info-value" id="specialResultRollNo"></span></div>
-              <div class="info-item"><span class="info-label">Class</span><span class="info-value" id="specialResultClass"></span></div>
+              <div class="info-item"><span class="info-label">Name</span><span class="info-value" id="kamalResultName"></span></div>
+              <div class="info-item"><span class="info-label">Roll No</span><span class="info-value" id="kamalResultRollNo"></span></div>
+              <div class="info-item"><span class="info-label">Class</span><span class="info-value" id="kamalResultClass"></span></div>
+            </div>
+            <!-- Test Selector for Kamal -->
+            <div class="test-selector-container">
+              <button class="test-selector-btn active" data-test="0">1st Test</button>
+              <button class="test-selector-btn" data-test="1">2nd Test</button>
+              <button class="test-selector-btn" data-test="2">3rd Test</button>
             </div>
             <div class="subject-card">
               <div class="subject-header">
                 <div class="subject-name">English</div>
-                <span class="subject-status" id="specialStatus">PASS</span>
+                <span class="subject-status" id="kamalStatus">PASS</span>
               </div>
               <div class="marks-grid">
-                <div class="mark-item"><span class="mark-label">Obtained</span><span class="mark-value" id="specialMarksObtained">57</span></div>
-                <div class="mark-item"><span class="mark-label">Max Marks</span><span class="mark-value" id="specialMaxMarks">70</span></div>
-                <div class="mark-item"><span class="mark-label">Passing</span><span class="mark-value" id="specialPassingMarks">54</span></div>
-                <div class="mark-item"><span class="mark-label">%</span><span class="mark-value" id="specialPercentage">81%</span></div>
+                <div class="mark-item"><span class="mark-label">Obtained</span><span class="mark-value" id="kamalMarksObtained">57</span></div>
+                <div class="mark-item"><span class="mark-label">Max Marks</span><span class="mark-value" id="kamalMaxMarks">70</span></div>
+                <div class="mark-item"><span class="mark-label">Passing</span><span class="mark-value" id="kamalPassingMarks">54</span></div>
+                <div class="mark-item"><span class="mark-label">%</span><span class="mark-value" id="kamalPercentage">81%</span></div>
               </div>
               <div class="progress-container">
-                <div class="progress-bar" id="specialProgressBar"></div>
+                <div class="progress-bar" id="kamalProgressBar"></div>
               </div>
-              <div class="grade-badge" id="specialGrade">A</div>
+              <div class="grade-badge" id="kamalGrade">A</div>
             </div>
           </div>
         </div>
       </div>
     </main>
   </div>
-
-  <!-- Mobile Nav -->
-  <nav class="mobile-nav">
-    <div class="mobile-nav-items">
-      <div class="mobile-nav-item active" data-target="notifications"><i class="fas fa-bell"></i><span>Notify</span></div>
-      <div class="mobile-nav-item" data-target="profile"><i class="fas fa-user"></i><span>Profile</span></div>
-      <div class="mobile-nav-item" data-target="timings"><i class="fas fa-clock"></i><span>Timings</span></div>
-      <div class="mobile-nav-item" data-target="results"><i class="fas fa-search"></i><span>Results</span></div>
-    </div>
-  </nav>
-
+  <!-- FOOTER (bottom nav REMOVED) -->
   <footer>© 2025 Developed by MR Suraj Singh. All rights reserved.</footer>
-
   <script>
     const studentResults = [
       {
@@ -821,7 +1093,14 @@
           { marks: 34, maxMarks: 100, passingMarks: 40 },
           { marks: 30, maxMarks: 50, passingMarks: 39 },
           { marks: 38, maxMarks: 50, passingMarks: 37 }
-        ]
+        ],
+        english: {
+          marks: 30,
+          maxMarks: 60,
+          passingMarks: 45,
+          test: "1st Test",
+          date: "12 Oct 2025"
+        }
       },
       {
         rollNo: 7375,
@@ -829,7 +1108,8 @@
         class: "11th",
         ENGLISH: [
           { marks: 57, maxMarks: 70, passingMarks: 54 },
-          { marks: 61, maxMarks: 70, passingMarks: 54 }
+          { marks: 61, maxMarks: 70, passingMarks: 54 },
+          { marks: 56, maxMarks: 70, passingMarks: 54 }
         ]
       }
     ];
@@ -844,61 +1124,75 @@
       else return "F";
     }
 
-    function renderStandardResult(result, testIndex) {
+    function renderBiologyResult(result, testIndex) {
       const test = result.biology[testIndex];
       const percentage = (test.marks / test.maxMarks) * 100;
       const status = test.marks >= test.passingMarks ? "PASS" : "FAIL";
       const grade = getGrade(percentage);
-
-      document.getElementById("resultName").textContent = result.name;
-      document.getElementById("resultRollNo").textContent = result.rollNo;
-      document.getElementById("resultClass").textContent = result.class;
-      document.getElementById("resultMarks").textContent = test.marks;
-      document.getElementById("resultMax").textContent = test.maxMarks;
-      document.getElementById("resultPassing").textContent = test.passingMarks;
-      document.getElementById("resultPercentage").textContent = Math.round(percentage) + "%";
-      document.getElementById("resultStatus").textContent = status;
-      document.getElementById("resultStatus").className = "subject-status " + (status === "PASS" ? "status-pass" : "status-fail");
-      document.getElementById("resultGrade").textContent = grade;
-      const bar = document.getElementById("resultProgressBar");
+      document.getElementById("biologyMarks").textContent = test.marks;
+      document.getElementById("biologyMax").textContent = test.maxMarks;
+      document.getElementById("biologyPassing").textContent = test.passingMarks;
+      document.getElementById("biologyPercentage").textContent = Math.round(percentage) + "%";
+      document.getElementById("biologyStatus").textContent = status;
+      document.getElementById("biologyStatus").className = "subject-status " + (status === "PASS" ? "status-pass" : "status-fail");
+      document.getElementById("biologyGrade").textContent = grade;
+      const bar = document.getElementById("biologyProgressBar");
       bar.style.setProperty('--width', percentage + '%');
       bar.style.width = percentage + '%';
     }
 
-    function renderSpecialResult(result, testIndex = 0) {
+    function renderEnglishResult(result) {
+      const test = result.english;
+      const percentage = (test.marks / test.maxMarks) * 100;
+      const status = test.marks >= test.passingMarks ? "PASS" : "FAIL";
+      const grade = getGrade(percentage);
+      document.getElementById("englishMarks").textContent = test.marks;
+      document.getElementById("englishMax").textContent = test.maxMarks;
+      document.getElementById("englishPassing").textContent = test.passingMarks;
+      document.getElementById("englishPercentage").textContent = Math.round(percentage) + "%";
+      document.getElementById("englishStatus").textContent = status;
+      document.getElementById("englishStatus").className = "subject-status " + (status === "PASS" ? "status-pass" : "status-fail");
+      document.getElementById("englishGrade").textContent = grade;
+      const bar = document.getElementById("englishProgressBar");
+      bar.style.setProperty('--width', percentage + '%');
+      bar.style.width = percentage + '%';
+    }
+
+    function renderKamalResult(result, testIndex = 0) {
       const test = result.ENGLISH[testIndex];
       const percentage = (test.marks / test.maxMarks) * 100;
       const status = test.marks >= test.passingMarks ? "PASS" : "FAIL";
       const grade = getGrade(percentage);
-
-      document.getElementById("specialResultName").textContent = result.name;
-      document.getElementById("specialResultRollNo").textContent = result.rollNo;
-      document.getElementById("specialResultClass").textContent = result.class;
-      document.getElementById("specialMarksObtained").textContent = test.marks;
-      document.getElementById("specialMaxMarks").textContent = test.maxMarks;
-      document.getElementById("specialPassingMarks").textContent = test.passingMarks;
-      document.getElementById("specialPercentage").textContent = Math.round(percentage) + "%";
-      document.getElementById("specialStatus").textContent = status;
-      document.getElementById("specialStatus").className = "subject-status " + (status === "PASS" ? "status-pass" : "status-fail");
-      document.getElementById("specialGrade").textContent = grade;
-      const bar = document.getElementById("specialProgressBar");
+      document.getElementById("kamalResultName").textContent = result.name;
+      document.getElementById("kamalResultRollNo").textContent = result.rollNo;
+      document.getElementById("kamalResultClass").textContent = result.class;
+      document.getElementById("kamalMarksObtained").textContent = test.marks;
+      document.getElementById("kamalMaxMarks").textContent = test.maxMarks;
+      document.getElementById("kamalPassingMarks").textContent = test.passingMarks;
+      document.getElementById("kamalPercentage").textContent = Math.round(percentage) + "%";
+      document.getElementById("kamalStatus").textContent = status;
+      document.getElementById("kamalStatus").className = "subject-status " + (status === "PASS" ? "status-pass" : "status-fail");
+      document.getElementById("kamalGrade").textContent = grade;
+      const bar = document.getElementById("kamalProgressBar");
       bar.style.setProperty('--width', percentage + '%');
       bar.style.width = percentage + '%';
     }
 
-    function generateTestSelectorButtons(count) {
-      const testMap = [1,2,3,4,5,8,9,10];
-      let html = '';
+    function generateBiologyTestSelectorButtons(count) {
+      const ordinals = ["1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th"];
+      let html = '<div class="test-selector-container">';
       for (let i = 0; i < count; i++) {
-        html += `<button class="test-btn ${i === 0 ? 'active' : ''}" data-test="${i+1}">Test ${testMap[i] || (i+1)}</button>`;
+        const label = ordinals[i] || (i + 1) + "th";
+        html += `<button class="test-selector-btn ${i === 0 ? 'active' : ''}" data-test="${i}">${label} Test</button>`;
       }
-      document.getElementById("testSelectorContainer").innerHTML = html;
+      html += '</div>';
+      document.getElementById("biologyTestSelector").innerHTML = html;
     }
 
     function showContent(target) {
       document.querySelectorAll('.content-area').forEach(area => area.classList.remove('active'));
       document.getElementById(`${target}-content`).classList.add('active');
-      document.querySelectorAll('.nav-item, .mobile-nav-item').forEach(item => {
+      document.querySelectorAll('.nav-item').forEach(item => {
         item.classList.toggle('active', item.dataset.target === target);
       });
     }
@@ -911,37 +1205,55 @@
       const rollNo = parseInt(document.getElementById("rollNo").value);
       const result = studentResults.find(s => s.rollNo === rollNo);
       if (!result) return alert("No result found.");
-
-      document.getElementById("standardMarksheet").classList.add("hidden");
-      document.getElementById("specialMarksheet").classList.add("hidden");
-      document.getElementById("specialTestSelector").classList.add("hidden");
-
+      document.getElementById("shivaMarksheet").classList.add("hidden");
+      document.getElementById("kamalMarksheet").classList.add("hidden");
       if (rollNo === 7375) {
-        if (result.ENGLISH.length > 1) document.getElementById("specialTestSelector").classList.remove("hidden");
-        renderSpecialResult(result, 0);
-        document.getElementById("specialMarksheet").classList.remove("hidden");
+        renderKamalResult(result, 0);
+        document.getElementById("kamalMarksheet").classList.remove("hidden");
       } else {
-        document.getElementById("resultName").textContent = result.name;
-        document.getElementById("resultRollNo").textContent = result.rollNo;
-        document.getElementById("resultClass").textContent = result.class;
-        generateTestSelectorButtons(result.biology.length);
-        renderStandardResult(result, 0);
-        document.getElementById("standardMarksheet").classList.remove("hidden");
+        document.getElementById("shivaResultName").textContent = result.name;
+        document.getElementById("shivaResultRollNo").textContent = result.rollNo;
+        document.getElementById("shivaResultClass").textContent = result.class;
+        generateBiologyTestSelectorButtons(result.biology.length);
+        renderBiologyResult(result, 0);
+        document.getElementById("shivaMarksheet").classList.remove("hidden");
       }
     });
 
+    // Handle subject selection for Shiva
     document.addEventListener("click", e => {
-      if (!e.target.classList.contains("test-btn")) return;
+      if (!e.target.classList.contains("subject-btn")) return;
+      document.querySelectorAll('.subject-btn').forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
+      const subject = e.target.dataset.subject;
+      if (subject === 'biology') {
+        document.getElementById('biologySection').classList.add('active');
+        document.getElementById('englishSection').classList.remove('active');
+      } else {
+        document.getElementById('biologySection').classList.remove('active');
+        document.getElementById('englishSection').classList.add('active');
+        const rollNo = parseInt(document.getElementById("rollNo").value);
+        const result = studentResults.find(s => s.rollNo === rollNo);
+        if (result) renderEnglishResult(result);
+      }
+    });
+
+    // Handle test selection for Kamal and Shiva
+    document.addEventListener("click", e => {
+      if (!e.target.classList.contains("test-selector-btn")) return;
+      const container = e.target.closest('.test-selector-container');
+      if (!container) return;
+      container.querySelectorAll('.test-selector-btn').forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
       const rollNo = parseInt(document.getElementById("rollNo").value);
       const result = studentResults.find(s => s.rollNo === rollNo);
       if (!result) return;
-
-      const testIndex = parseInt(e.target.dataset.test) - 1;
-      e.target.parentElement.querySelectorAll('.test-btn').forEach(btn => btn.classList.remove('active'));
-      e.target.classList.add('active');
-
-      if (rollNo === 7375) renderSpecialResult(result, testIndex);
-      else renderStandardResult(result, testIndex);
+      const testIndex = parseInt(e.target.dataset.test);
+      if (rollNo === 7375) {
+        renderKamalResult(result, testIndex);
+      } else if (rollNo === 7374) {
+        renderBiologyResult(result, testIndex);
+      }
     });
 
     document.addEventListener("DOMContentLoaded", () => showContent("notifications"));
