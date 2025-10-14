@@ -165,7 +165,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(135deg, rgba(255, 45, 117, 0.1), rgba(77, 0, 255, 0.1));
+      background: linear-gradient(135deg, rgba(255,45,117,0.1), rgba(77,0,255,0.1));
       z-index: -1;
     }
     @media (min-width: 992px) {
@@ -813,6 +813,40 @@
     .test-selector-btn.active::before {
       opacity: 1;
     }
+
+    /* === 9th Test Special View === */
+    #ninthTestView {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    #ninthTestView.active {
+      display: block;
+      opacity: 1;
+    }
+    .sphere-chart {
+      position: relative;
+      display: inline-block;
+    }
+    .sphere-chart svg {
+      filter: drop-shadow(0 0 15px rgba(0, 240, 255, 0.4));
+    }
+    .sphere-label {
+      margin-top: 12px;
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    #countdownTimer {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--warning);
+      margin: 20px 0;
+      height: 40px;
+    }
+    .marks-grid.ninth {
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    }
     /* Responsive Adjustments */
     @media (max-width: 768px) {
       .student-info-grid,
@@ -974,6 +1008,7 @@
             <input type="number" class="search-input" id="rollNo" placeholder="Enter Roll Number (e.g., 7374)" />
           </div>
           <button class="search-btn" id="searchBtn">Search Result</button>
+
           <!-- Shiva Marksheet -->
           <div id="shivaMarksheet" class="marksheet-card hidden">
             <div class="marksheet-header">
@@ -989,6 +1024,7 @@
               <button class="subject-btn active" data-subject="biology">Biology</button>
               <button class="subject-btn" data-subject="english">English</button>
             </div>
+
             <!-- Biology Section -->
             <div id="biologySection" class="subject-section active">
               <div class="test-selector-container" id="biologyTestSelector"></div>
@@ -1009,6 +1045,7 @@
                 <div class="grade-badge" id="biologyGrade">A</div>
               </div>
             </div>
+
             <!-- English Section -->
             <div id="englishSection" class="subject-section">
               <div class="subject-card">
@@ -1039,6 +1076,7 @@
               </div>
             </div>
           </div>
+
           <!-- Kamal Special -->
           <div id="kamalMarksheet" class="marksheet-card hidden">
             <div class="marksheet-header">
@@ -1072,11 +1110,44 @@
               <div class="grade-badge" id="kamalGrade">A</div>
             </div>
           </div>
+
+          <!-- 9th Test Special View -->
+          <div id="ninthTestView" class="section" style="display: none; opacity: 0;">
+            <div class="section-header">
+              <div class="section-icon"><i class="fas fa-vial"></i></div>
+              <h2 class="section-title">9th Biology Test</h2>
+            </div>
+            <div class="text-center">
+              <div id="countdownTimer">Results unlock in <span id="timerValue">10</span>s</div>
+
+              <div id="sphereChartContainer" style="display: none; justify-content: center; margin: 30px 0;">
+                <div class="sphere-chart">
+                  <svg width="200" height="200" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="8"/>
+                    <path id="progressArc" fill="none" stroke="url(#grad1)" stroke-width="8" stroke-linecap="round" d="" />
+                    <text x="50" y="53" text-anchor="middle" font-size="18" font-weight="800" fill="var(--text)">84%</text>
+                  </svg>
+                  <div class="sphere-label">Biology • 9th Test</div>
+                </div>
+              </div>
+
+              <div id="ninthTestDetails" style="display: none; margin-top: 30px;">
+                <div class="marks-grid ninth">
+                  <div class="mark-item"><span class="mark-label">Obtained</span><span class="mark-value">42</span></div>
+                  <div class="mark-item"><span class="mark-label">Max Marks</span><span class="mark-value">50</span></div>
+                  <div class="mark-item"><span class="mark-label">Passing</span><span class="mark-value">37</span></div>
+                  <div class="mark-item"><span class="mark-label">Date</span><span class="mark-value">12 Oct 2025</span></div>
+                </div>
+                <div class="subject-status status-pass" style="margin-top: 20px; display: inline-block;">PASS</div>
+                <div class="grade-badge" style="margin-top: 15px;">B+</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </main>
   </div>
-  <!-- FOOTER (bottom nav REMOVED) -->
+  <!-- FOOTER -->
   <footer>© 2025 Developed by MR Suraj Singh. All rights reserved.</footer>
   <script>
     const studentResults = [
@@ -1092,7 +1163,8 @@
           { marks: 92, maxMarks: 100, passingMarks: 40 },
           { marks: 34, maxMarks: 100, passingMarks: 40 },
           { marks: 30, maxMarks: 50, passingMarks: 39 },
-          { marks: 38, maxMarks: 50, passingMarks: 37 }
+          { marks: 38, maxMarks: 50, passingMarks: 37 },
+          { marks: 42, maxMarks: 50, passingMarks: 37, date: "12 Oct 2025" } // ← 9th Test
         ],
         english: {
           marks: 30,
@@ -1180,13 +1252,75 @@
 
     function generateBiologyTestSelectorButtons(count) {
       const ordinals = ["1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th"];
-      let html = '<div class="test-selector-container">';
+      let html = '';
       for (let i = 0; i < count; i++) {
         const label = ordinals[i] || (i + 1) + "th";
         html += `<button class="test-selector-btn ${i === 0 ? 'active' : ''}" data-test="${i}">${label} Test</button>`;
       }
-      html += '</div>';
       document.getElementById("biologyTestSelector").innerHTML = html;
+    }
+
+    function renderNinthTestView() {
+      const timerEl = document.getElementById("timerValue");
+      const countdownEl = document.getElementById("countdownTimer");
+      const chartContainer = document.getElementById("sphereChartContainer");
+      const detailsEl = document.getElementById("ninthTestDetails");
+
+      let timeLeft = 10;
+      timerEl.textContent = timeLeft;
+
+      chartContainer.style.display = "none";
+      detailsEl.style.display = "none";
+
+      const countdown = setInterval(() => {
+        timeLeft--;
+        timerEl.textContent = timeLeft;
+        if (timeLeft <= 0) {
+          clearInterval(countdown);
+          countdownEl.style.display = "none";
+          chartContainer.style.display = "flex";
+          detailsEl.style.display = "block";
+
+          // Animate sphere chart
+          const percentage = 84; // (42 / 50) * 100
+          const radius = 45;
+          const circumference = 2 * Math.PI * radius;
+          const offset = circumference - (percentage / 100) * circumference;
+
+          const arc = document.getElementById("progressArc");
+          arc.setAttribute("d", `M 5 50 A 45 45 0 1 1 ${50 + radius} ${50}`);
+          arc.setAttribute("stroke-dasharray", circumference);
+          arc.setAttribute("stroke-dashoffset", circumference);
+
+          // Define gradient if not exists
+          const svg = arc.closest('svg');
+          if (!svg.querySelector('defs')) {
+            const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+            const grad = document.createElementNS("http://www.w3.org/2000/svg", "linearGradient");
+            grad.setAttribute("id", "grad1");
+            grad.setAttribute("x1", "0%");
+            grad.setAttribute("y1", "0%");
+            grad.setAttribute("x2", "100%");
+            grad.setAttribute("y2", "100%");
+            const stop1 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
+            stop1.setAttribute("offset", "0%");
+            stop1.setAttribute("style", "stop-color:var(--accent);stop-opacity:1");
+            const stop2 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
+            stop2.setAttribute("offset", "100%");
+            stop2.setAttribute("style", "stop-color:var(--success);stop-opacity:1");
+            grad.appendChild(stop1);
+            grad.appendChild(stop2);
+            defs.appendChild(grad);
+            svg.insertBefore(defs, svg.firstChild);
+          }
+
+          // Animate arc
+          setTimeout(() => {
+            arc.style.transition = "stroke-dashoffset 1.2s ease-in-out";
+            arc.setAttribute("stroke-dashoffset", offset);
+          }, 300);
+        }
+      }, 1000);
     }
 
     function showContent(target) {
@@ -1205,8 +1339,12 @@
       const rollNo = parseInt(document.getElementById("rollNo").value);
       const result = studentResults.find(s => s.rollNo === rollNo);
       if (!result) return alert("No result found.");
+
+      // Hide all marksheet views
       document.getElementById("shivaMarksheet").classList.add("hidden");
       document.getElementById("kamalMarksheet").classList.add("hidden");
+      document.getElementById("ninthTestView").style.display = "none";
+
       if (rollNo === 7375) {
         renderKamalResult(result, 0);
         document.getElementById("kamalMarksheet").classList.remove("hidden");
@@ -1249,10 +1387,21 @@
       const result = studentResults.find(s => s.rollNo === rollNo);
       if (!result) return;
       const testIndex = parseInt(e.target.dataset.test);
+
       if (rollNo === 7375) {
         renderKamalResult(result, testIndex);
       } else if (rollNo === 7374) {
-        renderBiologyResult(result, testIndex);
+        if (testIndex === 8) { // 9th test (0-indexed)
+          document.getElementById('shivaMarksheet').classList.add('hidden');
+          const ninthView = document.getElementById('ninthTestView');
+          ninthView.style.display = 'block';
+          setTimeout(() => ninthView.style.opacity = '1', 50);
+          renderNinthTestView();
+        } else {
+          document.getElementById('ninthTestView').style.display = 'none';
+          document.getElementById('shivaMarksheet').classList.remove('hidden');
+          renderBiologyResult(result, testIndex);
+        }
       }
     });
 
