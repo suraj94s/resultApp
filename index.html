@@ -37,6 +37,89 @@
       overflow-x: hidden;
       position: relative;
     }
+    /* Diwali Celebration Overlay */
+    .diwali-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+    }
+    .happy-diwali {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 5rem;
+      font-weight: 800;
+      background: linear-gradient(45deg, #ffcc00, #ff6b00, #ff2d75, #4d00ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 30px rgba(255, 204, 0, 0.7);
+      opacity: 0;
+      animation: diwaliFadeIn 1s forwards, diwaliFadeOut 1s 86399s forwards;
+      z-index: 10;
+    }
+    .firework {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      opacity: 0;
+      z-index: 5;
+    }
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0;
+      z-index: 3;
+      box-shadow: 0 0 15px currentColor;
+    }
+    .flower {
+      position: absolute;
+      opacity: 0;
+      z-index: 4;
+    }
+    .flower::before,
+    .flower::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+    .flower::before {
+      transform: rotate(45deg);
+    }
+    .flower::after {
+      transform: rotate(-45deg);
+    }
+    @keyframes diwaliFadeIn {
+      from { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+      to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+    @keyframes diwaliFadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+    @keyframes fireworkBlast {
+      0% { transform: translate(0, 0); opacity: 1; }
+      100% { transform: translate(var(--tx), var(--ty)); opacity: 0; }
+    }
+    @keyframes bubbleFloat {
+      0% { transform: translateY(0) scale(0); opacity: 0.8; }
+      100% { transform: translateY(-100vh) scale(1); opacity: 0; }
+    }
+    @keyframes flowerBloom {
+      0% { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    /* Existing styles below unchanged */
     /* Animated background elements */
     .bg-element {
       position: absolute;
@@ -813,14 +896,15 @@
     .test-selector-btn.active::before {
       opacity: 1;
     }
-
-    /* === 9th Test Special View === */
-    #ninthTestView {
+    /* === 9th & 10th Test Special View === */
+    #ninthTestView,
+    #tenthTestView {
       display: none;
       opacity: 0;
       transition: opacity 0.5s ease;
     }
-    #ninthTestView.active {
+    #ninthTestView.active,
+    #tenthTestView.active {
       display: block;
       opacity: 1;
     }
@@ -837,7 +921,8 @@
       color: var(--text-muted);
       font-weight: 600;
     }
-    #countdownTimer {
+    #countdownTimer,
+    #tenthCountdownTimer {
       font-size: 1.8rem;
       font-weight: 700;
       color: var(--warning);
@@ -877,10 +962,16 @@
   </style>
 </head>
 <body>
+  <!-- Diwali Celebration Elements -->
+  <div class="diwali-overlay" id="diwaliOverlay">
+    <div class="happy-diwali">Happy Diwali!</div>
+  </div>
+
   <!-- Background elements -->
   <div class="bg-element bg-element-1"></div>
   <div class="bg-element bg-element-2"></div>
   <div class="bg-element bg-element-3"></div>
+  
   <!-- Header -->
   <header class="header">
     <div class="logo">
@@ -888,6 +979,7 @@
       <div class="logo-text">StudentHub</div>
     </div>
   </header>
+  
   <div class="main-container">
     <!-- Navigation -->
     <nav class="nav-container">
@@ -899,6 +991,7 @@
         <li class="nav-item" data-target="results"><i class="fas fa-search"></i> Results</li>
       </ul>
     </nav>
+    
     <!-- Content -->
     <main class="content">
       <!-- Notifications -->
@@ -913,10 +1006,10 @@
               <div class="notification-icon"><i class="fas fa-calendar-alt"></i></div>
               <div class="notification-content">
                 <div class="notification-title">
-                  <span>TESTs RESULTs are  DECLARED!</span>
+                  <span>All Students shall observe Holiday on 20 oct 2025 on the ocassion of Diwali . Classes will  resume on 21 oct 2025 ... !</span>
                   <span class="notification-badge">NEW</span>
                 </div>
-                <p class="notification-text">Your results for the  tests are now available.</p>
+                <p class="notification-text">HAPPY DIWALI ...</p>
               </div>
             </div>
             <div class="notification-card">
@@ -942,6 +1035,7 @@
           </div>
         </div>
       </div>
+      
       <!-- Profile -->
       <div class="content-area" id="profile-content">
         <div class="section">
@@ -970,6 +1064,7 @@
           </div>
         </div>
       </div>
+      
       <!-- Timings -->
       <div class="content-area" id="timings-content">
         <div class="section">
@@ -996,6 +1091,7 @@
           </div>
         </div>
       </div>
+      
       <!-- Results -->
       <div class="content-area" id="results-content">
         <div class="section">
@@ -1008,7 +1104,7 @@
             <input type="number" class="search-input" id="rollNo" placeholder="Enter Roll Number (e.g., 7374)" />
           </div>
           <button class="search-btn" id="searchBtn">Search Result</button>
-
+          
           <!-- Shiva Marksheet -->
           <div id="shivaMarksheet" class="marksheet-card hidden">
             <div class="marksheet-header">
@@ -1024,7 +1120,6 @@
               <button class="subject-btn active" data-subject="biology">Biology</button>
               <button class="subject-btn" data-subject="english">English</button>
             </div>
-
             <!-- Biology Section -->
             <div id="biologySection" class="subject-section active">
               <div class="test-selector-container" id="biologyTestSelector"></div>
@@ -1045,7 +1140,6 @@
                 <div class="grade-badge" id="biologyGrade">A</div>
               </div>
             </div>
-
             <!-- English Section -->
             <div id="englishSection" class="subject-section">
               <div class="subject-card">
@@ -1076,7 +1170,7 @@
               </div>
             </div>
           </div>
-
+          
           <!-- Kamal Special -->
           <div id="kamalMarksheet" class="marksheet-card hidden">
             <div class="marksheet-header">
@@ -1110,7 +1204,7 @@
               <div class="grade-badge" id="kamalGrade">A</div>
             </div>
           </div>
-
+          
           <!-- 9th Test Special View -->
           <div id="ninthTestView" class="section" style="display: none; opacity: 0;">
             <div class="section-header">
@@ -1119,7 +1213,6 @@
             </div>
             <div class="text-center">
               <div id="countdownTimer">Results unlock in <span id="timerValue">10</span>s</div>
-
               <div id="sphereChartContainer" style="display: none; justify-content: center; margin: 30px 0;">
                 <div class="sphere-chart">
                   <svg width="200" height="200" viewBox="0 0 100 100">
@@ -1130,7 +1223,6 @@
                   <div class="sphere-label">Biology • 9th Test</div>
                 </div>
               </div>
-
               <div id="ninthTestDetails" style="display: none; margin-top: 30px;">
                 <div class="marks-grid ninth">
                   <div class="mark-item"><span class="mark-label">Obtained</span><span class="mark-value">42</span></div>
@@ -1143,13 +1235,96 @@
               </div>
             </div>
           </div>
+
+          <!-- 10th Test Special View -->
+          <div id="tenthTestView" class="section" style="display: none; opacity: 0;">
+            <div class="section-header">
+              <div class="section-icon"><i class="fas fa-vial"></i></div>
+              <h2 class="section-title">10th Biology Test</h2>
+            </div>
+            <div class="text-center">
+              <div id="tenthCountdownTimer">Results unlock in <span id="tenthTimerValue">20</span>s</div>
+              <div id="tenthSphereChartContainer" style="display: none; justify-content: center; margin: 30px 0;">
+                <div class="sphere-chart">
+                  <svg width="200" height="200" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="8"/>
+                    <path id="tenthProgressArc" fill="none" stroke="url(#grad1)" stroke-width="8" stroke-linecap="round" d="" />
+                    <text x="50" y="53" text-anchor="middle" font-size="18" font-weight="800" fill="var(--text)">56%</text>
+                  </svg>
+                  <div class="sphere-label">Biology • 10th Test</div>
+                </div>
+              </div>
+              <div id="tenthTestDetails" style="display: none; margin-top: 30px;">
+                <div class="marks-grid ninth">
+                  <div class="mark-item"><span class="mark-label">Obtained</span><span class="mark-value">28</span></div>
+                  <div class="mark-item"><span class="mark-label">Max Marks</span><span class="mark-value">50</span></div>
+                  <div class="mark-item"><span class="mark-label">Passing</span><span class="mark-value">37</span></div>
+                  <div class="mark-item"><span class="mark-label">Date</span><span class="mark-value">19 Oct 2025</span></div>
+                </div>
+                <div class="subject-status status-fail" style="margin-top: 20px; display: inline-block;">FAIL</div>
+                <div class="grade-badge" style="margin-top: 15px;">D</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </main>
   </div>
+  
   <!-- FOOTER -->
   <footer>© 2025 Developed by MR Suraj Singh. All rights reserved.</footer>
+
   <script>
+    // ========== DIWALI CELEBRATION ==========
+    document.addEventListener("DOMContentLoaded", () => {
+      const overlay = document.getElementById("diwaliOverlay");
+      const colors = ['#ffcc00', '#ff6b00', '#ff2d75', '#00f0ff', '#00ff9d'];
+      
+      // Create festive elements
+      for (let i = 0; i < 50; i++) {
+        // Fireworks
+        const firework = document.createElement('div');
+        firework.className = 'firework';
+        firework.style.left = Math.random() * 100 + 'vw';
+        firework.style.top = Math.random() * 100 + 'vh';
+        firework.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        firework.style.setProperty('--tx', (Math.random() - 0.5) * 200 + 'px');
+        firework.style.setProperty('--ty', (Math.random() - 0.5) * 200 + 'px');
+        firework.style.animation = `fireworkBlast ${0.8 + Math.random() * 0.7}s forwards`;
+        firework.style.animationDelay = Math.random() * 3 + 's';
+        overlay.appendChild(firework);
+        
+        // Bubbles
+        const bubble = document.createElement('div');
+        bubble.className = 'bubble';
+        bubble.style.width = (20 + Math.random() * 40) + 'px';
+        bubble.style.height = bubble.style.width;
+        bubble.style.left = Math.random() * 100 + 'vw';
+        bubble.style.bottom = '-50px';
+        bubble.style.color = colors[Math.floor(Math.random() * colors.length)];
+        bubble.style.animation = `bubbleFloat ${3 + Math.random() * 4}s forwards`;
+        bubble.style.animationDelay = Math.random() * 2 + 's';
+        overlay.appendChild(bubble);
+        
+        // Flowers
+        const flower = document.createElement('div');
+        flower.className = 'flower';
+        flower.style.left = Math.random() * 100 + 'vw';
+        flower.style.top = Math.random() * 100 + 'vh';
+        flower.style.color = colors[Math.floor(Math.random() * colors.length)];
+        flower.style.animation = `flowerBloom 1.5s forwards`;
+        flower.style.animationDelay = Math.random() * 5 + 's';
+        overlay.appendChild(flower);
+      }
+      
+      // Remove overlay after 24 hours (86400000 ms)
+      setTimeout(() => {
+        overlay.style.opacity = '0';
+        setTimeout(() => overlay.remove(), 1000);
+      }, 86400000);
+    });
+
+    // ========== STUDENT DATA ==========
     const studentResults = [
       {
         rollNo: 7374,
@@ -1164,7 +1339,8 @@
           { marks: 34, maxMarks: 100, passingMarks: 40 },
           { marks: 30, maxMarks: 50, passingMarks: 39 },
           { marks: 38, maxMarks: 50, passingMarks: 37 },
-          { marks: 42, maxMarks: 50, passingMarks: 37, date: "12 Oct 2025" } // ← 9th Test
+          { marks: 42, maxMarks: 50, passingMarks: 37, date: "12 Oct 2025" }, // 9th Test
+          { marks: 28, maxMarks: 50, passingMarks: 37, date: "19 Oct 2025" }  // 10th Test
         ],
         english: {
           marks: 30,
@@ -1265,13 +1441,10 @@
       const countdownEl = document.getElementById("countdownTimer");
       const chartContainer = document.getElementById("sphereChartContainer");
       const detailsEl = document.getElementById("ninthTestDetails");
-
       let timeLeft = 10;
       timerEl.textContent = timeLeft;
-
       chartContainer.style.display = "none";
       detailsEl.style.display = "none";
-
       const countdown = setInterval(() => {
         timeLeft--;
         timerEl.textContent = timeLeft;
@@ -1280,19 +1453,14 @@
           countdownEl.style.display = "none";
           chartContainer.style.display = "flex";
           detailsEl.style.display = "block";
-
-          // Animate sphere chart
           const percentage = 84; // (42 / 50) * 100
           const radius = 45;
           const circumference = 2 * Math.PI * radius;
           const offset = circumference - (percentage / 100) * circumference;
-
           const arc = document.getElementById("progressArc");
           arc.setAttribute("d", `M 5 50 A 45 45 0 1 1 ${50 + radius} ${50}`);
           arc.setAttribute("stroke-dasharray", circumference);
           arc.setAttribute("stroke-dashoffset", circumference);
-
-          // Define gradient if not exists
           const svg = arc.closest('svg');
           if (!svg.querySelector('defs')) {
             const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
@@ -1313,8 +1481,59 @@
             defs.appendChild(grad);
             svg.insertBefore(defs, svg.firstChild);
           }
+          setTimeout(() => {
+            arc.style.transition = "stroke-dashoffset 1.2s ease-in-out";
+            arc.setAttribute("stroke-dashoffset", offset);
+          }, 300);
+        }
+      }, 1000);
+    }
 
-          // Animate arc
+    function renderTenthTestView() {
+      const timerEl = document.getElementById("tenthTimerValue");
+      const countdownEl = document.getElementById("tenthCountdownTimer");
+      const chartContainer = document.getElementById("tenthSphereChartContainer");
+      const detailsEl = document.getElementById("tenthTestDetails");
+      let timeLeft = 20;
+      timerEl.textContent = timeLeft;
+      chartContainer.style.display = "none";
+      detailsEl.style.display = "none";
+      const countdown = setInterval(() => {
+        timeLeft--;
+        timerEl.textContent = timeLeft;
+        if (timeLeft <= 0) {
+          clearInterval(countdown);
+          countdownEl.style.display = "none";
+          chartContainer.style.display = "flex";
+          detailsEl.style.display = "block";
+          const percentage = 56; // (28 / 50) * 100
+          const radius = 45;
+          const circumference = 2 * Math.PI * radius;
+          const offset = circumference - (percentage / 100) * circumference;
+          const arc = document.getElementById("tenthProgressArc");
+          arc.setAttribute("d", `M 5 50 A 45 45 0 1 1 ${50 + radius} ${50}`);
+          arc.setAttribute("stroke-dasharray", circumference);
+          arc.setAttribute("stroke-dashoffset", circumference);
+          const svg = arc.closest('svg');
+          if (!svg.querySelector('defs')) {
+            const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+            const grad = document.createElementNS("http://www.w3.org/2000/svg", "linearGradient");
+            grad.setAttribute("id", "grad1");
+            grad.setAttribute("x1", "0%");
+            grad.setAttribute("y1", "0%");
+            grad.setAttribute("x2", "100%");
+            grad.setAttribute("y2", "100%");
+            const stop1 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
+            stop1.setAttribute("offset", "0%");
+            stop1.setAttribute("style", "stop-color:var(--accent);stop-opacity:1");
+            const stop2 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
+            stop2.setAttribute("offset", "100%");
+            stop2.setAttribute("style", "stop-color:var(--success);stop-opacity:1");
+            grad.appendChild(stop1);
+            grad.appendChild(stop2);
+            defs.appendChild(grad);
+            svg.insertBefore(defs, svg.firstChild);
+          }
           setTimeout(() => {
             arc.style.transition = "stroke-dashoffset 1.2s ease-in-out";
             arc.setAttribute("stroke-dashoffset", offset);
@@ -1339,12 +1558,10 @@
       const rollNo = parseInt(document.getElementById("rollNo").value);
       const result = studentResults.find(s => s.rollNo === rollNo);
       if (!result) return alert("No result found.");
-
-      // Hide all marksheet views
       document.getElementById("shivaMarksheet").classList.add("hidden");
       document.getElementById("kamalMarksheet").classList.add("hidden");
       document.getElementById("ninthTestView").style.display = "none";
-
+      document.getElementById("tenthTestView").style.display = "none";
       if (rollNo === 7375) {
         renderKamalResult(result, 0);
         document.getElementById("kamalMarksheet").classList.remove("hidden");
@@ -1358,7 +1575,6 @@
       }
     });
 
-    // Handle subject selection for Shiva
     document.addEventListener("click", e => {
       if (!e.target.classList.contains("subject-btn")) return;
       document.querySelectorAll('.subject-btn').forEach(b => b.classList.remove('active'));
@@ -1376,7 +1592,6 @@
       }
     });
 
-    // Handle test selection for Kamal and Shiva
     document.addEventListener("click", e => {
       if (!e.target.classList.contains("test-selector-btn")) return;
       const container = e.target.closest('.test-selector-container');
@@ -1387,18 +1602,24 @@
       const result = studentResults.find(s => s.rollNo === rollNo);
       if (!result) return;
       const testIndex = parseInt(e.target.dataset.test);
-
       if (rollNo === 7375) {
         renderKamalResult(result, testIndex);
       } else if (rollNo === 7374) {
-        if (testIndex === 8) { // 9th test (0-indexed)
+        if (testIndex === 8) {
           document.getElementById('shivaMarksheet').classList.add('hidden');
           const ninthView = document.getElementById('ninthTestView');
           ninthView.style.display = 'block';
           setTimeout(() => ninthView.style.opacity = '1', 50);
           renderNinthTestView();
+        } else if (testIndex === 9) {
+          document.getElementById('shivaMarksheet').classList.add('hidden');
+          const tenthView = document.getElementById('tenthTestView');
+          tenthView.style.display = 'block';
+          setTimeout(() => tenthView.style.opacity = '1', 50);
+          renderTenthTestView();
         } else {
           document.getElementById('ninthTestView').style.display = 'none';
+          document.getElementById('tenthTestView').style.display = 'none';
           document.getElementById('shivaMarksheet').classList.remove('hidden');
           renderBiologyResult(result, testIndex);
         }
