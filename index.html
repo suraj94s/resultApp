@@ -37,89 +37,51 @@
       overflow-x: hidden;
       position: relative;
     }
-    /* Diwali Celebration Overlay */
-    .diwali-overlay {
+
+    /* === LOADER === */
+    #globalLoader {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      pointer-events: none;
-      z-index: 9999;
+      background: var(--bg);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 99999;
+      opacity: 1;
+      transition: opacity 0.8s ease;
     }
-    .happy-diwali {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+    .loader-content {
+      text-align: center;
+    }
+    .loader-spinner {
+      width: 80px;
+      height: 80px;
+      border: 6px solid rgba(255,255,255,0.1);
+      border-top: 6px solid var(--primary);
+      border-radius: 50%;
+      animation: spin 1.2s linear infinite, pulseGlow 2s infinite alternate;
+      margin: 0 auto 24px;
+    }
+    .loader-text {
       font-family: 'Montserrat', sans-serif;
-      font-size: 5rem;
-      font-weight: 800;
-      background: linear-gradient(45deg, #ffcc00, #ff6b00, #ff2d75, #4d00ff);
+      font-size: 1.8rem;
+      background: linear-gradient(135deg, var(--accent), var(--success));
       -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-shadow: 0 0 30px rgba(255, 204, 0, 0.7);
-      opacity: 0;
-      animation: diwaliFadeIn 1s forwards, diwaliFadeOut 1s 86399s forwards;
-      z-index: 10;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
     }
-    .firework {
-      position: absolute;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      opacity: 0;
-      z-index: 5;
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
-    .bubble {
-      position: absolute;
-      border-radius: 50%;
-      opacity: 0;
-      z-index: 3;
-      box-shadow: 0 0 15px currentColor;
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 10px var(--primary); }
+      100% { box-shadow: 0 0 30px var(--accent); }
     }
-    .flower {
-      position: absolute;
-      opacity: 0;
-      z-index: 4;
-    }
-    .flower::before,
-    .flower::after {
-      content: '';
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: currentColor;
-    }
-    .flower::before {
-      transform: rotate(45deg);
-    }
-    .flower::after {
-      transform: rotate(-45deg);
-    }
-    @keyframes diwaliFadeIn {
-      from { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
-      to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-    }
-    @keyframes diwaliFadeOut {
-      from { opacity: 1; }
-      to { opacity: 0; }
-    }
-    @keyframes fireworkBlast {
-      0% { transform: translate(0, 0); opacity: 1; }
-      100% { transform: translate(var(--tx), var(--ty)); opacity: 0; }
-    }
-    @keyframes bubbleFloat {
-      0% { transform: translateY(0) scale(0); opacity: 0.8; }
-      100% { transform: translateY(-100vh) scale(1); opacity: 0; }
-    }
-    @keyframes flowerBloom {
-      0% { transform: scale(0); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-    /* Existing styles below unchanged */
+
     /* Animated background elements */
     .bg-element {
       position: absolute;
@@ -158,6 +120,7 @@
       50% { transform: translate(-20px, 20px); }
       75% { transform: translate(20px, -20px); }
     }
+
     .header {
       background: rgba(15, 12, 41, 0.7);
       backdrop-filter: blur(12px);
@@ -391,7 +354,8 @@
       -webkit-text-fill-color: transparent;
       text-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
     }
-    /* === Notifications === */
+
+    /* === Enhanced Notifications === */
     .notification-list {
       display: flex;
       flex-direction: column;
@@ -456,13 +420,77 @@
       border-radius: 30px;
       font-size: 0.9rem;
       font-weight: 700;
-      box-shadow: 0 0 10px rgba(255, 204, 0, 0.4);
+      box-shadow: 0 0 10px rgba(255, 204, 0, 0.6);
+      animation: badgePulse 1.5s infinite alternate;
+    }
+    @keyframes badgePulse {
+      0% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 204, 0, 0.6); }
+      100% { transform: scale(1.1); box-shadow: 0 0 20px rgba(255, 204, 0, 0.9); }
     }
     .notification-text {
       color: var(--text-muted);
       line-height: 1.6;
       font-size: 1.05rem;
     }
+
+    /* === Enhanced Timings Section === */
+    .timings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+    .timing-card {
+      background: rgba(30, 28, 50, 0.7);
+      border-radius: 24px;
+      padding: 32px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+      border: 1px solid var(--border);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .timing-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+    }
+    .timing-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 30px rgba(255, 45, 117, 0.4);
+    }
+    .timing-day {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: var(--accent);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .timing-subject {
+      font-size: 1.3rem;
+      margin: 16px 0;
+      color: var(--text);
+      font-weight: 600;
+    }
+    .timing-time {
+      font-weight: 800;
+      color: var(--success);
+      font-size: 1.2rem;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
     /* === Marksheet Redesign === */
     .marksheet-card {
       background: rgba(30, 28, 50, 0.7);
@@ -535,6 +563,7 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+
     /* Subject Selector */
     .subject-selector {
       display: flex;
@@ -582,6 +611,7 @@
     .subject-btn.active::before {
       opacity: 1;
     }
+
     /* Subject Section */
     .subject-section {
       display: none;
@@ -594,6 +624,7 @@
       opacity: 1;
       transform: translateY(0);
     }
+
     /* Subject Card */
     .subject-card {
       background: rgba(20, 18, 35, 0.6);
@@ -745,6 +776,7 @@
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
     }
+
     /* Test Info */
     .test-info {
       display: flex;
@@ -772,13 +804,15 @@
       font-size: 1.1rem;
       color: var(--accent);
     }
-    /* === Search === */
+
+    /* === Search + CAPTCHA === */
     .search-box {
       position: relative;
       max-width: 100%;
-      margin: 0 auto 32px;
+      margin: 0 auto 24px;
     }
-    .search-input {
+    .search-input,
+    .captcha-input {
       width: 100%;
       padding: 18px 24px 18px 64px;
       border: 2px solid var(--border);
@@ -788,21 +822,39 @@
       transition: var(--transition);
       background: rgba(20, 18, 35, 0.6);
       color: white;
+      margin-bottom: 16px;
     }
-    .search-input::placeholder {
+    .search-input::placeholder,
+    .captcha-input::placeholder {
       color: var(--text-muted);
     }
-    .search-input:focus {
+    .search-input:focus,
+    .captcha-input:focus {
       border-color: var(--primary);
       box-shadow: 0 0 0 4px rgba(255, 45, 117, 0.4);
     }
-    .search-icon {
+    .search-icon,
+    .captcha-icon {
       position: absolute;
       left: 26px;
       top: 50%;
       transform: translateY(-50%);
       color: var(--text-muted);
       font-size: 1.4rem;
+    }
+    .captcha-display {
+      text-align: center;
+      font-family: 'Courier New', monospace;
+      font-size: 1.8rem;
+      font-weight: bold;
+      letter-spacing: 8px;
+      padding: 12px;
+      background: rgba(0,0,0,0.2);
+      border-radius: 12px;
+      margin: 10px 0 20px;
+      color: var(--accent);
+      text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+      user-select: none;
     }
     .search-btn {
       display: block;
@@ -851,6 +903,7 @@
       margin-top: auto;
       border-top: 1px solid var(--border);
     }
+
     /* Test Selector Buttons */
     .test-selector-container {
       display: flex;
@@ -896,6 +949,7 @@
     .test-selector-btn.active::before {
       opacity: 1;
     }
+
     /* === 9th & 10th Test Special View === */
     #ninthTestView,
     #tenthTestView {
@@ -932,6 +986,7 @@
     .marks-grid.ninth {
       grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     }
+
     /* Responsive Adjustments */
     @media (max-width: 768px) {
       .student-info-grid,
@@ -962,16 +1017,19 @@
   </style>
 </head>
 <body>
-  <!-- Diwali Celebration Elements -->
-  <div class="diwali-overlay" id="diwaliOverlay">
-    <div class="happy-diwali">Happy Diwali!</div>
+  <!-- LOADER -->
+  <div id="globalLoader">
+    <div class="loader-content">
+      <div class="loader-spinner"></div>
+      <div class="loader-text">Loading StudentHub...</div>
+    </div>
   </div>
 
   <!-- Background elements -->
   <div class="bg-element bg-element-1"></div>
   <div class="bg-element bg-element-2"></div>
   <div class="bg-element bg-element-3"></div>
-  
+
   <!-- Header -->
   <header class="header">
     <div class="logo">
@@ -979,7 +1037,7 @@
       <div class="logo-text">StudentHub</div>
     </div>
   </header>
-  
+
   <div class="main-container">
     <!-- Navigation -->
     <nav class="nav-container">
@@ -991,7 +1049,7 @@
         <li class="nav-item" data-target="results"><i class="fas fa-search"></i> Results</li>
       </ul>
     </nav>
-    
+
     <!-- Content -->
     <main class="content">
       <!-- Notifications -->
@@ -1006,10 +1064,20 @@
               <div class="notification-icon"><i class="fas fa-calendar-alt"></i></div>
               <div class="notification-content">
                 <div class="notification-title">
-                  <span>All Students shall observe Holiday on 20 oct 2025 on the ocassion of Diwali . Classes will  resume on 21 oct 2025 ... !</span>
+                  <span>ENGLISH TEST RESULTS ARE LIVE </span>
                   <span class="notification-badge">NEW</span>
                 </div>
-                <p class="notification-text">HAPPY DIWALI ...</p>
+                <p class="notification-text">CHECK YOUR MARKS !</p>
+              </div>
+            </div>
+            <div class="notification-card">
+              <div class="notification-icon"><i class="fas fa-calendar-alt"></i></div>
+              <div class="notification-content">
+                <div class="notification-title">
+                  <span>All Students shall observe Holiday on 20 Oct 2025 on the occasion of Diwali. Classes will resume on 21 Oct 2025!</span>
+                  <span class="notification-badge">NEW</span>
+                </div>
+                <p class="notification-text">Wishing you a joyful and safe Diwali!</p>
               </div>
             </div>
             <div class="notification-card">
@@ -1035,7 +1103,7 @@
           </div>
         </div>
       </div>
-      
+
       <!-- Profile -->
       <div class="content-area" id="profile-content">
         <div class="section">
@@ -1064,7 +1132,7 @@
           </div>
         </div>
       </div>
-      
+
       <!-- Timings -->
       <div class="content-area" id="timings-content">
         <div class="section">
@@ -1072,26 +1140,26 @@
             <div class="section-icon"><i class="fas fa-clock"></i></div>
             <h2 class="section-title">Class Timings</h2>
           </div>
-          <div class="timings-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px;">
-            <div class="timing-card" style="background: rgba(30, 28, 50, 0.7); border-radius: 20px; padding: 28px; text-align: center; box-shadow: 0 6px 16px rgba(0,0,0,0.2); border: 1px solid var(--border);">
-              <div class="timing-day" style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.3rem; color: var(--accent); margin-bottom: 15px;">Regular Days</div>
-              <div class="timing-subject" style="font-size: 1.2rem; margin: 12px 0; color: var(--text);">ENGLISH</div>
-              <div class="timing-time" style="font-weight: 700; color: var(--success); font-size: 1.1rem;">3 PM & 4 PM</div>
+          <div class="timings-grid">
+            <div class="timing-card">
+              <div class="timing-day"><i class="fas fa-sun"></i> Regular Days</div>
+              <div class="timing-subject">ENGLISH</div>
+              <div class="timing-time"><i class="fas fa-clock"></i> 3 PM & 4 PM</div>
             </div>
-            <div class="timing-card" style="background: rgba(30, 28, 50, 0.7); border-radius: 20px; padding: 28px; text-align: center; box-shadow: 0 6px 16px rgba(0,0,0,0.2); border: 1px solid var(--border);">
-              <div class="timing-day" style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.3rem; color: var(--accent); margin-bottom: 15px;">Sundays</div>
-              <div class="timing-subject" style="font-size: 1.2rem; margin: 12px 0; color: var(--text);">Tests</div>
-              <div class="timing-time" style="font-weight: 700; color: var(--success); font-size: 1.1rem;">1 PM - 2 PM</div>
+            <div class="timing-card">
+              <div class="timing-day"><i class="fas fa-calendar-day"></i> Sundays</div>
+              <div class="timing-subject">Tests</div>
+              <div class="timing-time"><i class="fas fa-stopwatch"></i> 1 PM - 2 PM</div>
             </div>
-            <div class="timing-card" style="background: rgba(30, 28, 50, 0.7); border-radius: 20px; padding: 28px; text-align: center; box-shadow: 0 6px 16px rgba(0,0,0,0.2); border: 1px solid var(--border);">
-              <div class="timing-day" style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.3rem; color: var(--accent); margin-bottom: 15px;">Wednesdays</div>
-              <div class="timing-subject" style="font-size: 1.2rem; margin: 12px 0; color: var(--text);">Biology Lab</div>
-              <div class="timing-time" style="font-weight: 700; color: var(--success); font-size: 1.1rem;">2 PM - 4 PM</div>
+            <div class="timing-card">
+              <div class="timing-day"><i class="fas fa-flask"></i> Wednesdays</div>
+              <div class="timing-subject">Biology Lab</div>
+              <div class="timing-time"><i class="fas fa-microscope"></i> 2 PM - 4 PM</div>
             </div>
           </div>
         </div>
       </div>
-      
+
       <!-- Results -->
       <div class="content-area" id="results-content">
         <div class="section">
@@ -1103,8 +1171,13 @@
             <i class="fas fa-search search-icon"></i>
             <input type="number" class="search-input" id="rollNo" placeholder="Enter Roll Number (e.g., 7374)" />
           </div>
+          <div class="search-box">
+            <i class="fas fa-shield-alt captcha-icon"></i>
+            <input type="text" class="captcha-input" id="captchaInput" placeholder="Enter CAPTCHA" maxlength="6" />
+          </div>
+          <div class="captcha-display" id="captchaDisplay"></div>
           <button class="search-btn" id="searchBtn">Search Result</button>
-          
+
           <!-- Shiva Marksheet -->
           <div id="shivaMarksheet" class="marksheet-card hidden">
             <div class="marksheet-header">
@@ -1142,6 +1215,7 @@
             </div>
             <!-- English Section -->
             <div id="englishSection" class="subject-section">
+              <div class="test-selector-container" id="englishTestSelector"></div>
               <div class="subject-card">
                 <div class="subject-header">
                   <div class="subject-name">English</div>
@@ -1160,17 +1234,17 @@
                 <div class="test-info">
                   <div class="test-info-item">
                     <div class="test-info-label">Test</div>
-                    <div class="test-info-value">1st Test</div>
+                    <div class="test-info-value" id="englishTestName">1st Test</div>
                   </div>
                   <div class="test-info-item">
                     <div class="test-info-label">Date</div>
-                    <div class="test-info-value">12 Oct 2025</div>
+                    <div class="test-info-value" id="englishTestDate">12 Oct 2025</div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          
+
           <!-- Kamal Special -->
           <div id="kamalMarksheet" class="marksheet-card hidden">
             <div class="marksheet-header">
@@ -1185,7 +1259,7 @@
             <div class="test-selector-container">
               <button class="test-selector-btn active" data-test="0">1st Test</button>
               <button class="test-selector-btn" data-test="1">2nd Test</button>
-              <button class="test-selector-btn" data-test="2">3rd Test</button>
+              <button class="test-selector-btn" data-test="2">4th Test</button>
             </div>
             <div class="subject-card">
               <div class="subject-header">
@@ -1204,7 +1278,7 @@
               <div class="grade-badge" id="kamalGrade">A</div>
             </div>
           </div>
-          
+
           <!-- 9th Test Special View -->
           <div id="ninthTestView" class="section" style="display: none; opacity: 0;">
             <div class="section-header">
@@ -1270,59 +1344,30 @@
       </div>
     </main>
   </div>
-  
+
   <!-- FOOTER -->
   <footer>© 2025 Developed by MR Suraj Singh. All rights reserved.</footer>
 
   <script>
-    // ========== DIWALI CELEBRATION ==========
+    // ========== LOADER ==========
     document.addEventListener("DOMContentLoaded", () => {
-      const overlay = document.getElementById("diwaliOverlay");
-      const colors = ['#ffcc00', '#ff6b00', '#ff2d75', '#00f0ff', '#00ff9d'];
-      
-      // Create festive elements
-      for (let i = 0; i < 50; i++) {
-        // Fireworks
-        const firework = document.createElement('div');
-        firework.className = 'firework';
-        firework.style.left = Math.random() * 100 + 'vw';
-        firework.style.top = Math.random() * 100 + 'vh';
-        firework.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        firework.style.setProperty('--tx', (Math.random() - 0.5) * 200 + 'px');
-        firework.style.setProperty('--ty', (Math.random() - 0.5) * 200 + 'px');
-        firework.style.animation = `fireworkBlast ${0.8 + Math.random() * 0.7}s forwards`;
-        firework.style.animationDelay = Math.random() * 3 + 's';
-        overlay.appendChild(firework);
-        
-        // Bubbles
-        const bubble = document.createElement('div');
-        bubble.className = 'bubble';
-        bubble.style.width = (20 + Math.random() * 40) + 'px';
-        bubble.style.height = bubble.style.width;
-        bubble.style.left = Math.random() * 100 + 'vw';
-        bubble.style.bottom = '-50px';
-        bubble.style.color = colors[Math.floor(Math.random() * colors.length)];
-        bubble.style.animation = `bubbleFloat ${3 + Math.random() * 4}s forwards`;
-        bubble.style.animationDelay = Math.random() * 2 + 's';
-        overlay.appendChild(bubble);
-        
-        // Flowers
-        const flower = document.createElement('div');
-        flower.className = 'flower';
-        flower.style.left = Math.random() * 100 + 'vw';
-        flower.style.top = Math.random() * 100 + 'vh';
-        flower.style.color = colors[Math.floor(Math.random() * colors.length)];
-        flower.style.animation = `flowerBloom 1.5s forwards`;
-        flower.style.animationDelay = Math.random() * 5 + 's';
-        overlay.appendChild(flower);
-      }
-      
-      // Remove overlay after 24 hours (86400000 ms)
+      const loader = document.getElementById("globalLoader");
       setTimeout(() => {
-        overlay.style.opacity = '0';
-        setTimeout(() => overlay.remove(), 1000);
-      }, 86400000);
+        loader.style.opacity = "0";
+        setTimeout(() => loader.remove(), 800);
+      }, 10000); // 10 seconds
     });
+
+    // ========== CAPTCHA ==========
+    function generateCaptcha() {
+      const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+      let captcha = "";
+      for (let i = 0; i < 6; i++) {
+        captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      document.getElementById("captchaDisplay").textContent = captcha;
+      return captcha;
+    }
 
     // ========== STUDENT DATA ==========
     const studentResults = [
@@ -1339,16 +1384,13 @@
           { marks: 34, maxMarks: 100, passingMarks: 40 },
           { marks: 30, maxMarks: 50, passingMarks: 39 },
           { marks: 38, maxMarks: 50, passingMarks: 37 },
-          { marks: 42, maxMarks: 50, passingMarks: 37, date: "12 Oct 2025" }, // 9th Test
-          { marks: 28, maxMarks: 50, passingMarks: 37, date: "19 Oct 2025" }  // 10th Test
+          { marks: 42, maxMarks: 50, passingMarks: 37, date: "12 Oct 2025" },
+          { marks: 28, maxMarks: 50, passingMarks: 37, date: "19 Oct 2025" }
         ],
-        english: {
-          marks: 30,
-          maxMarks: 60,
-          passingMarks: 45,
-          test: "1st Test",
-          date: "12 Oct 2025"
-        }
+        english: [
+          { marks: 30, maxMarks: 60, passingMarks: 45, test: "1st Test", date: "12 Oct 2025" },
+          { marks: 39, maxMarks: 60, passingMarks: 43, test: "2nd Test", date: "19 Oct 2025" }
+        ]
       },
       {
         rollNo: 7375,
@@ -1389,8 +1431,8 @@
       bar.style.width = percentage + '%';
     }
 
-    function renderEnglishResult(result) {
-      const test = result.english;
+    function renderEnglishResult(result, testIndex = 0) {
+      const test = result.english[testIndex];
       const percentage = (test.marks / test.maxMarks) * 100;
       const status = test.marks >= test.passingMarks ? "PASS" : "FAIL";
       const grade = getGrade(percentage);
@@ -1401,6 +1443,8 @@
       document.getElementById("englishStatus").textContent = status;
       document.getElementById("englishStatus").className = "subject-status " + (status === "PASS" ? "status-pass" : "status-fail");
       document.getElementById("englishGrade").textContent = grade;
+      document.getElementById("englishTestName").textContent = test.test;
+      document.getElementById("englishTestDate").textContent = test.date;
       const bar = document.getElementById("englishProgressBar");
       bar.style.setProperty('--width', percentage + '%');
       bar.style.width = percentage + '%';
@@ -1436,6 +1480,16 @@
       document.getElementById("biologyTestSelector").innerHTML = html;
     }
 
+    function generateEnglishTestSelectorButtons(count) {
+      const ordinals = ["1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th"];
+      let html = '';
+      for (let i = 0; i < count; i++) {
+        const label = ordinals[i] || (i + 1) + "th";
+        html += `<button class="test-selector-btn ${i === 0 ? 'active' : ''}" data-test="${i}">${label} Test</button>`;
+      }
+      document.getElementById("englishTestSelector").innerHTML = html;
+    }
+
     function renderNinthTestView() {
       const timerEl = document.getElementById("timerValue");
       const countdownEl = document.getElementById("countdownTimer");
@@ -1453,7 +1507,7 @@
           countdownEl.style.display = "none";
           chartContainer.style.display = "flex";
           detailsEl.style.display = "block";
-          const percentage = 84; // (42 / 50) * 100
+          const percentage = 84;
           const radius = 45;
           const circumference = 2 * Math.PI * radius;
           const offset = circumference - (percentage / 100) * circumference;
@@ -1506,7 +1560,7 @@
           countdownEl.style.display = "none";
           chartContainer.style.display = "flex";
           detailsEl.style.display = "block";
-          const percentage = 56; // (28 / 50) * 100
+          const percentage = 56;
           const radius = 45;
           const circumference = 2 * Math.PI * radius;
           const offset = circumference - (percentage / 100) * circumference;
@@ -1554,8 +1608,21 @@
       item.addEventListener('click', e => showContent(e.currentTarget.dataset.target));
     });
 
+    // CAPTCHA on load
+    let currentCaptcha = generateCaptcha();
+
+    document.getElementById("captchaDisplay").addEventListener("click", () => {
+      currentCaptcha = generateCaptcha();
+    });
+
     document.getElementById("searchBtn").addEventListener("click", () => {
       const rollNo = parseInt(document.getElementById("rollNo").value);
+      const captchaInput = document.getElementById("captchaInput").value.trim().toUpperCase();
+      if (captchaInput !== currentCaptcha) {
+        alert("Invalid CAPTCHA. Please try again.");
+        currentCaptcha = generateCaptcha();
+        return;
+      }
       const result = studentResults.find(s => s.rollNo === rollNo);
       if (!result) return alert("No result found.");
       document.getElementById("shivaMarksheet").classList.add("hidden");
@@ -1570,11 +1637,13 @@
         document.getElementById("shivaResultRollNo").textContent = result.rollNo;
         document.getElementById("shivaResultClass").textContent = result.class;
         generateBiologyTestSelectorButtons(result.biology.length);
+        generateEnglishTestSelectorButtons(result.english.length);
         renderBiologyResult(result, 0);
         document.getElementById("shivaMarksheet").classList.remove("hidden");
       }
     });
 
+    // Subject switching
     document.addEventListener("click", e => {
       if (!e.target.classList.contains("subject-btn")) return;
       document.querySelectorAll('.subject-btn').forEach(b => b.classList.remove('active'));
@@ -1588,10 +1657,11 @@
         document.getElementById('englishSection').classList.add('active');
         const rollNo = parseInt(document.getElementById("rollNo").value);
         const result = studentResults.find(s => s.rollNo === rollNo);
-        if (result) renderEnglishResult(result);
+        if (result) renderEnglishResult(result, 0);
       }
     });
 
+    // Test switching
     document.addEventListener("click", e => {
       if (!e.target.classList.contains("test-selector-btn")) return;
       const container = e.target.closest('.test-selector-container');
@@ -1605,28 +1675,36 @@
       if (rollNo === 7375) {
         renderKamalResult(result, testIndex);
       } else if (rollNo === 7374) {
-        if (testIndex === 8) {
-          document.getElementById('shivaMarksheet').classList.add('hidden');
-          const ninthView = document.getElementById('ninthTestView');
-          ninthView.style.display = 'block';
-          setTimeout(() => ninthView.style.opacity = '1', 50);
-          renderNinthTestView();
-        } else if (testIndex === 9) {
-          document.getElementById('shivaMarksheet').classList.add('hidden');
-          const tenthView = document.getElementById('tenthTestView');
-          tenthView.style.display = 'block';
-          setTimeout(() => tenthView.style.opacity = '1', 50);
-          renderTenthTestView();
+        const isBiologySection = document.getElementById('biologySection').classList.contains('active');
+        if (isBiologySection) {
+          if (testIndex === 8) {
+            document.getElementById('shivaMarksheet').classList.add('hidden');
+            const ninthView = document.getElementById('ninthTestView');
+            ninthView.style.display = 'block';
+            setTimeout(() => ninthView.style.opacity = '1', 50);
+            renderNinthTestView();
+          } else if (testIndex === 9) {
+            document.getElementById('shivaMarksheet').classList.add('hidden');
+            const tenthView = document.getElementById('tenthTestView');
+            tenthView.style.display = 'block';
+            setTimeout(() => tenthView.style.opacity = '1', 50);
+            renderTenthTestView();
+          } else {
+            document.getElementById('ninthTestView').style.display = 'none';
+            document.getElementById('tenthTestView').style.display = 'none';
+            document.getElementById('shivaMarksheet').classList.remove('hidden');
+            renderBiologyResult(result, testIndex);
+          }
         } else {
-          document.getElementById('ninthTestView').style.display = 'none';
-          document.getElementById('tenthTestView').style.display = 'none';
-          document.getElementById('shivaMarksheet').classList.remove('hidden');
-          renderBiologyResult(result, testIndex);
+          renderEnglishResult(result, testIndex);
         }
       }
     });
 
-    document.addEventListener("DOMContentLoaded", () => showContent("notifications"));
+    document.addEventListener("DOMContentLoaded", () => {
+      showContent("notifications");
+      currentCaptcha = generateCaptcha();
+    });
   </script>
 </body>
 </html>
