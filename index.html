@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -119,6 +120,29 @@
       25% { transform: translate(20px, 20px); }
       50% { transform: translate(-20px, 20px); }
       75% { transform: translate(20px, -20px); }
+    }
+
+    /* Falling Particles */
+    .particle {
+      position: absolute;
+      top: -20px;
+      opacity: 0.8;
+      pointer-events: none;
+      z-index: -1;
+      animation: fall linear forwards;
+    }
+    .flower {
+      font-size: 24px;
+      animation-duration: 10s;
+    }
+    .drop {
+      font-size: 18px;
+      animation-duration: 6s;
+    }
+    @keyframes fall {
+      to {
+        transform: translateY(105vh) rotate(360deg);
+      }
     }
 
     .header {
@@ -805,14 +829,14 @@
       color: var(--accent);
     }
 
-    /* === Search + CAPTCHA === */
+    /* === Search + Math Challenge === */
     .search-box {
       position: relative;
       max-width: 100%;
       margin: 0 auto 24px;
     }
     .search-input,
-    .captcha-input {
+    .math-input {
       width: 100%;
       padding: 18px 24px 18px 64px;
       border: 2px solid var(--border);
@@ -825,16 +849,16 @@
       margin-bottom: 16px;
     }
     .search-input::placeholder,
-    .captcha-input::placeholder {
+    .math-input::placeholder {
       color: var(--text-muted);
     }
     .search-input:focus,
-    .captcha-input:focus {
+    .math-input:focus {
       border-color: var(--primary);
       box-shadow: 0 0 0 4px rgba(255, 45, 117, 0.4);
     }
     .search-icon,
-    .captcha-icon {
+    .math-icon {
       position: absolute;
       left: 26px;
       top: 50%;
@@ -842,7 +866,7 @@
       color: var(--text-muted);
       font-size: 1.4rem;
     }
-    .captcha-display {
+    .math-display {
       text-align: center;
       font-family: 'Courier New', monospace;
       font-size: 1.8rem;
@@ -895,6 +919,16 @@
     .hidden {
       display: none !important;
     }
+
+    /* Biology Note */
+    #biologyNote {
+      text-align: center;
+      margin-top: 15px;
+      font-style: italic;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
     footer {
       text-align: center;
       padding: 36px 0;
@@ -950,43 +984,6 @@
       opacity: 1;
     }
 
-    /* === 9th & 10th Test Special View === */
-    #ninthTestView,
-    #tenthTestView {
-      display: none;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-    #ninthTestView.active,
-    #tenthTestView.active {
-      display: block;
-      opacity: 1;
-    }
-    .sphere-chart {
-      position: relative;
-      display: inline-block;
-    }
-    .sphere-chart svg {
-      filter: drop-shadow(0 0 15px rgba(0, 240, 255, 0.4));
-    }
-    .sphere-label {
-      margin-top: 12px;
-      font-size: 1.1rem;
-      color: var(--text-muted);
-      font-weight: 600;
-    }
-    #countdownTimer,
-    #tenthCountdownTimer {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--warning);
-      margin: 20px 0;
-      height: 40px;
-    }
-    .marks-grid.ninth {
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    }
-
     /* Responsive Adjustments */
     @media (max-width: 768px) {
       .student-info-grid,
@@ -1021,7 +1018,7 @@
   <div id="globalLoader">
     <div class="loader-content">
       <div class="loader-spinner"></div>
-      <div class="loader-text">Loading StudentHub...</div>
+      <div class="loader-text">Welcome to StudentHub...</div>
     </div>
   </div>
 
@@ -1172,10 +1169,10 @@
             <input type="number" class="search-input" id="rollNo" placeholder="Enter Roll Number (e.g., 7374)" />
           </div>
           <div class="search-box">
-            <i class="fas fa-shield-alt captcha-icon"></i>
-            <input type="text" class="captcha-input" id="captchaInput" placeholder="Enter CAPTCHA" maxlength="6" />
+            <i class="fas fa-calculator math-icon"></i>
+            <input type="number" class="math-input" id="mathAnswer" placeholder="Solve the sum below" />
           </div>
-          <div class="captcha-display" id="captchaDisplay"></div>
+          <div class="math-display" id="mathQuestion">5 + 3 = ?</div>
           <button class="search-btn" id="searchBtn">Search Result</button>
 
           <!-- Shiva Marksheet -->
@@ -1211,6 +1208,7 @@
                   <div class="progress-bar" id="biologyProgressBar"></div>
                 </div>
                 <div class="grade-badge" id="biologyGrade">A</div>
+                <p id="biologyNote"></p>
               </div>
             </div>
             <!-- English Section -->
@@ -1278,68 +1276,6 @@
               <div class="grade-badge" id="kamalGrade">A</div>
             </div>
           </div>
-
-          <!-- 9th Test Special View -->
-          <div id="ninthTestView" class="section" style="display: none; opacity: 0;">
-            <div class="section-header">
-              <div class="section-icon"><i class="fas fa-vial"></i></div>
-              <h2 class="section-title">9th Biology Test</h2>
-            </div>
-            <div class="text-center">
-              <div id="countdownTimer">Results unlock in <span id="timerValue">10</span>s</div>
-              <div id="sphereChartContainer" style="display: none; justify-content: center; margin: 30px 0;">
-                <div class="sphere-chart">
-                  <svg width="200" height="200" viewBox="0 0 100 100">
-                    <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="8"/>
-                    <path id="progressArc" fill="none" stroke="url(#grad1)" stroke-width="8" stroke-linecap="round" d="" />
-                    <text x="50" y="53" text-anchor="middle" font-size="18" font-weight="800" fill="var(--text)">84%</text>
-                  </svg>
-                  <div class="sphere-label">Biology • 9th Test</div>
-                </div>
-              </div>
-              <div id="ninthTestDetails" style="display: none; margin-top: 30px;">
-                <div class="marks-grid ninth">
-                  <div class="mark-item"><span class="mark-label">Obtained</span><span class="mark-value">42</span></div>
-                  <div class="mark-item"><span class="mark-label">Max Marks</span><span class="mark-value">50</span></div>
-                  <div class="mark-item"><span class="mark-label">Passing</span><span class="mark-value">37</span></div>
-                  <div class="mark-item"><span class="mark-label">Date</span><span class="mark-value">12 Oct 2025</span></div>
-                </div>
-                <div class="subject-status status-pass" style="margin-top: 20px; display: inline-block;">PASS</div>
-                <div class="grade-badge" style="margin-top: 15px;">B+</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 10th Test Special View -->
-          <div id="tenthTestView" class="section" style="display: none; opacity: 0;">
-            <div class="section-header">
-              <div class="section-icon"><i class="fas fa-vial"></i></div>
-              <h2 class="section-title">10th Biology Test</h2>
-            </div>
-            <div class="text-center">
-              <div id="tenthCountdownTimer">Results unlock in <span id="tenthTimerValue">20</span>s</div>
-              <div id="tenthSphereChartContainer" style="display: none; justify-content: center; margin: 30px 0;">
-                <div class="sphere-chart">
-                  <svg width="200" height="200" viewBox="0 0 100 100">
-                    <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="8"/>
-                    <path id="tenthProgressArc" fill="none" stroke="url(#grad1)" stroke-width="8" stroke-linecap="round" d="" />
-                    <text x="50" y="53" text-anchor="middle" font-size="18" font-weight="800" fill="var(--text)">56%</text>
-                  </svg>
-                  <div class="sphere-label">Biology • 10th Test</div>
-                </div>
-              </div>
-              <div id="tenthTestDetails" style="display: none; margin-top: 30px;">
-                <div class="marks-grid ninth">
-                  <div class="mark-item"><span class="mark-label">Obtained</span><span class="mark-value">28</span></div>
-                  <div class="mark-item"><span class="mark-label">Max Marks</span><span class="mark-value">50</span></div>
-                  <div class="mark-item"><span class="mark-label">Passing</span><span class="mark-value">37</span></div>
-                  <div class="mark-item"><span class="mark-label">Date</span><span class="mark-value">19 Oct 2025</span></div>
-                </div>
-                <div class="subject-status status-fail" style="margin-top: 20px; display: inline-block;">FAIL</div>
-                <div class="grade-badge" style="margin-top: 15px;">D</div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </main>
@@ -1348,6 +1284,24 @@
   <!-- FOOTER -->
   <footer>© 2025 Developed by MR Suraj Singh. All rights reserved.</footer>
 
+  <!-- Falling Particles Script -->
+  <script>
+    function createParticles() {
+      const container = document.body;
+      const particles = ['🌸', '💧', '🌼', '🌺', '💧', '🌷'];
+      setInterval(() => {
+        const particle = document.createElement('div');
+        particle.className = 'particle ' + (Math.random() > 0.5 ? 'flower' : 'drop');
+        particle.textContent = particles[Math.floor(Math.random() * particles.length)];
+        particle.style.left = Math.random() * 100 + 'vw';
+        particle.style.animationDuration = (5 + Math.random() * 10) + 's';
+        container.appendChild(particle);
+        setTimeout(() => particle.remove(), 12000);
+      }, 300);
+    }
+    document.addEventListener('DOMContentLoaded', createParticles);
+  </script>
+
   <script>
     // ========== LOADER ==========
     document.addEventListener("DOMContentLoaded", () => {
@@ -1355,19 +1309,23 @@
       setTimeout(() => {
         loader.style.opacity = "0";
         setTimeout(() => loader.remove(), 800);
-      }, 10000); // 10 seconds
+      }, 2000); // Changed to 2 seconds
     });
 
-    // ========== CAPTCHA ==========
-    function generateCaptcha() {
-      const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-      let captcha = "";
-      for (let i = 0; i < 6; i++) {
-        captcha += chars.charAt(Math.floor(Math.random() * chars.length));
-      }
-      document.getElementById("captchaDisplay").textContent = captcha;
-      return captcha;
+    // ========== MATH CHALLENGE ==========
+    function generateMathChallenge() {
+      const a = Math.floor(Math.random() * 10) + 1;
+      const b = Math.floor(Math.random() * 10) + 1;
+      document.getElementById("mathQuestion").textContent = `${a} + ${b} = ?`;
+      return a + b;
     }
+
+    let correctAnswer = generateMathChallenge();
+
+    document.getElementById("mathQuestion").addEventListener("click", () => {
+      correctAnswer = generateMathChallenge();
+      document.getElementById("mathAnswer").value = "";
+    });
 
     // ========== STUDENT DATA ==========
     const studentResults = [
@@ -1385,7 +1343,8 @@
           { marks: 30, maxMarks: 50, passingMarks: 39 },
           { marks: 38, maxMarks: 50, passingMarks: 37 },
           { marks: 42, maxMarks: 50, passingMarks: 37, date: "12 Oct 2025" },
-          { marks: 28, maxMarks: 50, passingMarks: 37, date: "19 Oct 2025" }
+          { marks: 28, maxMarks: 50, passingMarks: 37, date: "19 Oct 2025" },
+          { marks: 44, maxMarks: 50, passingMarks: 36, date: "21 Oct 2025", note: "Re-exam of 10th Test – Performance is excellent!" }
         ],
         english: [
           { marks: 30, maxMarks: 60, passingMarks: 45, test: "1st Test", date: "12 Oct 2025" },
@@ -1426,6 +1385,13 @@
       document.getElementById("biologyStatus").textContent = status;
       document.getElementById("biologyStatus").className = "subject-status " + (status === "PASS" ? "status-pass" : "status-fail");
       document.getElementById("biologyGrade").textContent = grade;
+      const noteEl = document.getElementById("biologyNote");
+      if (test.note) {
+        noteEl.textContent = test.note;
+        noteEl.style.display = "block";
+      } else {
+        noteEl.style.display = "none";
+      }
       const bar = document.getElementById("biologyProgressBar");
       bar.style.setProperty('--width', percentage + '%');
       bar.style.width = percentage + '%';
@@ -1471,10 +1437,10 @@
     }
 
     function generateBiologyTestSelectorButtons(count) {
-      const ordinals = ["1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th"];
+      const ordinals = ["1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th", "Re-exam"];
       let html = '';
       for (let i = 0; i < count; i++) {
-        const label = ordinals[i] || (i + 1) + "th";
+        const label = i === 10 ? "Re-exam" : (ordinals[i] || (i + 1) + "th");
         html += `<button class="test-selector-btn ${i === 0 ? 'active' : ''}" data-test="${i}">${label} Test</button>`;
       }
       document.getElementById("biologyTestSelector").innerHTML = html;
@@ -1490,112 +1456,6 @@
       document.getElementById("englishTestSelector").innerHTML = html;
     }
 
-    function renderNinthTestView() {
-      const timerEl = document.getElementById("timerValue");
-      const countdownEl = document.getElementById("countdownTimer");
-      const chartContainer = document.getElementById("sphereChartContainer");
-      const detailsEl = document.getElementById("ninthTestDetails");
-      let timeLeft = 10;
-      timerEl.textContent = timeLeft;
-      chartContainer.style.display = "none";
-      detailsEl.style.display = "none";
-      const countdown = setInterval(() => {
-        timeLeft--;
-        timerEl.textContent = timeLeft;
-        if (timeLeft <= 0) {
-          clearInterval(countdown);
-          countdownEl.style.display = "none";
-          chartContainer.style.display = "flex";
-          detailsEl.style.display = "block";
-          const percentage = 84;
-          const radius = 45;
-          const circumference = 2 * Math.PI * radius;
-          const offset = circumference - (percentage / 100) * circumference;
-          const arc = document.getElementById("progressArc");
-          arc.setAttribute("d", `M 5 50 A 45 45 0 1 1 ${50 + radius} ${50}`);
-          arc.setAttribute("stroke-dasharray", circumference);
-          arc.setAttribute("stroke-dashoffset", circumference);
-          const svg = arc.closest('svg');
-          if (!svg.querySelector('defs')) {
-            const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
-            const grad = document.createElementNS("http://www.w3.org/2000/svg", "linearGradient");
-            grad.setAttribute("id", "grad1");
-            grad.setAttribute("x1", "0%");
-            grad.setAttribute("y1", "0%");
-            grad.setAttribute("x2", "100%");
-            grad.setAttribute("y2", "100%");
-            const stop1 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
-            stop1.setAttribute("offset", "0%");
-            stop1.setAttribute("style", "stop-color:var(--accent);stop-opacity:1");
-            const stop2 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
-            stop2.setAttribute("offset", "100%");
-            stop2.setAttribute("style", "stop-color:var(--success);stop-opacity:1");
-            grad.appendChild(stop1);
-            grad.appendChild(stop2);
-            defs.appendChild(grad);
-            svg.insertBefore(defs, svg.firstChild);
-          }
-          setTimeout(() => {
-            arc.style.transition = "stroke-dashoffset 1.2s ease-in-out";
-            arc.setAttribute("stroke-dashoffset", offset);
-          }, 300);
-        }
-      }, 1000);
-    }
-
-    function renderTenthTestView() {
-      const timerEl = document.getElementById("tenthTimerValue");
-      const countdownEl = document.getElementById("tenthCountdownTimer");
-      const chartContainer = document.getElementById("tenthSphereChartContainer");
-      const detailsEl = document.getElementById("tenthTestDetails");
-      let timeLeft = 20;
-      timerEl.textContent = timeLeft;
-      chartContainer.style.display = "none";
-      detailsEl.style.display = "none";
-      const countdown = setInterval(() => {
-        timeLeft--;
-        timerEl.textContent = timeLeft;
-        if (timeLeft <= 0) {
-          clearInterval(countdown);
-          countdownEl.style.display = "none";
-          chartContainer.style.display = "flex";
-          detailsEl.style.display = "block";
-          const percentage = 56;
-          const radius = 45;
-          const circumference = 2 * Math.PI * radius;
-          const offset = circumference - (percentage / 100) * circumference;
-          const arc = document.getElementById("tenthProgressArc");
-          arc.setAttribute("d", `M 5 50 A 45 45 0 1 1 ${50 + radius} ${50}`);
-          arc.setAttribute("stroke-dasharray", circumference);
-          arc.setAttribute("stroke-dashoffset", circumference);
-          const svg = arc.closest('svg');
-          if (!svg.querySelector('defs')) {
-            const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
-            const grad = document.createElementNS("http://www.w3.org/2000/svg", "linearGradient");
-            grad.setAttribute("id", "grad1");
-            grad.setAttribute("x1", "0%");
-            grad.setAttribute("y1", "0%");
-            grad.setAttribute("x2", "100%");
-            grad.setAttribute("y2", "100%");
-            const stop1 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
-            stop1.setAttribute("offset", "0%");
-            stop1.setAttribute("style", "stop-color:var(--accent);stop-opacity:1");
-            const stop2 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
-            stop2.setAttribute("offset", "100%");
-            stop2.setAttribute("style", "stop-color:var(--success);stop-opacity:1");
-            grad.appendChild(stop1);
-            grad.appendChild(stop2);
-            defs.appendChild(grad);
-            svg.insertBefore(defs, svg.firstChild);
-          }
-          setTimeout(() => {
-            arc.style.transition = "stroke-dashoffset 1.2s ease-in-out";
-            arc.setAttribute("stroke-dashoffset", offset);
-          }, 300);
-        }
-      }, 1000);
-    }
-
     function showContent(target) {
       document.querySelectorAll('.content-area').forEach(area => area.classList.remove('active'));
       document.getElementById(`${target}-content`).classList.add('active');
@@ -1608,27 +1468,22 @@
       item.addEventListener('click', e => showContent(e.currentTarget.dataset.target));
     });
 
-    // CAPTCHA on load
-    let currentCaptcha = generateCaptcha();
-
-    document.getElementById("captchaDisplay").addEventListener("click", () => {
-      currentCaptcha = generateCaptcha();
-    });
-
     document.getElementById("searchBtn").addEventListener("click", () => {
       const rollNo = parseInt(document.getElementById("rollNo").value);
-      const captchaInput = document.getElementById("captchaInput").value.trim().toUpperCase();
-      if (captchaInput !== currentCaptcha) {
-        alert("Invalid CAPTCHA. Please try again.");
-        currentCaptcha = generateCaptcha();
+      const userAnswer = parseInt(document.getElementById("mathAnswer").value);
+
+      if (isNaN(userAnswer) || userAnswer !== correctAnswer) {
+        alert("Incorrect answer. Please solve the sum correctly.");
+        correctAnswer = generateMathChallenge();
         return;
       }
+
       const result = studentResults.find(s => s.rollNo === rollNo);
       if (!result) return alert("No result found.");
+
       document.getElementById("shivaMarksheet").classList.add("hidden");
       document.getElementById("kamalMarksheet").classList.add("hidden");
-      document.getElementById("ninthTestView").style.display = "none";
-      document.getElementById("tenthTestView").style.display = "none";
+
       if (rollNo === 7375) {
         renderKamalResult(result, 0);
         document.getElementById("kamalMarksheet").classList.remove("hidden");
@@ -1677,24 +1532,7 @@
       } else if (rollNo === 7374) {
         const isBiologySection = document.getElementById('biologySection').classList.contains('active');
         if (isBiologySection) {
-          if (testIndex === 8) {
-            document.getElementById('shivaMarksheet').classList.add('hidden');
-            const ninthView = document.getElementById('ninthTestView');
-            ninthView.style.display = 'block';
-            setTimeout(() => ninthView.style.opacity = '1', 50);
-            renderNinthTestView();
-          } else if (testIndex === 9) {
-            document.getElementById('shivaMarksheet').classList.add('hidden');
-            const tenthView = document.getElementById('tenthTestView');
-            tenthView.style.display = 'block';
-            setTimeout(() => tenthView.style.opacity = '1', 50);
-            renderTenthTestView();
-          } else {
-            document.getElementById('ninthTestView').style.display = 'none';
-            document.getElementById('tenthTestView').style.display = 'none';
-            document.getElementById('shivaMarksheet').classList.remove('hidden');
-            renderBiologyResult(result, testIndex);
-          }
+          renderBiologyResult(result, testIndex);
         } else {
           renderEnglishResult(result, testIndex);
         }
@@ -1703,7 +1541,7 @@
 
     document.addEventListener("DOMContentLoaded", () => {
       showContent("notifications");
-      currentCaptcha = generateCaptcha();
+      correctAnswer = generateMathChallenge();
     });
   </script>
 </body>
