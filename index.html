@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,7 +37,6 @@
       overflow-x: hidden;
       position: relative;
     }
-
     /* === LOADER === */
     #globalLoader {
       position: fixed;
@@ -82,7 +80,6 @@
       0% { box-shadow: 0 0 10px var(--primary); }
       100% { box-shadow: 0 0 30px var(--accent); }
     }
-
     /* Animated background elements */
     .bg-element {
       position: absolute;
@@ -121,7 +118,6 @@
       50% { transform: translate(-20px, 20px); }
       75% { transform: translate(20px, -20px); }
     }
-
     /* Falling Particles */
     .particle {
       position: absolute;
@@ -144,7 +140,6 @@
         transform: translateY(105vh) rotate(360deg);
       }
     }
-
     .header {
       background: rgba(15, 12, 41, 0.7);
       backdrop-filter: blur(12px);
@@ -378,7 +373,6 @@
       -webkit-text-fill-color: transparent;
       text-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
     }
-
     /* === Enhanced Notifications === */
     .notification-list {
       display: flex;
@@ -456,7 +450,6 @@
       line-height: 1.6;
       font-size: 1.05rem;
     }
-
     /* === Enhanced Timings Section === */
     .timings-grid {
       display: grid;
@@ -514,7 +507,6 @@
       justify-content: center;
       gap: 8px;
     }
-
     /* === Marksheet Redesign === */
     .marksheet-card {
       background: rgba(30, 28, 50, 0.7);
@@ -587,7 +579,6 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-
     /* Subject Selector */
     .subject-selector {
       display: flex;
@@ -635,7 +626,6 @@
     .subject-btn.active::before {
       opacity: 1;
     }
-
     /* Subject Section */
     .subject-section {
       display: none;
@@ -648,7 +638,6 @@
       opacity: 1;
       transform: translateY(0);
     }
-
     /* Subject Card */
     .subject-card {
       background: rgba(20, 18, 35, 0.6);
@@ -800,7 +789,6 @@
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
     }
-
     /* Test Info */
     .test-info {
       display: flex;
@@ -828,7 +816,6 @@
       font-size: 1.1rem;
       color: var(--accent);
     }
-
     /* === Search + Math Challenge === */
     .search-box {
       position: relative;
@@ -919,7 +906,6 @@
     .hidden {
       display: none !important;
     }
-
     /* Biology Note */
     #biologyNote {
       text-align: center;
@@ -928,7 +914,6 @@
       color: var(--text-muted);
       font-size: 1.1rem;
     }
-
     footer {
       text-align: center;
       padding: 36px 0;
@@ -937,7 +922,6 @@
       margin-top: auto;
       border-top: 1px solid var(--border);
     }
-
     /* Test Selector Buttons */
     .test-selector-container {
       display: flex;
@@ -983,7 +967,15 @@
     .test-selector-btn.active::before {
       opacity: 1;
     }
-
+    /* Countdown Timer */
+    #countdownTimer {
+      text-align: center;
+      font-size: 1.4rem;
+      color: var(--warning);
+      margin: 20px 0;
+      font-weight: bold;
+      display: none;
+    }
     /* Responsive Adjustments */
     @media (max-width: 768px) {
       .student-info-grid,
@@ -1021,12 +1013,10 @@
       <div class="loader-text">Welcome to StudentHub...</div>
     </div>
   </div>
-
   <!-- Background elements -->
   <div class="bg-element bg-element-1"></div>
   <div class="bg-element bg-element-2"></div>
   <div class="bg-element bg-element-3"></div>
-
   <!-- Header -->
   <header class="header">
     <div class="logo">
@@ -1034,7 +1024,6 @@
       <div class="logo-text">StudentHub</div>
     </div>
   </header>
-
   <div class="main-container">
     <!-- Navigation -->
     <nav class="nav-container">
@@ -1046,7 +1035,6 @@
         <li class="nav-item" data-target="results"><i class="fas fa-search"></i> Results</li>
       </ul>
     </nav>
-
     <!-- Content -->
     <main class="content">
       <!-- Notifications -->
@@ -1100,7 +1088,6 @@
           </div>
         </div>
       </div>
-
       <!-- Profile -->
       <div class="content-area" id="profile-content">
         <div class="section">
@@ -1129,7 +1116,6 @@
           </div>
         </div>
       </div>
-
       <!-- Timings -->
       <div class="content-area" id="timings-content">
         <div class="section">
@@ -1156,7 +1142,6 @@
           </div>
         </div>
       </div>
-
       <!-- Results -->
       <div class="content-area" id="results-content">
         <div class="section">
@@ -1174,6 +1159,9 @@
           </div>
           <div class="math-display" id="mathQuestion">5 + 3 = ?</div>
           <button class="search-btn" id="searchBtn">Search Result</button>
+
+          <!-- Countdown Timer -->
+          <div id="countdownTimer">Opening result in <span id="timerValue">10</span> seconds...</div>
 
           <!-- Shiva Marksheet -->
           <div id="shivaMarksheet" class="marksheet-card hidden">
@@ -1242,7 +1230,6 @@
               </div>
             </div>
           </div>
-
           <!-- Kamal Special -->
           <div id="kamalMarksheet" class="marksheet-card hidden">
             <div class="marksheet-header">
@@ -1280,10 +1267,8 @@
       </div>
     </main>
   </div>
-
   <!-- FOOTER -->
   <footer>© 2025 Developed by MR Suraj Singh. All rights reserved.</footer>
-
   <!-- Falling Particles Script -->
   <script>
     function createParticles() {
@@ -1301,7 +1286,6 @@
     }
     document.addEventListener('DOMContentLoaded', createParticles);
   </script>
-
   <script>
     // ========== LOADER ==========
     document.addEventListener("DOMContentLoaded", () => {
@@ -1309,7 +1293,7 @@
       setTimeout(() => {
         loader.style.opacity = "0";
         setTimeout(() => loader.remove(), 800);
-      }, 2000); // Changed to 2 seconds
+      }, 2000);
     });
 
     // ========== MATH CHALLENGE ==========
@@ -1319,9 +1303,7 @@
       document.getElementById("mathQuestion").textContent = `${a} + ${b} = ?`;
       return a + b;
     }
-
     let correctAnswer = generateMathChallenge();
-
     document.getElementById("mathQuestion").addEventListener("click", () => {
       correctAnswer = generateMathChallenge();
       document.getElementById("mathAnswer").value = "";
@@ -1348,7 +1330,8 @@
         ],
         english: [
           { marks: 30, maxMarks: 60, passingMarks: 45, test: "1st Test", date: "12 Oct 2025" },
-          { marks: 39, maxMarks: 60, passingMarks: 43, test: "2nd Test", date: "19 Oct 2025" }
+          { marks: 39, maxMarks: 60, passingMarks: 43, test: "2nd Test", date: "19 Oct 2025" },
+          { marks: 60, maxMarks: 80, passingMarks: 59, test: "Re-exam", date: "26 Oct 2025" }
         ]
       },
       {
@@ -1450,8 +1433,8 @@
       const ordinals = ["1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th"];
       let html = '';
       for (let i = 0; i < count; i++) {
-        const label = ordinals[i] || (i + 1) + "th";
-        html += `<button class="test-selector-btn ${i === 0 ? 'active' : ''}" data-test="${i}">${label} Test</button>`;
+        const label = i === 2 ? "Re-exam" : (ordinals[i] || (i + 1) + "th");
+        html += `<button class="test-selector-btn ${i === 0 ? 'active' : ''}" data-test="${i}">${label}</button>`;
       }
       document.getElementById("englishTestSelector").innerHTML = html;
     }
@@ -1468,9 +1451,12 @@
       item.addEventListener('click', e => showContent(e.currentTarget.dataset.target));
     });
 
+    // ========== SEARCH BUTTON WITH TIMER ==========
     document.getElementById("searchBtn").addEventListener("click", () => {
-      const rollNo = parseInt(document.getElementById("rollNo").value);
-      const userAnswer = parseInt(document.getElementById("mathAnswer").value);
+      const rollNoInput = document.getElementById("rollNo");
+      const mathInput = document.getElementById("mathAnswer");
+      const rollNo = parseInt(rollNoInput.value);
+      const userAnswer = parseInt(mathInput.value);
 
       if (isNaN(userAnswer) || userAnswer !== correctAnswer) {
         alert("Incorrect answer. Please solve the sum correctly.");
@@ -1481,21 +1467,45 @@
       const result = studentResults.find(s => s.rollNo === rollNo);
       if (!result) return alert("No result found.");
 
-      document.getElementById("shivaMarksheet").classList.add("hidden");
-      document.getElementById("kamalMarksheet").classList.add("hidden");
+      // Show countdown timer
+      const timerEl = document.getElementById("countdownTimer");
+      const timerValueEl = document.getElementById("timerValue");
+      let seconds = 10;
+      timerValueEl.textContent = seconds;
+      timerEl.style.display = "block";
 
-      if (rollNo === 7375) {
-        renderKamalResult(result, 0);
-        document.getElementById("kamalMarksheet").classList.remove("hidden");
-      } else {
-        document.getElementById("shivaResultName").textContent = result.name;
-        document.getElementById("shivaResultRollNo").textContent = result.rollNo;
-        document.getElementById("shivaResultClass").textContent = result.class;
-        generateBiologyTestSelectorButtons(result.biology.length);
-        generateEnglishTestSelectorButtons(result.english.length);
-        renderBiologyResult(result, 0);
-        document.getElementById("shivaMarksheet").classList.remove("hidden");
-      }
+      // Disable button during countdown
+      const searchBtn = document.getElementById("searchBtn");
+      searchBtn.disabled = true;
+      searchBtn.textContent = "Please Wait...";
+
+      const countdown = setInterval(() => {
+        seconds--;
+        timerValueEl.textContent = seconds;
+        if (seconds <= 0) {
+          clearInterval(countdown);
+          timerEl.style.display = "none";
+          searchBtn.disabled = false;
+          searchBtn.textContent = "Search Result";
+
+          // Now show result
+          document.getElementById("shivaMarksheet").classList.add("hidden");
+          document.getElementById("kamalMarksheet").classList.add("hidden");
+
+          if (rollNo === 7375) {
+            renderKamalResult(result, 0);
+            document.getElementById("kamalMarksheet").classList.remove("hidden");
+          } else {
+            document.getElementById("shivaResultName").textContent = result.name;
+            document.getElementById("shivaResultRollNo").textContent = result.rollNo;
+            document.getElementById("shivaResultClass").textContent = result.class;
+            generateBiologyTestSelectorButtons(result.biology.length);
+            generateEnglishTestSelectorButtons(result.english.length);
+            renderBiologyResult(result, 0);
+            document.getElementById("shivaMarksheet").classList.remove("hidden");
+          }
+        }
+      }, 1000);
     });
 
     // Subject switching
