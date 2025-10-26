@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -967,6 +968,53 @@
     .test-selector-btn.active::before {
       opacity: 1;
     }
+
+    /* Paper Selector */
+    .paper-selector-container {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 15px 0;
+    }
+    .paper-selector-btn {
+      padding: 10px 20px;
+      border-radius: 50px;
+      background: rgba(20, 18, 35, 0.6);
+      border: 2px solid var(--border);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .paper-selector-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--accent), var(--success));
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .paper-selector-btn:hover,
+    .paper-selector-btn.active {
+      background: transparent;
+      color: white;
+      border-color: transparent;
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
+    }
+    .paper-selector-btn:hover::before,
+    .paper-selector-btn.active::before {
+      opacity: 1;
+    }
+
     /* Countdown Timer */
     #countdownTimer {
       text-align: center;
@@ -984,12 +1032,14 @@
       }
       .subject-selector,
       .test-selector-container,
+      .paper-selector-container,
       .test-info {
         flex-direction: column;
         align-items: center;
       }
       .subject-btn,
       .test-selector-btn,
+      .paper-selector-btn,
       .test-info-item {
         width: 100%;
         max-width: 300px;
@@ -1159,10 +1209,8 @@
           </div>
           <div class="math-display" id="mathQuestion">5 + 3 = ?</div>
           <button class="search-btn" id="searchBtn">Search Result</button>
-
           <!-- Countdown Timer -->
           <div id="countdownTimer">Opening result in <span id="timerValue">10</span> seconds...</div>
-
           <!-- Shiva Marksheet -->
           <div id="shivaMarksheet" class="marksheet-card hidden">
             <div class="marksheet-header">
@@ -1202,7 +1250,8 @@
             <!-- English Section -->
             <div id="englishSection" class="subject-section">
               <div class="test-selector-container" id="englishTestSelector"></div>
-              <div class="subject-card">
+              <div class="paper-selector-container" id="englishPaperSelector" style="display: none;"></div>
+              <div class="subject-card" id="englishResultCard">
                 <div class="subject-header">
                   <div class="subject-name">English</div>
                   <span class="subject-status" id="englishStatus">FAIL</span>
@@ -1228,6 +1277,9 @@
                   </div>
                 </div>
               </div>
+              <div id="paperNotAvailable" class="text-center mt-4" style="display: none; color: var(--danger); font-weight: bold; font-size: 1.2rem;">
+                Paper 2 is not available.
+              </div>
             </div>
           </div>
           <!-- Kamal Special -->
@@ -1241,12 +1293,14 @@
               <div class="info-item"><span class="info-label">Class</span><span class="info-value" id="kamalResultClass"></span></div>
             </div>
             <!-- Test Selector for Kamal -->
-            <div class="test-selector-container">
+            <div class="test-selector-container" id="kamalTestSelector">
               <button class="test-selector-btn active" data-test="0">1st Test</button>
               <button class="test-selector-btn" data-test="1">2nd Test</button>
               <button class="test-selector-btn" data-test="2">4th Test</button>
+              <button class="test-selector-btn" data-test="3">5th Test</button>
             </div>
-            <div class="subject-card">
+            <div class="paper-selector-container" id="kamalPaperSelector" style="display: none;"></div>
+            <div class="subject-card" id="kamalResultCard">
               <div class="subject-header">
                 <div class="subject-name">English</div>
                 <span class="subject-status" id="kamalStatus">PASS</span>
@@ -1261,6 +1315,9 @@
                 <div class="progress-bar" id="kamalProgressBar"></div>
               </div>
               <div class="grade-badge" id="kamalGrade">A</div>
+            </div>
+            <div id="kamalPaperNotAvailable" class="text-center mt-4" style="display: none; color: var(--danger); font-weight: bold; font-size: 1.2rem;">
+              Paper 2 is not available.
             </div>
           </div>
         </div>
@@ -1295,7 +1352,6 @@
         setTimeout(() => loader.remove(), 800);
       }, 2000);
     });
-
     // ========== MATH CHALLENGE ==========
     function generateMathChallenge() {
       const a = Math.floor(Math.random() * 10) + 1;
@@ -1308,7 +1364,6 @@
       correctAnswer = generateMathChallenge();
       document.getElementById("mathAnswer").value = "";
     });
-
     // ========== STUDENT DATA ==========
     const studentResults = [
       {
@@ -1331,7 +1386,10 @@
         english: [
           { marks: 30, maxMarks: 60, passingMarks: 45, test: "1st Test", date: "12 Oct 2025" },
           { marks: 39, maxMarks: 60, passingMarks: 43, test: "2nd Test", date: "19 Oct 2025" },
-          { marks: 60, maxMarks: 80, passingMarks: 59, test: "Re-exam", date: "26 Oct 2025" }
+          // 3rd Test - Paper 1
+          { marks: 88, maxMarks: 100, passingMarks: 86, test: "3rd Test", paper: "Paper 1", date: "26 Oct 2025" },
+          // 3rd Test - Paper 2 (unavailable)
+          { marks: null, maxMarks: 100, passingMarks: 86, test: "3rd Test", paper: "Paper 2", unavailable: true }
         ]
       },
       {
@@ -1341,11 +1399,14 @@
         ENGLISH: [
           { marks: 57, maxMarks: 70, passingMarks: 54 },
           { marks: 61, maxMarks: 70, passingMarks: 54 },
-          { marks: 56, maxMarks: 70, passingMarks: 54 }
+          { marks: 56, maxMarks: 70, passingMarks: 54 },
+          // 5th Test - Paper 1
+          { marks: 87, maxMarks: 100, passingMarks: 86, test: "5th Test", paper: "Paper 1", date: "26 Oct 2025" },
+          // 5th Test - Paper 2 (unavailable)
+          { marks: null, maxMarks: 100, passingMarks: 86, test: "5th Test", paper: "Paper 2", unavailable: true }
         ]
       }
     ];
-
     function getGrade(percentage) {
       if (percentage >= 90) return "A+";
       else if (percentage >= 80) return "A";
@@ -1355,7 +1416,6 @@
       else if (percentage >= 40) return "D";
       else return "F";
     }
-
     function renderBiologyResult(result, testIndex) {
       const test = result.biology[testIndex];
       const percentage = (test.marks / test.maxMarks) * 100;
@@ -1379,9 +1439,25 @@
       bar.style.setProperty('--width', percentage + '%');
       bar.style.width = percentage + '%';
     }
-
     function renderEnglishResult(result, testIndex = 0) {
       const test = result.english[testIndex];
+      const paperSelector = document.getElementById("englishPaperSelector");
+      const resultCard = document.getElementById("englishResultCard");
+      const notAvailableMsg = document.getElementById("paperNotAvailable");
+
+      if (test.test === "3rd Test") {
+        // Show paper selector
+        paperSelector.style.display = "flex";
+        resultCard.style.display = "none";
+        notAvailableMsg.style.display = "none";
+        return;
+      }
+
+      // Regular test (no paper split)
+      paperSelector.style.display = "none";
+      resultCard.style.display = "block";
+      notAvailableMsg.style.display = "none";
+
       const percentage = (test.marks / test.maxMarks) * 100;
       const status = test.marks >= test.passingMarks ? "PASS" : "FAIL";
       const grade = getGrade(percentage);
@@ -1398,9 +1474,58 @@
       bar.style.setProperty('--width', percentage + '%');
       bar.style.width = percentage + '%';
     }
+    function renderEnglishPaper(result, paperIndex) {
+      const test3 = result.english.filter(t => t.test === "3rd Test");
+      const selectedPaper = test3[paperIndex]; // paperIndex: 0 = Paper 1, 1 = Paper 2
 
+      const paperSelector = document.getElementById("englishPaperSelector");
+      const resultCard = document.getElementById("englishResultCard");
+      const notAvailableMsg = document.getElementById("paperNotAvailable");
+
+      if (selectedPaper.unavailable) {
+        paperSelector.style.display = "none";
+        resultCard.style.display = "none";
+        notAvailableMsg.style.display = "block";
+        return;
+      }
+
+      paperSelector.style.display = "none";
+      resultCard.style.display = "block";
+      notAvailableMsg.style.display = "none";
+
+      const percentage = (selectedPaper.marks / selectedPaper.maxMarks) * 100;
+      const status = selectedPaper.marks >= selectedPaper.passingMarks ? "PASS" : "FAIL";
+      const grade = getGrade(percentage);
+      document.getElementById("englishMarks").textContent = selectedPaper.marks;
+      document.getElementById("englishMax").textContent = selectedPaper.maxMarks;
+      document.getElementById("englishPassing").textContent = selectedPaper.passingMarks;
+      document.getElementById("englishPercentage").textContent = Math.round(percentage) + "%";
+      document.getElementById("englishStatus").textContent = status;
+      document.getElementById("englishStatus").className = "subject-status " + (status === "PASS" ? "status-pass" : "status-fail");
+      document.getElementById("englishGrade").textContent = grade;
+      document.getElementById("englishTestName").textContent = selectedPaper.test;
+      document.getElementById("englishTestDate").textContent = selectedPaper.date;
+      const bar = document.getElementById("englishProgressBar");
+      bar.style.setProperty('--width', percentage + '%');
+      bar.style.width = percentage + '%';
+    }
     function renderKamalResult(result, testIndex = 0) {
       const test = result.ENGLISH[testIndex];
+      const paperSelector = document.getElementById("kamalPaperSelector");
+      const resultCard = document.getElementById("kamalResultCard");
+      const notAvailableMsg = document.getElementById("kamalPaperNotAvailable");
+
+      if (test.test === "5th Test") {
+        paperSelector.style.display = "flex";
+        resultCard.style.display = "none";
+        notAvailableMsg.style.display = "none";
+        return;
+      }
+
+      paperSelector.style.display = "none";
+      resultCard.style.display = "block";
+      notAvailableMsg.style.display = "none";
+
       const percentage = (test.marks / test.maxMarks) * 100;
       const status = test.marks >= test.passingMarks ? "PASS" : "FAIL";
       const grade = getGrade(percentage);
@@ -1418,7 +1543,39 @@
       bar.style.setProperty('--width', percentage + '%');
       bar.style.width = percentage + '%';
     }
+    function renderKamalPaper(result, paperIndex) {
+      const test5 = result.ENGLISH.filter(t => t.test === "5th Test");
+      const selectedPaper = test5[paperIndex];
 
+      const paperSelector = document.getElementById("kamalPaperSelector");
+      const resultCard = document.getElementById("kamalResultCard");
+      const notAvailableMsg = document.getElementById("kamalPaperNotAvailable");
+
+      if (selectedPaper.unavailable) {
+        paperSelector.style.display = "none";
+        resultCard.style.display = "none";
+        notAvailableMsg.style.display = "block";
+        return;
+      }
+
+      paperSelector.style.display = "none";
+      resultCard.style.display = "block";
+      notAvailableMsg.style.display = "none";
+
+      const percentage = (selectedPaper.marks / selectedPaper.maxMarks) * 100;
+      const status = selectedPaper.marks >= selectedPaper.passingMarks ? "PASS" : "FAIL";
+      const grade = getGrade(percentage);
+      document.getElementById("kamalMarksObtained").textContent = selectedPaper.marks;
+      document.getElementById("kamalMaxMarks").textContent = selectedPaper.maxMarks;
+      document.getElementById("kamalPassingMarks").textContent = selectedPaper.passingMarks;
+      document.getElementById("kamalPercentage").textContent = Math.round(percentage) + "%";
+      document.getElementById("kamalStatus").textContent = status;
+      document.getElementById("kamalStatus").className = "subject-status " + (status === "PASS" ? "status-pass" : "status-fail");
+      document.getElementById("kamalGrade").textContent = grade;
+      const bar = document.getElementById("kamalProgressBar");
+      bar.style.setProperty('--width', percentage + '%');
+      bar.style.width = percentage + '%';
+    }
     function generateBiologyTestSelectorButtons(count) {
       const ordinals = ["1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th", "Re-exam"];
       let html = '';
@@ -1428,17 +1585,26 @@
       }
       document.getElementById("biologyTestSelector").innerHTML = html;
     }
-
     function generateEnglishTestSelectorButtons(count) {
-      const ordinals = ["1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th"];
+      const tests = ["1st Test", "2nd Test", "3rd Test"];
       let html = '';
-      for (let i = 0; i < count; i++) {
-        const label = i === 2 ? "Re-exam" : (ordinals[i] || (i + 1) + "th");
-        html += `<button class="test-selector-btn ${i === 0 ? 'active' : ''}" data-test="${i}">${label}</button>`;
+      for (let i = 0; i < tests.length; i++) {
+        html += `<button class="test-selector-btn ${i === 0 ? 'active' : ''}" data-test="${i}">${tests[i]}</button>`;
       }
       document.getElementById("englishTestSelector").innerHTML = html;
     }
-
+    function generateEnglishPaperSelector() {
+      document.getElementById("englishPaperSelector").innerHTML = `
+        <button class="paper-selector-btn active" data-paper="0">Paper 1</button>
+        <button class="paper-selector-btn" data-paper="1">Paper 2</button>
+      `;
+    }
+    function generateKamalPaperSelector() {
+      document.getElementById("kamalPaperSelector").innerHTML = `
+        <button class="paper-selector-btn active" data-paper="0">Paper 1</button>
+        <button class="paper-selector-btn" data-paper="1">Paper 2</button>
+      `;
+    }
     function showContent(target) {
       document.querySelectorAll('.content-area').forEach(area => area.classList.remove('active'));
       document.getElementById(`${target}-content`).classList.add('active');
@@ -1446,39 +1612,32 @@
         item.classList.toggle('active', item.dataset.target === target);
       });
     }
-
     document.querySelectorAll('[data-target]').forEach(item => {
       item.addEventListener('click', e => showContent(e.currentTarget.dataset.target));
     });
-
     // ========== SEARCH BUTTON WITH TIMER ==========
     document.getElementById("searchBtn").addEventListener("click", () => {
       const rollNoInput = document.getElementById("rollNo");
       const mathInput = document.getElementById("mathAnswer");
       const rollNo = parseInt(rollNoInput.value);
       const userAnswer = parseInt(mathInput.value);
-
       if (isNaN(userAnswer) || userAnswer !== correctAnswer) {
         alert("Incorrect answer. Please solve the sum correctly.");
         correctAnswer = generateMathChallenge();
         return;
       }
-
       const result = studentResults.find(s => s.rollNo === rollNo);
       if (!result) return alert("No result found.");
-
       // Show countdown timer
       const timerEl = document.getElementById("countdownTimer");
       const timerValueEl = document.getElementById("timerValue");
       let seconds = 10;
       timerValueEl.textContent = seconds;
       timerEl.style.display = "block";
-
       // Disable button during countdown
       const searchBtn = document.getElementById("searchBtn");
       searchBtn.disabled = true;
       searchBtn.textContent = "Please Wait...";
-
       const countdown = setInterval(() => {
         seconds--;
         timerValueEl.textContent = seconds;
@@ -1487,27 +1646,31 @@
           timerEl.style.display = "none";
           searchBtn.disabled = false;
           searchBtn.textContent = "Search Result";
-
           // Now show result
           document.getElementById("shivaMarksheet").classList.add("hidden");
           document.getElementById("kamalMarksheet").classList.add("hidden");
-
           if (rollNo === 7375) {
+            // Kamal
+            document.getElementById("kamalResultName").textContent = result.name;
+            document.getElementById("kamalResultRollNo").textContent = result.rollNo;
+            document.getElementById("kamalResultClass").textContent = result.class;
             renderKamalResult(result, 0);
             document.getElementById("kamalMarksheet").classList.remove("hidden");
           } else {
+            // Shiva
             document.getElementById("shivaResultName").textContent = result.name;
             document.getElementById("shivaResultRollNo").textContent = result.rollNo;
             document.getElementById("shivaResultClass").textContent = result.class;
             generateBiologyTestSelectorButtons(result.biology.length);
             generateEnglishTestSelectorButtons(result.english.length);
+            generateEnglishPaperSelector();
+            generateKamalPaperSelector();
             renderBiologyResult(result, 0);
             document.getElementById("shivaMarksheet").classList.remove("hidden");
           }
         }
       }, 1000);
     });
-
     // Subject switching
     document.addEventListener("click", e => {
       if (!e.target.classList.contains("subject-btn")) return;
@@ -1525,8 +1688,7 @@
         if (result) renderEnglishResult(result, 0);
       }
     });
-
-    // Test switching
+    // Test switching for Shiva
     document.addEventListener("click", e => {
       if (!e.target.classList.contains("test-selector-btn")) return;
       const container = e.target.closest('.test-selector-container');
@@ -1538,6 +1700,7 @@
       if (!result) return;
       const testIndex = parseInt(e.target.dataset.test);
       if (rollNo === 7375) {
+        // Kamal
         renderKamalResult(result, testIndex);
       } else if (rollNo === 7374) {
         const isBiologySection = document.getElementById('biologySection').classList.contains('active');
@@ -1548,7 +1711,23 @@
         }
       }
     });
-
+    // Paper switching for Shiva
+    document.addEventListener("click", e => {
+      if (!e.target.classList.contains("paper-selector-btn")) return;
+      const container = e.target.closest('.paper-selector-container');
+      if (!container) return;
+      container.querySelectorAll('.paper-selector-btn').forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
+      const rollNo = parseInt(document.getElementById("rollNo").value);
+      const result = studentResults.find(s => s.rollNo === rollNo);
+      if (!result) return;
+      const paperIndex = parseInt(e.target.dataset.paper);
+      if (rollNo === 7374) {
+        renderEnglishPaper(result, paperIndex);
+      } else if (rollNo === 7375) {
+        renderKamalPaper(result, paperIndex);
+      }
+    });
     document.addEventListener("DOMContentLoaded", () => {
       showContent("notifications");
       correctAnswer = generateMathChallenge();
