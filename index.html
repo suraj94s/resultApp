@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -817,6 +816,47 @@
       font-size: 1.1rem;
       color: var(--accent);
     }
+
+    /* === SPECIAL MARKSHEET FOR 12TH BIOLOGY TEST === */
+    .special-marksheet {
+      background: linear-gradient(135deg, rgba(10, 5, 30, 0.9), rgba(20, 10, 50, 0.95)) !important;
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 30px rgba(0, 240, 255, 0.5) !important;
+      position: relative;
+      overflow: hidden;
+    }
+    .special-marksheet::after {
+      content: "★ SPECIAL TEST ★";
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 0.8rem;
+      color: var(--warning);
+      font-weight: bold;
+      background: rgba(0,0,0,0.4);
+      padding: 4px 10px;
+      border-radius: 20px;
+      z-index: 2;
+    }
+    .special-marksheet .subject-name {
+      background: linear-gradient(135deg, var(--warning), var(--accent)) !important;
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      text-shadow: 0 0 10px rgba(255, 204, 0, 0.6);
+    }
+    .special-marksheet .grade-badge {
+      background: linear-gradient(135deg, var(--warning), var(--accent)) !important;
+      box-shadow: 0 0 25px rgba(255, 204, 0, 0.7) !important;
+    }
+    .special-test-date {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 1.2rem;
+      color: var(--accent);
+      font-weight: bold;
+      text-shadow: 0 0 8px rgba(0, 240, 255, 0.5);
+    }
+
     /* === Search + Math Challenge === */
     .search-box {
       position: relative;
@@ -968,7 +1008,6 @@
     .test-selector-btn.active::before {
       opacity: 1;
     }
-
     /* Paper Selector */
     .paper-selector-container {
       display: flex;
@@ -1014,7 +1053,6 @@
     .paper-selector-btn.active::before {
       opacity: 1;
     }
-
     /* Countdown Timer */
     #countdownTimer {
       text-align: center;
@@ -1051,6 +1089,12 @@
       .notification-icon {
         align-self: center;
         margin-bottom: 16px;
+      }
+      .special-marksheet::after {
+        position: static;
+        display: block;
+        margin: 10px auto;
+        text-align: center;
       }
     }
   </style>
@@ -1097,12 +1141,22 @@
           <div class="notification-list">
             <div class="notification-card">
               <div class="notification-icon"><i class="fas fa-calendar-alt"></i></div>
-              <div class="notification-content">
+                <div class="notification-content">
                 <div class="notification-title">
-                  <span>ENGLISH TEST RESULTS ARE LIVE </span>
+                  <span>BIOLOGY 12th  TEST RESULT IS DECLARED! </span>
                   <span class="notification-badge">NEW</span>
                 </div>
                 <p class="notification-text">CHECK YOUR MARKS !</p>
+              </div>
+            </div>
+              <div class="notification-icon"><i class="fas fa-calendar-alt"></i></div>
+
+              <div class="notification-content">
+                <div class="notification-title">
+                  <!-- <span>ENGLISH TEST RESULTS ARE LIVE </span> -->
+                  <!-- <span class="notification-badge">NEW</span> -->
+                </div>
+                <!-- <p class="notification-text">CHECK YOUR MARKS !</p> -->
               </div>
             </div>
             <div class="notification-card">
@@ -1229,7 +1283,7 @@
             <!-- Biology Section -->
             <div id="biologySection" class="subject-section active">
               <div class="test-selector-container" id="biologyTestSelector"></div>
-              <div class="subject-card">
+              <div class="subject-card" id="biologySubjectCard">
                 <div class="subject-header">
                   <div class="subject-name">Biology</div>
                   <span class="subject-status" id="biologyStatus">PASS</span>
@@ -1245,6 +1299,7 @@
                 </div>
                 <div class="grade-badge" id="biologyGrade">A</div>
                 <p id="biologyNote"></p>
+                <div class="special-test-date" id="specialTestDate" style="display: none;"></div>
               </div>
             </div>
             <!-- English Section -->
@@ -1381,7 +1436,8 @@
           { marks: 38, maxMarks: 50, passingMarks: 37 },
           { marks: 42, maxMarks: 50, passingMarks: 37, date: "12 Oct 2025" },
           { marks: 28, maxMarks: 50, passingMarks: 37, date: "19 Oct 2025" },
-          { marks: 44, maxMarks: 50, passingMarks: 36, date: "21 Oct 2025", note: "Re-exam of 10th Test – Performance is excellent!" }
+          { marks: 44, maxMarks: 50, passingMarks: 36, date: "21 Oct 2025", note: "Re-exam of 10th Test – Performance is excellent!" },
+          { marks: 42, maxMarks: 50, passingMarks: 37, date: "26 Oct 2025", isSpecial: true } // ← 12th Test
         ],
         english: [
           { marks: 30, maxMarks: 60, passingMarks: 45, test: "1st Test", date: "12 Oct 2025" },
@@ -1421,6 +1477,8 @@
       const percentage = (test.marks / test.maxMarks) * 100;
       const status = test.marks >= test.passingMarks ? "PASS" : "FAIL";
       const grade = getGrade(percentage);
+
+      // Update DOM
       document.getElementById("biologyMarks").textContent = test.marks;
       document.getElementById("biologyMax").textContent = test.maxMarks;
       document.getElementById("biologyPassing").textContent = test.passingMarks;
@@ -1428,6 +1486,7 @@
       document.getElementById("biologyStatus").textContent = status;
       document.getElementById("biologyStatus").className = "subject-status " + (status === "PASS" ? "status-pass" : "status-fail");
       document.getElementById("biologyGrade").textContent = grade;
+
       const noteEl = document.getElementById("biologyNote");
       if (test.note) {
         noteEl.textContent = test.note;
@@ -1435,29 +1494,39 @@
       } else {
         noteEl.style.display = "none";
       }
+
       const bar = document.getElementById("biologyProgressBar");
       bar.style.setProperty('--width', percentage + '%');
       bar.style.width = percentage + '%';
+
+      const specialDateEl = document.getElementById("specialTestDate");
+      const card = document.getElementById("biologySubjectCard");
+
+      // Reset special styles
+      card.classList.remove("special-marksheet");
+      specialDateEl.style.display = "none";
+
+      // Apply special style if it's the 12th test
+      if (test.isSpecial) {
+        card.classList.add("special-marksheet");
+        specialDateEl.textContent = `Test Date: ${test.date}`;
+        specialDateEl.style.display = "block";
+      }
     }
     function renderEnglishResult(result, testIndex = 0) {
       const test = result.english[testIndex];
       const paperSelector = document.getElementById("englishPaperSelector");
       const resultCard = document.getElementById("englishResultCard");
       const notAvailableMsg = document.getElementById("paperNotAvailable");
-
       if (test.test === "3rd Test") {
-        // Show paper selector
         paperSelector.style.display = "flex";
         resultCard.style.display = "none";
         notAvailableMsg.style.display = "none";
         return;
       }
-
-      // Regular test (no paper split)
       paperSelector.style.display = "none";
       resultCard.style.display = "block";
       notAvailableMsg.style.display = "none";
-
       const percentage = (test.marks / test.maxMarks) * 100;
       const status = test.marks >= test.passingMarks ? "PASS" : "FAIL";
       const grade = getGrade(percentage);
@@ -1476,23 +1545,19 @@
     }
     function renderEnglishPaper(result, paperIndex) {
       const test3 = result.english.filter(t => t.test === "3rd Test");
-      const selectedPaper = test3[paperIndex]; // paperIndex: 0 = Paper 1, 1 = Paper 2
-
+      const selectedPaper = test3[paperIndex];
       const paperSelector = document.getElementById("englishPaperSelector");
       const resultCard = document.getElementById("englishResultCard");
       const notAvailableMsg = document.getElementById("paperNotAvailable");
-
       if (selectedPaper.unavailable) {
         paperSelector.style.display = "none";
         resultCard.style.display = "none";
         notAvailableMsg.style.display = "block";
         return;
       }
-
       paperSelector.style.display = "none";
       resultCard.style.display = "block";
       notAvailableMsg.style.display = "none";
-
       const percentage = (selectedPaper.marks / selectedPaper.maxMarks) * 100;
       const status = selectedPaper.marks >= selectedPaper.passingMarks ? "PASS" : "FAIL";
       const grade = getGrade(percentage);
@@ -1514,18 +1579,15 @@
       const paperSelector = document.getElementById("kamalPaperSelector");
       const resultCard = document.getElementById("kamalResultCard");
       const notAvailableMsg = document.getElementById("kamalPaperNotAvailable");
-
       if (test.test === "5th Test") {
         paperSelector.style.display = "flex";
         resultCard.style.display = "none";
         notAvailableMsg.style.display = "none";
         return;
       }
-
       paperSelector.style.display = "none";
       resultCard.style.display = "block";
       notAvailableMsg.style.display = "none";
-
       const percentage = (test.marks / test.maxMarks) * 100;
       const status = test.marks >= test.passingMarks ? "PASS" : "FAIL";
       const grade = getGrade(percentage);
@@ -1546,22 +1608,18 @@
     function renderKamalPaper(result, paperIndex) {
       const test5 = result.ENGLISH.filter(t => t.test === "5th Test");
       const selectedPaper = test5[paperIndex];
-
       const paperSelector = document.getElementById("kamalPaperSelector");
       const resultCard = document.getElementById("kamalResultCard");
       const notAvailableMsg = document.getElementById("kamalPaperNotAvailable");
-
       if (selectedPaper.unavailable) {
         paperSelector.style.display = "none";
         resultCard.style.display = "none";
         notAvailableMsg.style.display = "block";
         return;
       }
-
       paperSelector.style.display = "none";
       resultCard.style.display = "block";
       notAvailableMsg.style.display = "none";
-
       const percentage = (selectedPaper.marks / selectedPaper.maxMarks) * 100;
       const status = selectedPaper.marks >= selectedPaper.passingMarks ? "PASS" : "FAIL";
       const grade = getGrade(percentage);
@@ -1577,7 +1635,7 @@
       bar.style.width = percentage + '%';
     }
     function generateBiologyTestSelectorButtons(count) {
-      const ordinals = ["1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th", "Re-exam"];
+      const ordinals = ["1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th", "Re-exam", "12th"];
       let html = '';
       for (let i = 0; i < count; i++) {
         const label = i === 10 ? "Re-exam" : (ordinals[i] || (i + 1) + "th");
