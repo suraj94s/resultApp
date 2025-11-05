@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -854,7 +853,7 @@
           { marks: 28, maxMarks: 50, passingMarks: 37, class: "12", date: "19 Oct 2025" },
           { marks: 44, maxMarks: 50, passingMarks: 36, class: "12", date: "21 Oct 2025", note: "Re-exam of 10th Test – Performance is excellent!" },
           { marks: 42, maxMarks: 50, passingMarks: 37, class: "12", date: "26 Oct 2025", isSpecial: true },
-          { marks: 30, maxMarks: 50, passingMarks: 36, class: "12", date: "2 Nov 2025" } // 13th test
+          { marks: 41, maxMarks: 50, passingMarks: 36, class: "12", date: "2 Nov 2025" } // 13th test
         ],
         english: [
           { marks: 30, maxMarks: 60, passingMarks: 45, test: "1st Test", date: "12 Oct 2025" },
@@ -871,9 +870,11 @@
           { marks: 57, maxMarks: 70, passingMarks: 54 },
           { marks: 61, maxMarks: 70, passingMarks: 54 },
           { marks: 56, maxMarks: 70, passingMarks: 54 },
-          { marks: 87, maxMarks: 100, passingMarks: 86, test: "5th Test", paper: "Paper 1", date: "26 Oct 2025" },
-          { marks: 56, maxMarks: 80, passingMarks: 62, test: "5th Test", date: "4 Nov 2025" }, // Added 5th test
-          { marks: null, maxMarks: 100, passingMarks: 86, test: "5th Test", paper: "Paper 2", unavailable: true }
+        //   { marks: 87, maxMarks: 100, passingMarks: 86, test: "5th Test", paper: "Paper 1", date: "26 Oct 2025" },
+          { marks: 26, maxMarks: 80, passingMarks: 62, test: "5th Test", date: "4 Nov 2025" }, // Added 5th test
+          { marks: null, maxMarks: 100, passingMarks: 86, test: "5th Test", paper: "Paper 2", unavailable: true },
+          { marks: 26, maxMarks: 80, passingMarks: 62, test: "6th Test", date: "4 Nov 2025" }, // Added 5th test
+
         ]
       }
     ];
@@ -1053,7 +1054,7 @@
     function generateEnglishPaperSelector() {
       document.getElementById("englishPaperSelector").innerHTML = `
         <button class="tab-btn active" data-paper="0">Paper 1</button>
-        <button class="tab-btn" data-paper="1">Paper 2</button>
+    
       `;
     }
 
@@ -1063,13 +1064,15 @@
         <button class="tab-btn" data-test="1">2nd Test</button>
         <button class="tab-btn" data-test="2">4th Test</button>
         <button class="tab-btn" data-test="3">5th Test</button>
+        <button class="tab-btn" data-test="4">6th Test</button>
+
       `;
     }
 
     function generateKamalPaperSelector() {
       document.getElementById("kamalPaperSelector").innerHTML = `
-        <button class="tab-btn active" data-paper="0">Paper 1</button>
-        <button class="tab-btn" data-paper="1">Paper 2</button>
+        <button class="tab-btn active" data-paper="0">Click here</button>
+        
       `;
     }
 
