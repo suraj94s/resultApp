@@ -9,26 +9,49 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --primary: #ff6b35;
-      --primary-light: #ff8c5a;
-      --primary-dark: #e55a2b;
-      --secondary: #ff8c00;
-      --accent: #ffaa00;
-      --gold: #ffd700;
-      --gold-light: #ffed4e;
-      --gold-dark: #e6c200;
+      --primary: #3498db;
+      --primary-light: #5dade2;
+      --primary-dark: #2980b9;
+      --secondary: #2e86c1;
+      --accent: #1f618d;
+      --gold: #3498db;
+      --gold-light: #5dade2;
+      --gold-dark: #2980b9;
       --success: #4caf50;
       --warning: #ffb300;
       --danger: #f44336;
-      --bg: #ff6b35;
-      --card-bg: linear-gradient(135deg, #ffd700, #ffed4e);
+      --bg: #3498db;
+      --card-bg: linear-gradient(135deg, #e3f2fd, #bbdefb);
       --text: #2d2d2d;
       --text-light: #ffffff;
       --text-muted: #666666;
-      --border: #ff8c5a;
-      --shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      --border: #5dade2;
+      --shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
       --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
+
+    /* Dark Mode Variables */
+    body.dark-mode {
+      --primary: #3498db;
+      --primary-light: #5dade2;
+      --primary-dark: #2980b9;
+      --secondary: #2e86c1;
+      --accent: #1f618d;
+      --gold: #3498db;
+      --gold-light: #5dade2;
+      --gold-dark: #2980b9;
+      --success: #4caf50;
+      --warning: #ffb300;
+      --danger: #f44336;
+      --bg: #1a1a2e;
+      --card-bg: linear-gradient(135deg, #16213e, #0f3460);
+      --text: #e6e6e6;
+      --text-light: #ffffff;
+      --text-muted: #b0b0b0;
+      --border: #3498db;
+      --shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -41,6 +64,7 @@
       min-height: 100vh;
       overflow-x: hidden;
       position: relative;
+      transition: background-color 0.5s ease, color 0.5s ease;
     }
 
     /* Loader */
@@ -145,6 +169,29 @@
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(255,255,255,0.2);
     }
+    
+    /* Dark Mode Toggle */
+    .theme-toggle {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+    .theme-toggle:hover {
+      background: rgba(255,255,255,0.3);
+      transform: rotate(30deg);
+    }
+    
     @media (min-width: 768px) {
       .top-nav {
         flex-direction: row;
@@ -180,6 +227,7 @@
       animation: fadeIn 0.6s ease;
       color: var(--text);
       border: 2px solid var(--gold-dark);
+      transition: background 0.5s ease, color 0.5s ease;
     }
     .section::before {
       content: '';
@@ -205,6 +253,7 @@
       border: 1px solid var(--gold-dark);
       position: relative;
       overflow: hidden;
+      color: var(--text);
     }
     .notification-card::before {
       content: '';
@@ -266,6 +315,7 @@
       box-shadow: var(--shadow);
       border: 2px solid var(--gold-dark);
       transition: var(--transition);
+      color: var(--text);
     }
     .profile-card:hover {
       transform: translateY(-5px);
@@ -307,10 +357,11 @@
       font-size: 1.1rem;
       transition: var(--transition);
       background: white;
+      color: #333;
     }
     .form-control:focus {
       border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(255,107,53,0.2);
+      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
     }
     .btn-search {
       background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -325,7 +376,7 @@
     }
     .btn-search:hover {
       transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(255,107,53,0.4);
+      box-shadow: 0 8px 20px rgba(52, 152, 219, 0.4);
     }
     .marksheet-card {
       border-radius: 24px;
@@ -335,6 +386,7 @@
       animation: fadeIn 0.8s ease;
       background: var(--card-bg);
       border: 2px solid var(--gold-dark);
+      color: var(--text);
     }
     .marksheet-header {
       background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -370,7 +422,7 @@
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: white;
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(255,107,53,0.3);
+      box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
     }
     .marks-row {
       display: grid;
@@ -385,6 +437,7 @@
       background: rgba(255,255,255,0.5);
       transition: var(--transition);
       border: 1px solid var(--gold);
+      color: var(--text);
     }
     .mark-col:hover {
       transform: translateY(-5px);
@@ -482,6 +535,7 @@
       transform: translateY(20px);
       transition: transform 0.3s ease;
       border: 2px solid var(--gold-dark);
+      color: var(--text);
     }
     .custom-modal.active .modal-content {
       transform: translateY(0);
@@ -504,7 +558,7 @@
     }
     .modal-btn:hover {
       transform: translateY(-3px);
-      box-shadow: 0 6px 15px rgba(255,107,53,0.4);
+      box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
     }
 
     /* Class filter buttons */
@@ -529,7 +583,7 @@
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: white;
       transform: translateY(-2px);
-      box-shadow: 0 4px 10px rgba(255,107,53,0.3);
+      box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
     }
 
     @media (max-width: 576px) {
@@ -577,6 +631,9 @@
   <!-- Top Navigation -->
   <nav class="top-nav">
     <div class="logo">StudentHub</div>
+    <button class="theme-toggle" id="themeToggle">
+      <i class="fas fa-moon"></i>
+    </button>
     <ul class="nav-links">
       <li class="nav-link active" data-target="notifications">🔔 Notifications</li>
       <li class="nav-link" data-target="profile">👤 Profile</li>
@@ -646,10 +703,7 @@
         <!-- Kamal Profile -->
         <div class="profile-card">
           <div class="profile-avatar">
-            
-            <img src="https://www.bing.com/ck/a?!&&p=739e62cc04c86ee5e8baec7679f66a1facf2144cd0b11716a0b8f3751603a5ddJmltdHM9MTc2MjIxNDQwMA&ptn=3&ver=2&hsh=4&fclid=11d52ac6-39ef-620a-2244-3c9438e96394&u=a1L2ltYWdlcy9zZWFyY2g_cT1mdW5ueStlbW9qaXMraW1hZ2VzJmlkPTgzOERENjIxNzY1ODMwQkI1NkI4OEJFNkFFQjFFQUU0NkFBQ0VFMzMmRk9STT1JUUZSQkE" alt="">
-                  
-            
+            <i class="fas fa-user-graduate"></i>
           </div>
           <h3>Kamal Kumar</h3>
           <p class="text-muted">11th Grade Student</p>
@@ -736,6 +790,7 @@
         
         <div class="tabs">
           <button class="tab-btn active" data-subject="biology">Biology</button>
+          <button class="tab-btn" data-subject="english">English</button>
         </div>
         <div id="biologySection">
           <div class="tabs" id="biologyTestSelector"></div>
@@ -811,6 +866,28 @@
   <footer>© 2025 StudentHub. All rights reserved.</footer>
 
   <script>
+    // Dark Mode Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+    
+    // Check for saved theme preference or default to light mode
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    if (savedTheme === 'dark') {
+      body.classList.add('dark-mode');
+      themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    }
+    
+    themeToggle.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      if (body.classList.contains('dark-mode')) {
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        localStorage.setItem('theme', 'light');
+      }
+    });
+
     // Navigation
     document.querySelectorAll('.nav-link').forEach(link => {
       link.addEventListener('click', () => {
@@ -832,7 +909,7 @@
     }
     generateMathChallenge();
 
-    // Student Data (FULL) - Added Shiva's 13th test and Kamal's 5th test
+    // Student Data (FULL) - Added Shiva's 13th test, Kamal's 5th test, and Shiva's 4th English test
     const studentResults = [
       {
         rollNo: 7374,
@@ -859,7 +936,8 @@
           { marks: 30, maxMarks: 60, passingMarks: 45, test: "1st Test", date: "12 Oct 2025" },
           { marks: 39, maxMarks: 60, passingMarks: 43, test: "2nd Test", date: "19 Oct 2025" },
           { marks: 88, maxMarks: 100, passingMarks: 86, test: "3rd Test", paper: "Paper 1", date: "26 Oct 2025" },
-          { marks: null, maxMarks: 100, passingMarks: 86, test: "3rd Test", paper: "Paper 2", unavailable: true }
+          // { marks: 25, maxMarks: 60, passingMarks: 46, test: "3rd Test", paper: "Paper 2", unavailable: true },
+          { marks: 25, maxMarks: 60, passingMarks: 46, test: "3rd Test", paper: "Paper 1", date: "4 Nov 2025", note: "Performance very bad" }
         ]
       },
       {
@@ -870,11 +948,9 @@
           { marks: 57, maxMarks: 70, passingMarks: 54 },
           { marks: 61, maxMarks: 70, passingMarks: 54 },
           { marks: 56, maxMarks: 70, passingMarks: 54 },
-        //   { marks: 87, maxMarks: 100, passingMarks: 86, test: "5th Test", paper: "Paper 1", date: "26 Oct 2025" },
-          { marks: 26, maxMarks: 80, passingMarks: 62, test: "5th Test", date: "4 Nov 2025" }, // Added 5th test
+          { marks: 26, maxMarks: 80, passingMarks: 62, test: "5th Test", date: "4 Nov 2025" },
           { marks: null, maxMarks: 100, passingMarks: 86, test: "5th Test", paper: "Paper 2", unavailable: true },
-          { marks: 26, maxMarks: 80, passingMarks: 62, test: "6th Test", date: "4 Nov 2025" }, // Added 5th test
-
+          { marks: 26, maxMarks: 80, passingMarks: 62, test: "6th Test", date: "4 Nov 2025" }
         ]
       }
     ];
@@ -933,7 +1009,7 @@
 
     function renderEnglishResult(result, idx = 0) {
       const test = result.english[idx];
-      if (test.test === "3rd Test") {
+      if (test.test === "3rd Test" || test.test === "4th Test") {
         document.getElementById("englishPaperSelector").style.display = "flex";
         document.getElementById("englishResultCard").style.display = "none";
         document.getElementById("paperNotAvailable").style.display = "none";
@@ -955,7 +1031,7 @@
     }
 
     function renderEnglishPaper(result, paperIdx) {
-      const papers = result.english.filter(t => t.test === "3rd Test");
+      const papers = result.english.filter(t => t.test === "3rd Test" || t.test === "4th Test");
       const paper = papers[paperIdx];
       if (paper.unavailable) {
         document.getElementById("englishPaperSelector").style.display = "none";
@@ -1048,13 +1124,14 @@
         <button class="tab-btn active" data-test="0">1st Test</button>
         <button class="tab-btn" data-test="1">2nd Test</button>
         <button class="tab-btn" data-test="2">3rd Test</button>
+        <button class="tab-btn" data-test="4">4th Test</button>
       `;
     }
 
     function generateEnglishPaperSelector() {
       document.getElementById("englishPaperSelector").innerHTML = `
         <button class="tab-btn active" data-paper="0">Paper 1</button>
-    
+        <button class="tab-btn" data-paper="1">Paper 2</button>
       `;
     }
 
@@ -1065,14 +1142,12 @@
         <button class="tab-btn" data-test="2">4th Test</button>
         <button class="tab-btn" data-test="3">5th Test</button>
         <button class="tab-btn" data-test="4">6th Test</button>
-
       `;
     }
 
     function generateKamalPaperSelector() {
       document.getElementById("kamalPaperSelector").innerHTML = `
         <button class="tab-btn active" data-paper="0">Click here</button>
-        
       `;
     }
 
